@@ -11,6 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#1C2541">
 <link rel="manifest" href="manifest.webmanifest">
+<script defer id="umamiScript" src="https://cloud.umami.is/script.js" data-website-id="59678d0d-1e41-4a02-bf58-f6b0ab7c8079" data-auto-track="false" data-domains="kasemoun4-sudo.github.io"></script>
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <style>
@@ -300,6 +301,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     <a class="btn" id="fbBtn" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-fb"/></svg>صفحتنا على فيسبوك</a>
     <button class="btn" id="shareApp" type="button"><svg class="i"><use href="#i-share"/></svg>ابعتي التطبيق لصاحبتك</button>
   </div>
+  <p class="note">التطبيق بيسجّل إحصائيات استخدام عامة، زي عدد الزيارات وأكتر المواضيع قراءة، من غير أي بيانات شخصية: مفيش أسماء ولا تواريخ ولا أدوية ولا رسايل.</p>
 </main>
 
 <!-- MY PREGNANCY -->
@@ -488,7 +490,20 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
 
   /* ---------- static clinic info ---------- */
   $("docName").textContent = CLINIC.doctor; $("docTitle").textContent = CLINIC.title;
-  $("emTile").href = tel(CLINIC.phones[0]);
+  /* ---------- usage stats: counts only, never names, dates, medicines or messages ---------- */
+  const statQ = [];
+  function stat(fn) { try { if (window.umami && typeof window.umami.track === "function") fn(window.umami); else if (statQ.length < 50) statQ.push(fn); } catch (e) {} }
+  const umamiTag = document.getElementById("umamiScript");
+  if (umamiTag) umamiTag.addEventListener("load", () => { while (statQ.length) { try { statQ.shift()(window.umami); } catch (e) {} } });
+  const VIEW_TITLE = { home: "الرئيسية", me: "متابعتي", book: "الكتاب", clinics: "الحجز والفروع", news: "العروض والأخبار" };
+  const trackView = (name) => stat((u) => u.track((p) => Object.assign({}, p, { url: "/OUN/" + name, title: VIEW_TITLE[name] || name })));
+  const trackEvent = (name, data) => stat((u) => (data ? u.track(name, data) : u.track(name)));
+  const trackedOnce = new Set();
+  const trackOnce = (name, data) => { const k = name + JSON.stringify(data || {}); if (!trackedOnce.has(k)) { trackedOnce.add(k); trackEvent(name, data); } };
+  document.addEventListener("click", (e) => { const t = e.target.closest && e.target.closest("[data-stat]"); if (t) trackEvent(t.dataset.stat, t.dataset.statInfo ? { "الفرع": t.dataset.statInfo } : undefined); }, true);
+
+  $("emTile").href = tel(CLINIC.phones[0]); $("emTile").dataset.stat = "اتصال طوارئ";
+  $("fbBtn").dataset.stat = "فتح صفحة الفيسبوك"; $("fbBtn2").dataset.stat = "فتح صفحة الفيسبوك"; $("shareApp").dataset.stat = "مشاركة التطبيق";
   [$("fbBtn"), $("fbBtn2")].forEach((a) => { a.href = CLINIC.facebook; });
 
   let branch = store.get("branch") || CLINIC.branches[0].id;
@@ -502,8 +517,9 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     const b = CLINIC.branches.find((x) => x.id === branch) || CLINIC.branches[0];
     const msg = "السلام عليكم، عايزة أحجز كشف في عيادات عون – فرع " + b.name + ".\nالاسم: \nاليوم المناسب: ";
     $("waBtn").href = "https://wa.me/" + CLINIC.whatsapp + "?text=" + encodeURIComponent(msg);
+    $("waBtn").dataset.stat = "حجز على واتساب"; $("waBtn").dataset.statInfo = b.name;
     const row = $("callRow"); row.textContent = "";
-    CLINIC.phones.forEach((p) => { const a = el("a", "btn"); a.href = tel(p); a.append(icon("i-phone"), el("span", "phone", p)); row.append(a); });
+    CLINIC.phones.forEach((p) => { const a = el("a", "btn"); a.href = tel(p); a.dataset.stat = "اتصال للحجز"; a.append(icon("i-phone"), el("span", "phone", p)); row.append(a); });
   }
   function renderBranches() {
     const box = $("branches"); box.textContent = "";
@@ -519,11 +535,12 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
       });
       c.append(el("span", "muted", "مواعيد العيادة"), hours);
       const map = el("a", "btn primary block"); map.href = b.map; map.target = "_blank"; map.rel = "noopener";
+      map.dataset.stat = "فتح الخريطة"; map.dataset.statInfo = b.name;
       map.append(icon("i-pin"), document.createTextNode("افتحي العنوان على الخريطة")); c.append(map);
       box.append(c);
     });
     const em = $("emRow"); em.textContent = "";
-    CLINIC.phones.forEach((p) => { const a = el("a", "btn danger"); a.href = tel(p); a.append(icon("i-phone"), el("span", "phone", p)); em.append(a); });
+    CLINIC.phones.forEach((p) => { const a = el("a", "btn danger"); a.href = tel(p); a.dataset.stat = "اتصال طوارئ"; a.append(icon("i-phone"), el("span", "phone", p)); em.append(a); });
   }
 
   /* ---------- due-date calculator ---------- */
@@ -649,7 +666,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     visits.push({ id: newId(), date, wt: num("vWt"), sys, dia, notes: $("vNotes").value.trim(), next: $("vNext").value || null });
     store.set("visits", visits);
     $("vForm").reset(); $("vForm").hidden = true; $("vAddBtn").hidden = false;
-    renderMe(); toast("اتسجلت الزيارة ✓");
+    renderMe(); toast("اتسجلت الزيارة ✓"); trackEvent("تسجيل زيارة متابعة");
   });
 
   /* ---------- medicines ---------- */
@@ -683,7 +700,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     meds.push({ id: newId(), name, how: $("mHow").value.trim(), start: $("mStart").value || null, stop: null });
     store.set("meds", meds);
     $("mForm").reset(); $("mForm").hidden = true; $("mAddBtn").hidden = false;
-    renderMe(); toast("اتسجل الدواء ✓");
+    renderMe(); toast("اتسجل الدواء ✓"); trackEvent("تسجيل دواء");
   });
   $("v-me").addEventListener("click", (e) => {
     const t = e.target.closest("[data-del],[data-del-yes],[data-del-no],[data-stop]"); if (!t) return;
@@ -725,8 +742,8 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   $("aName").addEventListener("change", () => store.set("name", $("aName").value.trim()));
   ["aName", "aQ", "aSum"].forEach((id) => $(id).addEventListener("input", updateAsk));
   $("aSum").addEventListener("change", updateAsk);
-  $("askBtn").addEventListener("click", (e) => { if (!$("aQ").value.trim()) { e.preventDefault(); toast("اكتبي سؤالك الأول"); $("aQ").focus(); } else updateAsk(); });
-  $("askEm").textContent = CLINIC.phones[0]; $("askEm").href = tel(CLINIC.phones[0]);
+  $("askBtn").addEventListener("click", (e) => { if (!$("aQ").value.trim()) { e.preventDefault(); toast("اكتبي سؤالك الأول"); $("aQ").focus(); } else { updateAsk(); trackEvent("سؤال للدكتور على واتساب"); } });
+  $("askEm").textContent = CLINIC.phones[0]; $("askEm").href = tel(CLINIC.phones[0]); $("askEm").dataset.stat = "اتصال طوارئ";
   $("shareFile").addEventListener("click", () => {
     const name = $("aName").value.trim(), sum = caseSummary();
     if (!sum) { toast("لسه مفيش بيانات تتشارك. احسبي عمر الحمل أو سجّلي زيارة الأول."); return; }
@@ -744,7 +761,8 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     if (nv) box.append(el("span", "muted", "زيارتك الجاية: " + longDay(nv)));
   }
   function renderMe() { renderVisits(); renderMeds(); renderHomePreg(); updateAsk(); }
-  function saveDue() { store.set("due", due); renderDue(); renderMe(); }
+  const METHOD_NAME = { lmp: "آخر دورة", conc: "حدوث الحمل", ivf: "نقل الأجنة", us: "السونار", edd: "موعد الولادة" };
+  function saveDue() { store.set("due", due); renderDue(); renderMe(); if (pregInfo()) trackOnce("استخدام حاسبة الحمل", { "الطريقة": METHOD_NAME[due.m] }); }
   $("dDate").max = iso(new Date());
   $("dueMethods").addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) { due.m = b.dataset.m; due.date = ""; saveDue(); } });
   $("dEmbryo").addEventListener("click", (e) => { const b = e.target.closest("[data-e]"); if (b) { due.e = Number(b.dataset.e); saveDue(); } });
@@ -810,6 +828,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   function openTopic(id, startPage) {
     const t = topicById[id]; if (!t) return;
     reading = t;
+    { const q = $("q").value.trim(); trackEvent("قراءة موضوع", q ? { "الموضوع": t.title, "البحث": q.slice(0, 60) } : { "الموضوع": t.title }); }
     const part = BOOK.parts[t.part];
     $("rTitle").textContent = t.title; $("rSub").textContent = part.title + " · " + part.sub;
     const pagesBox = $("rPages"); pagesBox.textContent = ""; pagesBox.append(el("p", "loading", "بيفتح الصفحات…"));
@@ -931,7 +950,9 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     if (h === "danger") { showView("book"); $("q").value = "خطر"; renderToc(); window.scrollTo(0, 0); return; }
     showView(views.includes(h) ? h : "home");
   }
+  let lastView = "";
   function showView(name) {
+    if (name !== lastView) { lastView = name; trackView(name); }
     views.forEach((v) => { $("v-" + v).hidden = v !== name; });
     document.querySelectorAll(".tabbar a").forEach((a) => { if (a.dataset.tab === name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     if (name !== "book" && $("q").value === "خطر") { $("q").value = ""; renderToc(); }
@@ -940,7 +961,9 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   window.addEventListener("hashchange", route);
 
   /* ---------- start ---------- */
-  renderBooking(); renderBranches(); renderDue(); renderMe(); renderToc(); renderResume(); loadNews(); route();
+  renderBooking(); renderBranches(); renderDue(); renderMe(); renderToc(); renderResume(); loadNews();
+  trackEvent(standalone ? "فتح التطبيق من الأيقونة" : "فتح التطبيق من المتصفح");
+  route();
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
     const hadController = !!navigator.serviceWorker.controller; let reloaded = false;
     navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController && !reloaded) { reloaded = true; location.reload(); } });
