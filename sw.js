@@ -2,13 +2,14 @@
    SHELL_CACHE: the app page itself — bump its number whenever index.html changes.
    BOOK_CACHE: book pages and pictures — kept across app updates; bump only if the book files change. */
 const PREFIX = "oun-";
-const SHELL_CACHE = PREFIX + "shell-v3";
+const SHELL_CACHE = PREFIX + "shell-v4";
 const BOOK_CACHE = PREFIX + "book-v1";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./news.json"];
 const IS_ASSET = /\.(bin|webp|png|jpg)$/;
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(SHELL_CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  /* "reload" skips the phone's web cache, so a new version is picked up right after it is uploaded. */
+  event.waitUntil(caches.open(SHELL_CACHE).then((c) => c.addAll(SHELL.map((u) => new Request(u, { cache: "reload" })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", (event) => {
@@ -28,7 +29,7 @@ self.addEventListener("activate", (event) => {
     await Promise.all(old.map((k) => caches.delete(k)));
     await self.clients.claim();
     /* After an update, reopen any open app window so it uses the new files. */
-    if (old.length) (await self.clients.matchAll({ type: "window" })).forEach((c) => c.navigate(c.url).catch(() => {}));
+    if (old.length) (await self.clients.matchAll({ type: "window" })).forEach((c) => { if (c.navigate) c.navigate(c.url).catch(() => {}); });
   })());
 });
 
@@ -45,7 +46,7 @@ self.addEventListener("fetch", (event) => {
 
   /* News: newest from the internet when online, saved copy when offline. */
   if (url.pathname.endsWith("/news.json")) {
-    event.respondWith(fetch(req).then((res) => save(SHELL_CACHE, req, res)).catch(() => caches.match(req, { ignoreSearch: true })));
+    event.respondWith(fetch(req.url, { cache: "no-cache", credentials: "same-origin" }).then((res) => save(SHELL_CACHE, req, res)).catch(() => caches.match(req, { ignoreSearch: true })));
     return;
   }
   /* Book pages and pictures: download once, then always from the phone. */
@@ -56,7 +57,7 @@ self.addEventListener("fetch", (event) => {
   /* App page: open instantly from the phone, refresh the saved copy in the background. */
   event.respondWith(
     caches.match(req, { ignoreSearch: true }).then((hit) => {
-      const fresh = fetch(req).then((res) => save(SHELL_CACHE, req, res)).catch(() => hit || caches.match("./index.html"));
+      const fresh = fetch(req.url, { cache: "no-cache", credentials: "same-origin" }).then((res) => save(SHELL_CACHE, req, res)).catch(() => hit || caches.match("./index.html"));
       return hit || fresh;
     })
   );

@@ -107,6 +107,7 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; text-alig
 .methods { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
 .methods button { border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; min-height: 46px; padding: 8px 10px; font-weight: 700; font-size: 14px; line-height: 1.35; }
 .methods button[aria-checked="true"] { border-color: var(--gold); background: var(--gold-soft); color: var(--gold-ink); }
+.methods button:last-child { grid-column: 1 / -1; }
 .row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
 select.input { -webkit-appearance: none; appearance: none; }
 .prog { display: grid; gap: 4px; font-size: 12.5px; color: var(--muted); }
@@ -182,9 +183,37 @@ select.input { -webkit-appearance: none; appearance: none; }
 .post h3 { margin: 0; font-size: 17px; }
 .post p { white-space: pre-line; }
 
+/* my pregnancy */
+textarea.input { min-height: 96px; resize: vertical; line-height: 1.5; }
+.addbtn { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 46px; border: 1.5px dashed var(--gold); background: var(--gold-soft); color: var(--gold-ink); border-radius: 12px; font-weight: 700; font-size: 15px; }
+.form { display: grid; gap: 10px; background: var(--bg); border-radius: 12px; padding: 12px; }
+.form .row { flex-wrap: nowrap; }
+.recs { display: grid; }
+.rec { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 10px; padding: 12px 0; border-top: 1px solid var(--line); }
+.rec:first-child { border-top: 0; }
+.rec .top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+.rec .top b { font-size: 15px; }
+.rec .tag { font-size: 12px; background: var(--gold-soft); color: var(--gold-ink); border-radius: 99px; padding: 1px 8px; font-weight: 700; }
+.rec .facts { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14px; color: var(--muted); grid-column: 1 / 2; }
+.rec .facts span b { color: var(--ink); font-weight: 700; }
+.rec .notes { grid-column: 1 / -1; font-size: 14px; white-space: pre-line; overflow-wrap: anywhere; }
+.rec .acts { display: flex; gap: 6px; align-items: flex-start; grid-row: 1 / 3; grid-column: 2; }
+.mini { border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 6px 10px; font-size: 13px; font-weight: 600; }
+.mini.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+.confirm { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; justify-content: flex-end; background: var(--danger-soft); border-radius: 10px; padding: 8px 10px; font-size: 14px; }
+.confirm span { margin-inline-end: auto; }
+.nextv { display: flex; align-items: center; gap: 10px; background: var(--gold-soft); border-radius: 12px; padding: 10px 12px; }
+.nextv b { display: block; }
+.nextv .ico { width: 38px; height: 38px; border-radius: 50%; background: var(--gold); color: #fff; display: grid; place-items: center; flex: none; }
+.check { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+.check input { width: 22px; height: 22px; accent-color: var(--gold); }
+details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; padding: 6px 0; }
+.preg { display: grid; gap: 10px; }
+.preg .big { font-size: 22px; font-weight: 800; color: var(--gold-ink); }
+
 /* bottom tab bar */
 .tabbar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 20; background: var(--card); background: color-mix(in srgb, var(--card) 94%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--line); padding: 6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px)); }
-.tabbar nav { max-width: 620px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.tabbar nav { max-width: 620px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .tabbar a { display: grid; justify-items: center; gap: 2px; padding: 6px 2px; text-decoration: none; color: var(--muted); font-size: 11.5px; font-weight: 600; border-radius: 12px; }
 .tabbar a[aria-current="page"] { color: var(--gold-ink); }
 .tabbar a[aria-current="page"] svg { color: var(--gold); }
@@ -209,6 +238,7 @@ select.input { -webkit-appearance: none; appearance: none; }
     <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m14.5 6-6 6 6 6"/></symbol>
     <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9.5 6 6 6-6 6"/></symbol>
     <symbol id="i-share" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-8-4.6-8-10.6A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.9c0 6-8 10.6-8 10.6z"/></symbol>
     <symbol id="i-baby" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9 10.5h.01M15 10.5h.01M9.5 15a3.5 3.5 0 0 0 5 0"/></g></symbol>
   </defs>
 </svg>
@@ -245,6 +275,37 @@ select.input { -webkit-appearance: none; appearance: none; }
 
   <a class="banner" href="#news"><span class="ico"><svg class="i"><use href="#i-gift"/></svg></span><div><b>جمعتين كل شهر مجانًا لوجه الله</b><span>اعرفي التفاصيل في العروض والأخبار</span></div></a>
 
+  <section class="card preg" aria-label="متابعتي">
+    <h2>متابعتي <small>زياراتك وأدويتك وحاسبة الحمل</small></h2>
+    <div id="homePreg"></div>
+    <a class="btn primary block" href="#me">افتحي متابعتي</a>
+  </section>
+
+  <section class="card" aria-label="خدماتنا">
+    <h2>خدماتنا</h2>
+    <div class="services">
+      <div>متابعة الحمل والولادة</div>
+      <div>أمراض النساء والرعاية الشاملة</div>
+      <div>جراحات المناظير النسائية</div>
+      <div>الحقن المجهري وتأخر الإنجاب</div>
+    </div>
+  </section>
+
+  <section class="card" aria-label="آخر الأخبار">
+    <h2>آخر الأخبار <a class="linkbtn" href="#news">كل الأخبار</a></h2>
+    <div id="homeNews"></div>
+  </section>
+
+  <div class="row">
+    <a class="btn" id="fbBtn" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-fb"/></svg>صفحتنا على فيسبوك</a>
+    <button class="btn" id="shareApp" type="button"><svg class="i"><use href="#i-share"/></svg>ابعتي التطبيق لصاحبتك</button>
+  </div>
+</main>
+
+<!-- MY PREGNANCY -->
+<main class="view" id="v-me" data-view="me" hidden>
+  <h1 class="page-title">متابعتي</h1>
+  <p class="page-sub">كل اللي بتكتبيه هنا محفوظ على موبايلك بس، ومحدش يقدر يشوفه غيرك.</p>
   <section class="card" aria-label="حاسبة الحمل وموعد الولادة">
     <h2>حاسبة الحمل <small>بتتحفظ على موبايلك بس</small></h2>
     <div class="field"><span>احسبي على أساس</span>
@@ -253,6 +314,7 @@ select.input { -webkit-appearance: none; appearance: none; }
         <button type="button" role="radio" data-m="conc">تاريخ حدوث الحمل</button>
         <button type="button" role="radio" data-m="ivf">نقل الأجنة (حقن مجهري)</button>
         <button type="button" role="radio" data-m="us">السونار</button>
+        <button type="button" role="radio" data-m="edd">موعد الولادة اللي الدكتور قاله (EDD)</button>
       </div>
     </div>
     <label class="field"><span id="dLabel">أول يوم في آخر دورة شهرية</span><input class="input" id="dDate" type="date"></label>
@@ -279,25 +341,47 @@ select.input { -webkit-appearance: none; appearance: none; }
     <p class="note" id="dueMsg"></p>
   </section>
 
-  <section class="card" aria-label="خدماتنا">
-    <h2>خدماتنا</h2>
-    <div class="services">
-      <div>متابعة الحمل والولادة</div>
-      <div>أمراض النساء والرعاية الشاملة</div>
-      <div>جراحات المناظير النسائية</div>
-      <div>الحقن المجهري وتأخر الإنجاب</div>
-    </div>
+  <section class="card" aria-label="زيارات المتابعة">
+    <h2>زيارات المتابعة <small id="visitCount"></small></h2>
+    <div class="nextv" id="nextVisit" hidden><span class="ico"><svg class="i"><use href="#i-cal"/></svg></span><div><span class="muted">زيارتك الجاية</span><b id="nextVisitText"></b></div></div>
+    <button class="addbtn" type="button" id="vAddBtn">+ سجّلي زيارة</button>
+    <form class="form" id="vForm" hidden>
+      <label class="field"><span>تاريخ الزيارة</span><input class="input" id="vDate" type="date" required></label>
+      <div class="row2">
+        <label class="field"><span>الوزن (كجم)</span><input class="input" id="vWt" type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="مثلاً 68"></label>
+        <div class="field"><span>الضغط</span><div class="row2"><input class="input" id="vSys" type="number" inputmode="numeric" min="60" max="250" placeholder="العالي" aria-label="الضغط العالي"><input class="input" id="vDia" type="number" inputmode="numeric" min="30" max="160" placeholder="الواطي" aria-label="الضغط الواطي"></div></div>
+      </div>
+      <label class="field"><span>ملاحظات (كلام الدكتور، السونار، التحاليل)</span><textarea class="input" id="vNotes" maxlength="600" placeholder="مثلاً: السونار كويس، وزن الجنين 400 جرام"></textarea></label>
+      <label class="field"><span>ميعاد الزيارة الجاية (لو اتحدد)</span><input class="input" id="vNext" type="date"></label>
+      <div class="row"><button class="btn primary" type="submit">احفظي الزيارة</button><button class="btn" type="button" id="vCancel">إلغاء</button></div>
+    </form>
+    <div class="recs" id="visits"></div>
   </section>
 
-  <section class="card" aria-label="آخر الأخبار">
-    <h2>آخر الأخبار <a class="linkbtn" href="#news">كل الأخبار</a></h2>
-    <div id="homeNews"></div>
+  <section class="card" aria-label="أدويتي">
+    <h2>أدويتي <small id="medCount"></small></h2>
+    <button class="addbtn" type="button" id="mAddBtn">+ ضيفي دواء</button>
+    <form class="form" id="mForm" hidden>
+      <label class="field"><span>اسم الدواء</span><input class="input" id="mName" type="text" maxlength="80" required placeholder="مثلاً: حمض الفوليك"></label>
+      <label class="field"><span>بتاخديه إزاي؟</span><input class="input" id="mHow" type="text" maxlength="120" placeholder="مثلاً: قرص واحد بعد الفطار"></label>
+      <label class="field"><span>بدأتيه من إمتى؟</span><input class="input" id="mStart" type="date"></label>
+      <div class="row"><button class="btn primary" type="submit">احفظي الدواء</button><button class="btn" type="button" id="mCancel">إلغاء</button></div>
+    </form>
+    <div class="recs" id="meds"></div>
+    <details class="past" id="pastMedsBox" hidden><summary id="pastMedsTitle"></summary><div class="recs" id="pastMeds"></div></details>
+    <p class="note">متغيّريش ولا توقّفي أي دواء من غير ما ترجعي لدكتورك.</p>
   </section>
 
-  <div class="row">
-    <a class="btn" id="fbBtn" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-fb"/></svg>صفحتنا على فيسبوك</a>
-    <button class="btn" id="shareApp" type="button"><svg class="i"><use href="#i-share"/></svg>ابعتي التطبيق لصاحبتك</button>
-  </div>
+  <section class="card" aria-label="اسألي الدكتور">
+    <h2>اسألي الدكتور</h2>
+    <p class="muted">اكتبي سؤالك، وهيتبعت على واتساب العيادة ومعاه ملخص حالتك عشان الدكتور يفهم على طول.</p>
+    <label class="field"><span>اسمك</span><input class="input" id="aName" type="text" maxlength="60" autocomplete="name"></label>
+    <label class="field"><span>سؤالك</span><textarea class="input" id="aQ" maxlength="1000" placeholder="اكتبي سؤالك هنا"></textarea></label>
+    <label class="check"><input type="checkbox" id="aSum" checked> ضيفي ملخص حالتي (عمر الحمل، آخر زيارة، الأدوية)</label>
+    <a class="btn wa block" id="askBtn" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>ابعتي السؤال على واتساب</a>
+    <div class="nextv" style="background:var(--danger-soft)"><span class="ico" style="background:var(--danger)"><svg class="i"><use href="#i-alert"/></svg></span><div><b>في الطوارئ متستنيش الرد</b><span class="muted">اتصلي على طول: </span><a class="phone" id="askEm" href="#"></a></div></div>
+    <button class="btn" type="button" id="shareFile"><svg class="i"><use href="#i-share"/></svg>شاركي ملخص ملفي</button>
+  </section>
 </main>
 
 <!-- BOOK -->
@@ -360,8 +444,9 @@ select.input { -webkit-appearance: none; appearance: none; }
 
 <div class="tabbar"><nav aria-label="الأقسام">
   <a href="#home" data-tab="home"><svg class="i"><use href="#i-home"/></svg>الرئيسية</a>
+  <a href="#me" data-tab="me"><svg class="i"><use href="#i-heart"/></svg>متابعتي</a>
   <a href="#book" data-tab="book"><svg class="i"><use href="#i-book"/></svg>الكتاب</a>
-  <a href="#clinics" data-tab="clinics"><svg class="i"><use href="#i-cal"/></svg>الحجز والفروع</a>
+  <a href="#clinics" data-tab="clinics"><svg class="i"><use href="#i-cal"/></svg>الحجز</a>
   <a href="#news" data-tab="news"><svg class="i"><use href="#i-news"/></svg>العروض</a>
 </nav></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -447,12 +532,13 @@ select.input { -webkit-appearance: none; appearance: none; }
   function dmy(d) { return pad(d.getDate()) + "/" + pad(d.getMonth() + 1) + "/" + d.getFullYear(); }
   /* Every method is turned into an "LMP-equivalent" date; the due date is that + 280 days.
      LMP: + (cycle − 28) · conception: − 14 · embryo transfer: − (14 + embryo age) · ultrasound: − age at scan. */
-  const DUE_LABEL = { lmp: "أول يوم في آخر دورة شهرية", conc: "تاريخ حدوث الحمل (يوم التبويض أو الإخصاب)", ivf: "تاريخ نقل الأجنة", us: "تاريخ عمل السونار" };
+  const DUE_LABEL = { lmp: "أول يوم في آخر دورة شهرية", conc: "تاريخ حدوث الحمل (يوم التبويض أو الإخصاب)", ivf: "تاريخ نقل الأجنة", us: "تاريخ عمل السونار", edd: "موعد الولادة المتوقع (EDD)" };
   const DUE_NOTE = {
     lmp: "الحساب ده مظبوط لو الدورة منتظمة. لو الدورة مش منتظمة، الحساب بالسونار بيبقى أدق.",
     conc: "تاريخ حدوث الحمل غالبًا بيبقى تقريبي، فالموعد هنا تقريبي برضه.",
     ivf: "ده أدق حساب في حمل الحقن المجهري، لأن تاريخ النقل وعمر الأجنة معروفين بالظبط.",
     us: "اكتبي عمر الحمل زي ما هو مكتوب في تقرير السونار، وتاريخ اليوم اللي اتعمل فيه.",
+    edd: "لو الدكتور حدّدلك موعد الولادة، اكتبيه هنا وهنحسب منه عمر الحمل.",
   };
   const due = Object.assign({ m: "lmp", date: "", cycle: 28, e: 5, w: 12, d: 0 }, store.get("due") || {});
   if (!store.get("due") && store.get("lmp")) due.date = store.get("lmp");
@@ -465,6 +551,7 @@ select.input { -webkit-appearance: none; appearance: none; }
     else if (due.m === "conc") x.setDate(x.getDate() - 14);
     else if (due.m === "ivf") x.setDate(x.getDate() - 14 - Number(due.e));
     else if (due.m === "us") x.setDate(x.getDate() - (Number(due.w) * 7 + Number(due.d)));
+    else if (due.m === "edd") x.setDate(x.getDate() - 280);
     return x;
   }
   function renderDue() {
@@ -472,12 +559,13 @@ select.input { -webkit-appearance: none; appearance: none; }
     document.querySelectorAll("[data-for]").forEach((f) => { f.hidden = f.dataset.for !== due.m; });
     document.querySelectorAll("#dEmbryo button").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.e) === Number(due.e))));
     $("dLabel").textContent = DUE_LABEL[due.m];
+    $("dDate").max = due.m === "edd" ? "" : iso(new Date());
     $("dDate").value = due.date || ""; $("dCycle").value = due.cycle; $("dWeeks").value = due.w; $("dDays").value = due.d;
     const box = $("dueBox"), msg = $("dueMsg"), tail = " والدكتور هو اللي بيحدد الموعد النهائي.";
     const stop = (t) => { box.hidden = true; msg.textContent = t; };
     if (!due.date) return stop(DUE_NOTE[due.m] + tail);
     const today = new Date(); today.setHours(0, 0, 0, 0);
-    if (parseISO(due.date) > today) return stop("التاريخ ده لسه ما جاش. اختاري تاريخ فات.");
+    if (due.m !== "edd" && parseISO(due.date) > today) return stop("التاريخ ده لسه ما جاش. اختاري تاريخ فات.");
     if (due.m === "lmp" && !(Number(due.cycle) >= 20 && Number(due.cycle) <= 45)) return stop("اكتبي طول الدورة بالأيام، رقم من 20 لـ 45.");
     const base = dueBase(), ga = Math.round((today - base) / 86400000);
     if (ga < 14) return stop("لسه بدري على حساب عمر الحمل من التاريخ ده. جرّبي تاني بعد كام يوم.");
@@ -492,7 +580,171 @@ select.input { -webkit-appearance: none; appearance: none; }
     $("progBar").style.width = Math.min(100, Math.round((ga / 280) * 100)) + "%";
     box.hidden = false; msg.textContent = DUE_NOTE[due.m] + tail;
   }
-  function saveDue() { store.set("due", due); renderDue(); }
+
+  /* ---------- my pregnancy: shared info ---------- */
+  function today0() { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }
+  function pregInfo() {
+    if (!due.date) return null;
+    if (due.m !== "edd" && parseISO(due.date) > today0()) return null;
+    if (due.m === "lmp" && !(Number(due.cycle) >= 20 && Number(due.cycle) <= 45)) return null;
+    const base = dueBase(), ga = Math.round((today0() - base) / 86400000);
+    if (ga < 14 || ga > 301) return null;
+    const edd = new Date(base); edd.setDate(edd.getDate() + 280);
+    return { base, ga, w: Math.floor(ga / 7), d: ga % 7, edd };
+  }
+  function gaOn(isoDate) {
+    const p = pregInfo(); if (!p || !isoDate) return "";
+    const g = Math.round((parseISO(isoDate) - p.base) / 86400000);
+    return g >= 0 && g <= 301 ? "أسبوع " + Math.floor(g / 7) + plusDays(g % 7) : "";
+  }
+  const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const longDay = (isoDate) => DAYS[parseISO(isoDate).getDay()] + " " + dmy(parseISO(isoDate));
+
+  /* ---------- ANC visits ---------- */
+  let visits = store.get("visits") || [], meds = store.get("meds") || [], pendingDel = null;
+  function nextVisit() {
+    const t = iso(today0());
+    return visits.map((v) => v.next).filter((n) => n && n >= t).sort()[0] || null;
+  }
+  function delButton(kind, id) { const b = el("button", "mini"); b.type = "button"; b.textContent = "مسح"; b.dataset.del = kind + ":" + id; return b; }
+  function confirmRow(kind, id, label) {
+    const c = el("div", "confirm"); c.append(el("span", "", "تمسحي " + label + "؟"));
+    const y = el("button", "mini danger", "امسحي"); y.type = "button"; y.dataset.delYes = kind + ":" + id;
+    const n = el("button", "mini", "لأ"); n.type = "button"; n.dataset.delNo = "1"; c.append(y, n); return c;
+  }
+  function renderVisits() {
+    const box = $("visits"); box.textContent = "";
+    const list = visits.slice().sort((a, b) => b.date.localeCompare(a.date));
+    $("visitCount").textContent = list.length ? list.length + " زيارة" : "";
+    const nv = nextVisit(); $("nextVisit").hidden = !nv; if (nv) $("nextVisitText").textContent = longDay(nv);
+    if (!list.length) { box.append(el("p", "empty", "لسه ما سجلتيش زيارات. بعد كل كشف سجّلي الوزن والضغط وكلام الدكتور.")); return; }
+    const withWt = list.filter((v) => v.wt);
+    list.forEach((v, i) => {
+      const r = el("div", "rec"); const top = el("div", "top"); top.append(el("b", "", longDay(v.date)));
+      const g = gaOn(v.date); if (g) top.append(el("span", "tag", g)); r.append(top);
+      const acts = el("div", "acts"); acts.append(delButton("v", v.id)); r.append(acts);
+      const facts = el("div", "facts");
+      const fact = (label, val) => { const sp = el("span", "", label + ": "); sp.append(el("b", "num", val)); facts.append(sp); };
+      if (v.wt) fact("الوزن", v.wt + " كجم");
+      if (v.sys && v.dia) fact("الضغط", v.sys + "/" + v.dia);
+      if (v.next) fact("الزيارة الجاية", dmy(parseISO(v.next)));
+      if (facts.childNodes.length) r.append(facts);
+      if (v.notes) r.append(el("div", "notes", v.notes));
+      if (pendingDel === "v:" + v.id) r.append(confirmRow("v", v.id, "زيارة " + dmy(parseISO(v.date))));
+      box.append(r);
+    });
+    if (withWt.length > 1) {
+      const first = withWt[withWt.length - 1], last = withWt[0], diff = Math.round((last.wt - first.wt) * 10) / 10;
+      box.append(el("p", "note", "وزنك اتغيّر " + (diff > 0 ? "+" : "") + diff + " كجم من أول زيارة مسجلة (" + dmy(parseISO(first.date)) + ")."));
+    }
+  }
+  $("vAddBtn").addEventListener("click", () => { $("vForm").hidden = false; $("vAddBtn").hidden = true; $("vDate").value = iso(today0()); $("vDate").max = iso(today0()); });
+  $("vCancel").addEventListener("click", () => { $("vForm").reset(); $("vForm").hidden = true; $("vAddBtn").hidden = false; });
+  $("vForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const date = $("vDate").value; if (!date) { toast("اختاري تاريخ الزيارة"); return; }
+    const num = (id) => { const v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : null; };
+    const sys = num("vSys"), dia = num("vDia");
+    if ((sys && !dia) || (!sys && dia)) { toast("اكتبي رقمين الضغط: العالي والواطي"); return; }
+    visits.push({ id: newId(), date, wt: num("vWt"), sys, dia, notes: $("vNotes").value.trim(), next: $("vNext").value || null });
+    store.set("visits", visits);
+    $("vForm").reset(); $("vForm").hidden = true; $("vAddBtn").hidden = false;
+    renderMe(); toast("اتسجلت الزيارة ✓");
+  });
+
+  /* ---------- medicines ---------- */
+  function medRow(m, past) {
+    const r = el("div", "rec"); const top = el("div", "top"); top.append(el("b", "", m.name)); r.append(top);
+    const acts = el("div", "acts");
+    if (!past) { const st = el("button", "mini"); st.type = "button"; st.textContent = "وقّفته"; st.dataset.stop = m.id; acts.append(st); }
+    acts.append(delButton("m", m.id)); r.append(acts);
+    const facts = el("div", "facts");
+    if (m.how) facts.append(el("span", "", m.how));
+    if (m.start) facts.append(el("span", "num", "من " + dmy(parseISO(m.start))));
+    if (m.stop) facts.append(el("span", "num", "لحد " + dmy(parseISO(m.stop))));
+    if (facts.childNodes.length) r.append(facts);
+    if (pendingDel === "m:" + m.id) r.append(confirmRow("m", m.id, m.name));
+    return r;
+  }
+  function renderMeds() {
+    const cur = meds.filter((m) => !m.stop), past = meds.filter((m) => m.stop);
+    $("medCount").textContent = cur.length ? cur.length + " دواء حالي" : "";
+    const box = $("meds"); box.textContent = "";
+    if (!cur.length) box.append(el("p", "empty", "مفيش أدوية مسجلة دلوقتي."));
+    cur.forEach((m) => box.append(medRow(m, false)));
+    $("pastMedsBox").hidden = !past.length; $("pastMedsTitle").textContent = "أدوية وقّفتيها (" + past.length + ")";
+    const pb = $("pastMeds"); pb.textContent = ""; past.forEach((m) => pb.append(medRow(m, true)));
+  }
+  $("mAddBtn").addEventListener("click", () => { $("mForm").hidden = false; $("mAddBtn").hidden = true; $("mStart").value = iso(today0()); $("mName").focus(); });
+  $("mCancel").addEventListener("click", () => { $("mForm").reset(); $("mForm").hidden = true; $("mAddBtn").hidden = false; });
+  $("mForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = $("mName").value.trim(); if (!name) { toast("اكتبي اسم الدواء"); return; }
+    meds.push({ id: newId(), name, how: $("mHow").value.trim(), start: $("mStart").value || null, stop: null });
+    store.set("meds", meds);
+    $("mForm").reset(); $("mForm").hidden = true; $("mAddBtn").hidden = false;
+    renderMe(); toast("اتسجل الدواء ✓");
+  });
+  $("v-me").addEventListener("click", (e) => {
+    const t = e.target.closest("[data-del],[data-del-yes],[data-del-no],[data-stop]"); if (!t) return;
+    if (t.dataset.del) { pendingDel = t.dataset.del; renderMe(); return; }
+    if (t.dataset.delNo) { pendingDel = null; renderMe(); return; }
+    if (t.dataset.stop) { const m = meds.find((x) => x.id === t.dataset.stop); if (m) { m.stop = iso(today0()); store.set("meds", meds); renderMe(); toast("اتنقل لأدوية وقّفتيها"); } return; }
+    const [kind, id] = t.dataset.delYes.split(":");
+    if (kind === "v") { visits = visits.filter((v) => v.id !== id); store.set("visits", visits); }
+    else { meds = meds.filter((m) => m.id !== id); store.set("meds", meds); }
+    pendingDel = null; renderMe(); toast("اتمسح");
+  });
+
+  /* ---------- ask the doctor (WhatsApp) & summary ---------- */
+  function caseSummary() {
+    const lines = [];
+    const p = pregInfo();
+    if (p) lines.push("عمر الحمل: " + p.w + " أسبوع" + plusDays(p.d) + " (موعد الولادة المتوقع: " + dmy(p.edd) + ")");
+    const last = visits.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+    if (last) {
+      const parts = ["آخر زيارة: " + dmy(parseISO(last.date))];
+      if (last.wt) parts.push("الوزن " + last.wt + " كجم");
+      if (last.sys && last.dia) parts.push("الضغط " + last.sys + "/" + last.dia);
+      lines.push(parts.join(" – "));
+    }
+    const cur = meds.filter((m) => !m.stop);
+    if (cur.length) lines.push("الأدوية: " + cur.map((m) => m.name + (m.how ? " (" + m.how + ")" : "")).join("، "));
+    const nv = nextVisit(); if (nv) lines.push("الزيارة الجاية: " + dmy(parseISO(nv)));
+    return lines.join("\n");
+  }
+  function askText() {
+    const name = $("aName").value.trim(), q = $("aQ").value.trim();
+    let t = "السلام عليكم يا دكتور" + (name ? "، أنا " + name : "") + ".\n\n" + q;
+    const sum = caseSummary();
+    if ($("aSum").checked && sum) t += "\n\n— ملخص حالتي —\n" + sum;
+    return t;
+  }
+  function updateAsk() { $("askBtn").href = "https://wa.me/" + CLINIC.whatsapp + "?text=" + encodeURIComponent(askText()); }
+  $("aName").value = store.get("name") || "";
+  $("aName").addEventListener("change", () => store.set("name", $("aName").value.trim()));
+  ["aName", "aQ", "aSum"].forEach((id) => $(id).addEventListener("input", updateAsk));
+  $("aSum").addEventListener("change", updateAsk);
+  $("askBtn").addEventListener("click", (e) => { if (!$("aQ").value.trim()) { e.preventDefault(); toast("اكتبي سؤالك الأول"); $("aQ").focus(); } else updateAsk(); });
+  $("askEm").textContent = CLINIC.phones[0]; $("askEm").href = tel(CLINIC.phones[0]);
+  $("shareFile").addEventListener("click", () => {
+    const name = $("aName").value.trim(), sum = caseSummary();
+    if (!sum) { toast("لسه مفيش بيانات تتشارك. احسبي عمر الحمل أو سجّلي زيارة الأول."); return; }
+    const text = "ملف متابعة الحمل" + (name ? " – " + name : "") + "\n" + sum;
+    if (navigator.share) { navigator.share({ title: "ملف متابعة الحمل", text }).catch(() => {}); return; }
+    try { navigator.clipboard.writeText(text).then(() => toast("اتنسخ الملخص"), () => toast("مقدرتش أنسخ")); } catch (e) { toast("مقدرتش أنسخ"); }
+  });
+
+  /* ---------- home card ---------- */
+  function renderHomePreg() {
+    const box = $("homePreg"); box.textContent = "";
+    const p = pregInfo(), nv = nextVisit();
+    if (!p && !nv) { box.append(el("p", "muted", "احسبي موعد ولادتك وعمر الحمل، وسجّلي زياراتك وأدويتك، واسألي الدكتور على واتساب.")); return; }
+    if (p) { box.append(el("div", "big", p.w + " أسبوع" + plusDays(p.d))); box.append(el("span", "muted", "موعد الولادة المتوقع: " + DAYS[p.edd.getDay()] + " " + dmy(p.edd))); }
+    if (nv) box.append(el("span", "muted", "زيارتك الجاية: " + longDay(nv)));
+  }
+  function renderMe() { renderVisits(); renderMeds(); renderHomePreg(); updateAsk(); }
+  function saveDue() { store.set("due", due); renderDue(); renderMe(); }
   $("dDate").max = iso(new Date());
   $("dueMethods").addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) { due.m = b.dataset.m; due.date = ""; saveDue(); } });
   $("dEmbryo").addEventListener("click", (e) => { const b = e.target.closest("[data-e]"); if (b) { due.e = Number(b.dataset.e); saveDue(); } });
@@ -671,7 +923,7 @@ select.input { -webkit-appearance: none; appearance: none; }
   });
 
   /* ---------- routing ---------- */
-  const views = ["home", "book", "clinics", "news"];
+  const views = ["home", "me", "book", "clinics", "news"];
   function route() {
     const h = location.hash.replace(/^#/, "") || "home";
     if (h.startsWith("read/")) { const [, id, pg] = h.split("/"); showView("book"); openTopic(id, Number(pg) || 0); return; }
@@ -688,8 +940,10 @@ select.input { -webkit-appearance: none; appearance: none; }
   window.addEventListener("hashchange", route);
 
   /* ---------- start ---------- */
-  renderBooking(); renderBranches(); renderDue(); renderToc(); renderResume(); loadNews(); route();
+  renderBooking(); renderBranches(); renderDue(); renderMe(); renderToc(); renderResume(); loadNews(); route();
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
+    const hadController = !!navigator.serviceWorker.controller; let reloaded = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController && !reloaded) { reloaded = true; location.reload(); } });
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("sw.js").then(() => navigator.serviceWorker.ready).then(prefetchBook).catch(prefetchBook);
     });
