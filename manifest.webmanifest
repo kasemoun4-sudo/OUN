@@ -1,0 +1,30 @@
+{
+  "name": "عيادات عون",
+  "short_name": "عيادات عون",
+  "lang": "ar",
+  "dir": "rtl",
+  "description": "كتاب مهد الأمان، فروع ومواعيد عيادات عون، والحجز.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F4F5F9",
+  "theme_color": "#1C2541",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
