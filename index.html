@@ -104,6 +104,14 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; text-alig
 .due .stats div { background: var(--card); border-radius: 10px; padding: 8px 4px; }
 .due .stats b { display: block; font-size: 18px; }
 .due .stats span { font-size: 12px; color: var(--muted); }
+.methods { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+.methods button { border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; min-height: 46px; padding: 8px 10px; font-weight: 700; font-size: 14px; line-height: 1.35; }
+.methods button[aria-checked="true"] { border-color: var(--gold); background: var(--gold-soft); color: var(--gold-ink); }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+select.input { -webkit-appearance: none; appearance: none; }
+.prog { display: grid; gap: 4px; font-size: 12.5px; color: var(--muted); }
+.prog .bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.prog .bar i { display: block; height: 100%; width: 0; background: var(--gold); border-radius: 99px; }
 .note { font-size: 12.5px; color: var(--muted); margin: 0; }
 .linkbtn { background: none; border: 0; padding: 0; color: var(--focus); font-weight: 700; font-size: 15px; text-align: start; }
 
@@ -237,19 +245,38 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; text-alig
 
   <a class="banner" href="#news"><span class="ico"><svg class="i"><use href="#i-gift"/></svg></span><div><b>جمعتين كل شهر مجانًا لوجه الله</b><span>اعرفي التفاصيل في العروض والأخبار</span></div></a>
 
-  <section class="card" aria-label="حاسبة موعد الولادة">
-    <h2>حاسبة موعد الولادة <small>بتتحفظ على موبايلك بس</small></h2>
-    <label class="field"><span>أول يوم في آخر دورة شهرية</span><input class="input" id="lmp" type="date"></label>
+  <section class="card" aria-label="حاسبة الحمل وموعد الولادة">
+    <h2>حاسبة الحمل <small>بتتحفظ على موبايلك بس</small></h2>
+    <div class="field"><span>احسبي على أساس</span>
+      <div class="methods" id="dueMethods" role="radiogroup" aria-label="طريقة الحساب">
+        <button type="button" role="radio" data-m="lmp">آخر دورة شهرية</button>
+        <button type="button" role="radio" data-m="conc">تاريخ حدوث الحمل</button>
+        <button type="button" role="radio" data-m="ivf">نقل الأجنة (حقن مجهري)</button>
+        <button type="button" role="radio" data-m="us">السونار</button>
+      </div>
+    </div>
+    <label class="field"><span id="dLabel">أول يوم في آخر دورة شهرية</span><input class="input" id="dDate" type="date"></label>
+    <label class="field" data-for="lmp"><span>الدورة بتيجي كل كام يوم عادةً؟</span><input class="input" id="dCycle" type="number" inputmode="numeric" min="20" max="45" step="1"></label>
+    <div class="field" data-for="ivf"><span>عمر الأجنة يوم النقل</span>
+      <div class="seg" id="dEmbryo"><button type="button" data-e="3">اليوم التالت</button><button type="button" data-e="5">اليوم الخامس (بلاستوسيست)</button></div>
+    </div>
+    <div class="field" data-for="us"><span>عمر الحمل المكتوب في السونار ده</span>
+      <div class="row2">
+        <label class="field"><span>أسابيع</span><select class="input" id="dWeeks"></select></label>
+        <label class="field"><span>أيام</span><select class="input" id="dDays"></select></label>
+      </div>
+    </div>
     <div class="due" id="dueBox" hidden>
       <div><span class="muted">موعد الولادة المتوقع</span><div class="big num" id="dueDate"></div></div>
       <div class="stats">
-        <div><b class="num" id="gaWeeks"></b><span>عمر الحمل</span></div>
+        <div><b class="num" id="gaWeeks"></b><span>عمر الحمل النهارده</span></div>
         <div><b id="trimester"></b><span>الثلث</span></div>
         <div><b class="num" id="daysLeft"></b><span>يوم فاضل</span></div>
       </div>
+      <div class="prog"><span id="progText"></span><span class="bar"><i id="progBar"></i></span></div>
       <button class="linkbtn" type="button" data-open="t23">اقري «الحمل شهرًا بشهر» في الكتاب ←</button>
     </div>
-    <p class="note" id="dueMsg">الحساب تقريبي على أساس دورة منتظمة كل 28 يوم، والدكتور بيأكد الموعد بالسونار.</p>
+    <p class="note" id="dueMsg"></p>
   </section>
 
   <section class="card" aria-label="خدماتنا">
@@ -418,25 +445,61 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; text-alig
   function parseISO(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
   function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
   function dmy(d) { return pad(d.getDate()) + "/" + pad(d.getMonth() + 1) + "/" + d.getFullYear(); }
-  function renderDue() {
-    const v = $("lmp").value, box = $("dueBox"), msg = $("dueMsg");
-    const base = "الحساب تقريبي على أساس دورة منتظمة كل 28 يوم، والدكتور بيأكد الموعد بالسونار.";
-    if (!v) { box.hidden = true; msg.textContent = base; return; }
-    const lmp = parseISO(v), now = new Date(); now.setHours(0, 0, 0, 0);
-    const days = Math.round((now - lmp) / 86400000);
-    if (days < 0) { box.hidden = true; msg.textContent = "التاريخ ده لسه ما جاش. اختاري أول يوم في آخر دورة فاتت."; return; }
-    if (days > 300) { box.hidden = true; msg.textContent = "التاريخ ده من أكتر من 10 شهور. اتأكدي من التاريخ."; return; }
-    const due = new Date(lmp); due.setDate(due.getDate() + 280);
-    const w = Math.floor(days / 7), d = days % 7;
-    $("dueDate").textContent = DAYS[due.getDay()] + " " + dmy(due);
-    $("gaWeeks").textContent = w + " أسبوع" + (d ? " و" + d + " يوم" : "");
-    $("trimester").textContent = w < 14 ? "الأول" : w < 28 ? "التاني" : "التالت";
-    $("daysLeft").textContent = Math.max(0, 280 - days);
-    box.hidden = false; msg.textContent = base;
+  /* Every method is turned into an "LMP-equivalent" date; the due date is that + 280 days.
+     LMP: + (cycle − 28) · conception: − 14 · embryo transfer: − (14 + embryo age) · ultrasound: − age at scan. */
+  const DUE_LABEL = { lmp: "أول يوم في آخر دورة شهرية", conc: "تاريخ حدوث الحمل (يوم التبويض أو الإخصاب)", ivf: "تاريخ نقل الأجنة", us: "تاريخ عمل السونار" };
+  const DUE_NOTE = {
+    lmp: "الحساب ده مظبوط لو الدورة منتظمة. لو الدورة مش منتظمة، الحساب بالسونار بيبقى أدق.",
+    conc: "تاريخ حدوث الحمل غالبًا بيبقى تقريبي، فالموعد هنا تقريبي برضه.",
+    ivf: "ده أدق حساب في حمل الحقن المجهري، لأن تاريخ النقل وعمر الأجنة معروفين بالظبط.",
+    us: "اكتبي عمر الحمل زي ما هو مكتوب في تقرير السونار، وتاريخ اليوم اللي اتعمل فيه.",
+  };
+  const due = Object.assign({ m: "lmp", date: "", cycle: 28, e: 5, w: 12, d: 0 }, store.get("due") || {});
+  if (!store.get("due") && store.get("lmp")) due.date = store.get("lmp");
+  for (let w = 4; w <= 42; w++) $("dWeeks").append(new Option(String(w), w));
+  for (let d = 0; d <= 6; d++) $("dDays").append(new Option(String(d), d));
+  const plusDays = (d) => !d ? "" : d === 1 ? " ويوم" : d === 2 ? " ويومين" : " و" + d + " أيام";
+  function dueBase() {
+    const x = parseISO(due.date);
+    if (due.m === "lmp") x.setDate(x.getDate() + Number(due.cycle) - 28);
+    else if (due.m === "conc") x.setDate(x.getDate() - 14);
+    else if (due.m === "ivf") x.setDate(x.getDate() - 14 - Number(due.e));
+    else if (due.m === "us") x.setDate(x.getDate() - (Number(due.w) * 7 + Number(due.d)));
+    return x;
   }
-  $("lmp").max = iso(new Date());
-  $("lmp").value = store.get("lmp") || "";
-  $("lmp").addEventListener("change", () => { store.set("lmp", $("lmp").value || null); renderDue(); });
+  function renderDue() {
+    document.querySelectorAll("#dueMethods button").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.m === due.m)));
+    document.querySelectorAll("[data-for]").forEach((f) => { f.hidden = f.dataset.for !== due.m; });
+    document.querySelectorAll("#dEmbryo button").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.e) === Number(due.e))));
+    $("dLabel").textContent = DUE_LABEL[due.m];
+    $("dDate").value = due.date || ""; $("dCycle").value = due.cycle; $("dWeeks").value = due.w; $("dDays").value = due.d;
+    const box = $("dueBox"), msg = $("dueMsg"), tail = " والدكتور هو اللي بيحدد الموعد النهائي.";
+    const stop = (t) => { box.hidden = true; msg.textContent = t; };
+    if (!due.date) return stop(DUE_NOTE[due.m] + tail);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    if (parseISO(due.date) > today) return stop("التاريخ ده لسه ما جاش. اختاري تاريخ فات.");
+    if (due.m === "lmp" && !(Number(due.cycle) >= 20 && Number(due.cycle) <= 45)) return stop("اكتبي طول الدورة بالأيام، رقم من 20 لـ 45.");
+    const base = dueBase(), ga = Math.round((today - base) / 86400000);
+    if (ga < 14) return stop("لسه بدري على حساب عمر الحمل من التاريخ ده. جرّبي تاني بعد كام يوم.");
+    if (ga > 301) return stop("التاريخ ده قديم أوي على حمل حالي. اتأكدي من التاريخ.");
+    const edd = new Date(base); edd.setDate(edd.getDate() + 280);
+    const w = Math.floor(ga / 7), d = ga % 7;
+    $("dueDate").textContent = DAYS[edd.getDay()] + " " + dmy(edd);
+    $("gaWeeks").textContent = w + " أسبوع" + plusDays(d);
+    $("trimester").textContent = w < 14 ? "الأول" : w < 28 ? "التاني" : "التالت";
+    $("daysLeft").textContent = Math.max(0, 280 - ga);
+    $("progText").textContent = ga >= 280 ? "عدّى موعد الولادة المتوقع، تابعي مع دكتورك." : "الأسبوع " + (w + 1) + " من 40";
+    $("progBar").style.width = Math.min(100, Math.round((ga / 280) * 100)) + "%";
+    box.hidden = false; msg.textContent = DUE_NOTE[due.m] + tail;
+  }
+  function saveDue() { store.set("due", due); renderDue(); }
+  $("dDate").max = iso(new Date());
+  $("dueMethods").addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) { due.m = b.dataset.m; due.date = ""; saveDue(); } });
+  $("dEmbryo").addEventListener("click", (e) => { const b = e.target.closest("[data-e]"); if (b) { due.e = Number(b.dataset.e); saveDue(); } });
+  $("dDate").addEventListener("change", () => { due.date = $("dDate").value; saveDue(); });
+  $("dCycle").addEventListener("change", () => { due.cycle = Number($("dCycle").value) || 28; saveDue(); });
+  $("dWeeks").addEventListener("change", () => { due.w = Number($("dWeeks").value); saveDue(); });
+  $("dDays").addEventListener("change", () => { due.d = Number($("dDays").value); saveDue(); });
 
   /* ---------- book ---------- */
   const norm = (s) => String(s).replace(/[ً-ْـ]/g, "").replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي").replace(/ؤ/g, "و").replace(/ئ/g, "ي").toLowerCase();
