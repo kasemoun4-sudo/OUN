@@ -2,7 +2,7 @@
    SHELL_CACHE: the app page itself — bump its number whenever index.html changes.
    BOOK_CACHE: book pages and pictures — kept across app updates; bump only if the book files change. */
 const PREFIX = "oun-";
-const SHELL_CACHE = PREFIX + "shell-v7";
+const SHELL_CACHE = PREFIX + "shell-v8";
 const BOOK_CACHE = PREFIX + "book-v1";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./news.json"];
 const IS_ASSET = /\.(bin|webp|png|jpg)$/;

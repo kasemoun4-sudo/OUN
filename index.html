@@ -273,6 +273,10 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
 .tabbar a[aria-current="page"] svg { color: var(--gold); }
 .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(86px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 14px; z-index: 40; max-width: calc(100% - 32px); text-align: center; }
 @media (prefers-reduced-motion: no-preference) { .toast { animation: rise .2s ease-out; } @keyframes rise { from { opacity: 0; transform: translate(-50%, 8px); } } }
+
+/* Phase 3: practical workflow additions */
+.cycle-cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.cycle-cal-head h3{margin:0;font-size:16px}.cycle-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.cycle-cal-dow{text-align:center;color:var(--muted);font-size:11px;padding:4px 0}.cycle-cal-day{position:relative;min-height:39px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-size:12px;font-weight:700;padding:3px 0}.cycle-cal-day.out{opacity:.35}.cycle-cal-day.period{background:#FBE4E9;border-color:#E8A6B5;color:#7B3547}.cycle-cal-day.fertile{background:#DDF4EF;border-color:#80CFC0;color:#155C57}.cycle-cal-day.ovulation{background:#1E6C70;color:#fff;border-color:#1E6C70}.cycle-cal-day.logged:after{content:"";position:absolute;bottom:3px;left:calc(50% - 2px);width:4px;height:4px;border-radius:50%;background:currentColor}.cycle-cal-day.today{outline:2px solid var(--navy);outline-offset:1px}.cycle-legend{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted)}.cycle-legend span{display:flex;align-items:center;gap:4px}.cycle-legend i{width:9px;height:9px;border-radius:3px;display:inline-block}.trend-bars{display:flex;align-items:flex-end;gap:8px;min-height:155px;padding:10px 4px 0;border-bottom:1px solid var(--line)}.trend-bar-wrap{flex:1;min-width:0;display:grid;justify-items:center;align-content:end;gap:5px;height:145px}.trend-bar{width:min(26px,75%);min-height:4px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#35A9A0,#1E6C70)}.trend-value{font-size:10px;color:var(--muted)}.trend-label{font-size:10px;color:var(--muted);white-space:nowrap}.record-form{display:grid;gap:10px}.record-list{display:grid;gap:9px}.record-item{border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;gap:6px}.record-item p{margin:0;white-space:pre-wrap}.record-meta{font-size:12px;color:var(--muted)}.booking-form{display:grid;gap:10px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:15px}.booking-form .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.booking-form .field{min-width:0}.record-empty{color:var(--muted);font-size:13px;padding:8px 0}
+
 </style>
 </head>
 <body>
@@ -364,6 +368,8 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     <h2>آخر الأخبار <a class="linkbtn" href="#news">كل الأخبار</a></h2>
     <div id="homeNews"></div>
   </section>
+
+  <section class="card" aria-label="تذكيرات المتابعة"><h2>تذكيراتك <small>مواعيد متوقعة ومسجلة</small></h2><div id="homeReminders" class="health-list"></div><p class="note">هذه تذكيرات داخل التطبيق فقط وليست إشعارات مضمونة في الخلفية. تأكدي من المواعيد مع العيادة.</p></section>
 
   <div class="row">
     <a class="btn" id="fbBtn" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-fb"/></svg>صفحتنا على فيسبوك</a>
@@ -470,6 +476,17 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     <div id="fertilityZone" class="health-calendar-note">سجّلي أول يوم من دورتك لعرض التوقعات.</div>
     <p class="note">نافذة الخصوبة وموعد الدورة توقعات تقريبية وليست تشخيصًا، ولا تصلح وحدها لمنع الحمل أو تأكيد حدوث التبويض.</p>
   </section>
+  <section class="card" aria-label="تقويم الدورة الشهرية">
+    <div class="cycle-cal-head"><button class="mini" type="button" id="cyclePrevMonth" aria-label="الشهر السابق">‹</button><h3 id="cycleCalendarTitle">تقويم الدورة</h3><button class="mini" type="button" id="cycleNextMonth" aria-label="الشهر التالي">›</button></div>
+    <div class="cycle-cal-grid" id="cycleCalendarGrid"></div>
+    <div class="cycle-legend"><span><i style="background:#FBE4E9;border:1px solid #E8A6B5"></i>الدورة المسجلة/المتوقعة</span><span><i style="background:#DDF4EF;border:1px solid #80CFC0"></i>نافذة خصوبة تقديرية</span><span><i style="background:#1E6C70"></i>التبويض المتوقع</span><span>• تفاصيل يومية مسجلة</span></div>
+    <p class="note">اضغطي على أي يوم لفتح تفاصيله. الأيام المظللة للتوضيح والحساب التقريبي فقط.</p>
+  </section>
+  <section class="card" aria-label="اتجاهات الدورة">
+    <h2>اتجاهات الدورة <small>آخر الدورات المسجلة</small></h2>
+    <div id="cycleTrendChart" class="trend-bars" aria-label="رسم بياني لطول الدورات"></div>
+    <p id="cycleTrendCaption" class="muted">بعد تسجيل دورتين أو أكثر، سيظهر هنا اتجاه طول الدورة.</p>
+  </section>
   <section class="card" aria-label="تسجيل دورة شهرية">
     <h2>تسجيل دورة شهرية <small>شهر بشهر</small></h2>
     <p class="muted">أول يوم للدورة هو أول يوم نزول دم الحيض. يمكنكِ إضافة الدورة عند بدايتها ثم تسجيل نهايتها لاحقًا.</p>
@@ -561,8 +578,14 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   <h1 class="page-title">الحجز والفروع</h1>
   <section class="card" aria-label="احجزي كشف">
     <h2>احجزي كشف</h2>
-    <p class="muted">اختاري الفرع، وابعتيلنا على واتساب أو اتصلي.</p>
+    <p class="muted">اختاري الفرع والموعد المناسب؛ الطلب لا يُعد حجزًا مؤكدًا إلا بعد رد العيادة.</p>
     <div class="seg" id="branchSeg"></div>
+    <div class="booking-form" aria-label="تفاصيل طلب الحجز">
+      <label class="field"><span>الاسم (اختياري)</span><input class="input" id="apptName" maxlength="70" autocomplete="name" placeholder="اسم المريضة"></label>
+      <label class="field"><span>الخدمة المطلوبة</span><select class="input" id="apptService"><option>كشف نساء</option><option>متابعة حمل</option><option>تأخر حمل</option><option>متابعة بعد الولادة</option><option>استشارة أخرى</option></select></label>
+      <div class="row2"><label class="field"><span>التاريخ المفضل</span><input class="input" id="apptDate" type="date"></label><label class="field"><span>الفترة المفضلة</span><select class="input" id="apptTime"><option>أقرب موعد متاح</option><option>صباحًا</option><option>ظهرًا</option><option>مساءً</option></select></label></div>
+      <label class="field"><span>ملاحظة للحجز (اختياري)</span><textarea class="input" id="apptNote" maxlength="300" placeholder="من غير تفاصيل طبية حساسة"></textarea></label>
+    </div>
     <a class="btn wa block" id="waBtn" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>احجزي على واتساب</a>
     <div class="row" id="callRow"></div>
   </section>
@@ -628,6 +651,17 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     <img src="doctor-profile.webp" alt="صورة د. قاسم عبد الرؤوف عون" width="280" height="350" loading="lazy">
   </section>
   <section class="card"><h2>ملخص المتابعة</h2><div class="profile-summary" id="profileSummary"></div><p class="note">الملخص لا يرسل بياناتك إلى العيادة. البيانات القديمة والجديدة تظل على جهازك ما لم تشاركيها بنفسك.</p><a class="btn primary block" href="#me">فتح حاسبة الحمل والزيارات والأدوية</a><a class="btn block" href="#health">فتح مفكرة الدورة وخطة الطبيب</a></section>
+  <section class="card"><h2>تحاليل وتقارير وملاحظات</h2><p class="muted">سجّلي ملخصًا لنتيجة تحليل أو سونار أو زيارة، ثم راجعيه مع الطبيب. لا تُرفع الملفات أو البيانات تلقائيًا إلى العيادة.</p>
+    <form id="recordForm" class="record-form">
+      <label class="field"><span>نوع السجل</span><select class="input" id="recordType"><option value="lab">تحليل</option><option value="ultrasound">سونار / أشعة</option><option value="visit">زيارة طبية</option><option value="report">تقرير أو ملاحظة</option></select></label>
+      <label class="field"><span>التاريخ *</span><input class="input" id="recordDate" type="date" required></label>
+      <label class="field"><span>العنوان *</span><input class="input" id="recordTitle" maxlength="100" required placeholder="مثلاً: تحليل صورة دم"></label>
+      <label class="field"><span>النتيجة أو الملخص</span><textarea class="input" id="recordResult" maxlength="1200" placeholder="اكتبي النتيجة كما وردت في التقرير"></textarea></label>
+      <button class="btn primary" type="submit">حفظ السجل على هذا الجهاز</button>
+    </form>
+    <div id="healthRecordList" class="record-list"></div>
+    <button class="btn" type="button" id="exportHealthRecords">تنزيل ملخص السجلات النصي</button>
+  </section>
   <section class="card"><h2>نسخة احتياطية لبياناتك</h2><p class="muted">يمكنك تنزيل ملف JSON يحتفظ بسجلات التطبيق على جهازك. احفظيه في مكان خاص؛ فقد يحتوي على معلومات صحية شخصية.</p><button class="btn primary block" type="button" id="exportBackup">تنزيل نسخة احتياطية</button><label class="field"><span>استعادة نسخة احتياطية</span><input class="input" type="file" id="importBackup" accept="application/json,.json"></label><p class="backup-note">للحفاظ على بياناتك الحالية، ستُضاف من النسخة المستعادة المفاتيح غير الموجودة فقط، ولن تستبدل السجلات الحالية تلقائيًا.</p></section>
   <section class="card"><h2>معلومات مهمة</h2><p class="muted">لا يُرسل الملف الصحي تلقائيًا لأي جهة. عند تغيير الجهاز، انقلي النسخة الاحتياطية بنفسك واحفظيها بأمان. لا تشاركيها على جهاز عام أو مع شخص غير موثوق.</p></section>
 </main>
@@ -724,8 +758,18 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
       seg.append(btn);
     });
     const b = CLINIC.branches.find((x) => x.id === branch) || CLINIC.branches[0];
-    const msg = "السلام عليكم، عايزة أحجز كشف في عيادات عون – فرع " + b.name + ".\nالاسم: \nاليوم المناسب: ";
-    $("waBtn").href = "https://wa.me/" + CLINIC.whatsapp + "?text=" + encodeURIComponent(msg);
+    const updateBookingLink = () => {
+      const name = $("apptName")?.value.trim() || "غير مذكور";
+      const service = $("apptService")?.value || "كشف نساء";
+      const date = $("apptDate")?.value || "أقرب موعد متاح";
+      const time = $("apptTime")?.value || "أقرب موعد متاح";
+      const note = $("apptNote")?.value.trim();
+      const msg = "السلام عليكم، أرغب في طلب موعد بعيادات عون.\nالفرع: " + b.name + "\nالخدمة: " + service + "\nالاسم: " + name + "\nالتاريخ المفضل: " + date + "\nالفترة: " + time + (note ? "\nملاحظة: " + note : "") + "\nأرجو تأكيد الموعد المتاح.";
+      $("waBtn").href = "https://wa.me/" + CLINIC.whatsapp + "?text=" + encodeURIComponent(msg);
+    };
+    ["apptName","apptService","apptDate","apptTime","apptNote"].forEach(id => { if ($(id)) { $(id).oninput = updateBookingLink; $(id).onchange = updateBookingLink; } });
+    if ($("apptDate")) { const now = new Date(); const minDate = now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0"); $("apptDate").min = minDate; }
+    updateBookingLink();
     $("waBtn").dataset.stat = "حجز على واتساب"; $("waBtn").dataset.statInfo = b.name;
     const row = $("callRow"); row.textContent = "";
     CLINIC.phones.forEach((p) => { const a = el("a", "btn"); a.href = tel(p); a.dataset.stat = "اتصال للحجز"; a.append(icon("i-phone"), el("span", "phone", p)); row.append(a); });
@@ -1031,6 +1075,33 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
       if (s.range > 7) zone.append(el("div", "", "الدورات المسجلة متفاوتة في الطول؛ الحساب بالتقويم أقل موثوقية. ناقشي ذلك مع الطبيب."));
     }
   }
+  function renderCycleCalendar() {
+    const grid=$("cycleCalendarGrid"), title=$("cycleCalendarTitle"), monthInput=$("cycleMonth"); if(!grid||!title||!monthInput)return;
+    const month=monthInput.value||monthKey(iso(today0())); const first=parseISO(month+"-01"); if(isNaN(first))return;
+    title.textContent=monthName(month); grid.textContent="";
+    ["ح","ن","ث","ر","خ","ج","س"].forEach((d)=>grid.append(el("div","cycle-cal-dow",d)));
+    const offset=first.getDay(), total=new Date(first.getFullYear(),first.getMonth()+1,0).getDate();
+    const starts=cycleRecords.map(c=>c.start).filter(safeDate).sort(); const stats=cycleStats();
+    const logged=new Set(dayRecords.map(d=>d.date));
+    for(let i=0;i<offset;i++)grid.append(el("div","cycle-cal-day out",""));
+    for(let day=1;day<=total;day++){
+      const dt=new Date(first.getFullYear(),first.getMonth(),day,12); const key=iso(dt); const btn=el("button","cycle-cal-day",String(day)); btn.type="button"; btn.dataset.date=key;
+      let isPeriod=false,isFertile=false,isOv=false;
+      for(const start of starts){const st=parseISO(start);const rec=cycleRecords.find(c=>c.start===start);const end=rec&&rec.end?safeDate(rec.end)?parseISO(rec.end):null:null;const finish=end||new Date(st.getFullYear(),st.getMonth(),st.getDate()+4,12);if(key>=iso(st)&&key<=iso(finish))isPeriod=true;}
+      if(stats.latestStart){const st=parseISO(stats.latestStart);const ov=new Date(st);ov.setDate(ov.getDate()+stats.avg-14);const fs=new Date(ov);fs.setDate(fs.getDate()-5);const fe=new Date(ov);if(key>=iso(fs)&&key<=iso(fe))isFertile=true;if(key===iso(ov))isOv=true;}
+      if(isPeriod)btn.classList.add("period"); else if(isFertile)btn.classList.add("fertile"); if(isOv)btn.classList.add("ovulation"); if(logged.has(key))btn.classList.add("logged"); if(key===iso(today0()))btn.classList.add("today");
+      btn.addEventListener("click",()=>{ if(key>iso(today0())){toast("تسجيل الأعراض متاح لليوم أو لتاريخ سابق فقط");return;} $("dayDate").value=key; loadDayForm(key); window.scrollTo({top:$("dayForm").getBoundingClientRect().top+window.scrollY-80,behavior:"smooth"}); }); grid.append(btn);
+    }
+    const cells=offset+total; for(let i=cells;i<42;i++)grid.append(el("div","cycle-cal-day out",""));
+  }
+  function renderCycleTrends() {
+    const chart=$("cycleTrendChart"), caption=$("cycleTrendCaption"); if(!chart||!caption)return; chart.textContent="";
+    const starts=cycleRecords.map(c=>c.start).filter(safeDate).sort(); const vals=[];
+    for(let i=1;i<starts.length;i++){const n=Math.round((parseISO(starts[i])-parseISO(starts[i-1]))/86400000);if(n>=15&&n<=60)vals.push({date:starts[i],days:n});}
+    const recent=vals.slice(-6); if(!recent.length){caption.textContent="بعد تسجيل دورتين أو أكثر، سيظهر هنا اتجاه طول الدورة.";return;}
+    const min=15,max=60; recent.forEach(v=>{const wrap=el("div","trend-bar-wrap");const value=el("span","trend-value",v.days+" يوم");const bar=el("div","trend-bar");bar.style.height=Math.max(8,((v.days-min)/(max-min))*100)+"px";bar.setAttribute("role","img");bar.setAttribute("aria-label","طول الدورة "+v.days+" يومًا");const label=el("span","trend-label",v.date.slice(5));wrap.append(value,bar,label);chart.append(wrap);});
+    const avg=Math.round(recent.reduce((a,b)=>a+b.days,0)/recent.length);const range=Math.max(...recent.map(v=>v.days))-Math.min(...recent.map(v=>v.days));caption.textContent="متوسط آخر "+recent.length+" دورات: "+avg+" يوم. الفرق بين أطول وأقصر دورة في الرسم: "+range+" يوم. الرسم للتتبع ولا يشخّص اضطرابًا.";
+  }
   function renderCycleHistory() {
     const month = $("cycleMonth").value || monthKey(iso(today0()));
     const cyclesBox = $("monthCycleHistory"), daysBox = $("monthDayHistory");
@@ -1097,7 +1168,9 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
       const del = el("button", "mini danger", "مسح المتابعة"); del.type = "button"; del.dataset.deleteFollowup = f.id; item.append(del); fbox.append(item);
     });
   }
-  function renderHealth() { renderCycleStats(); renderCycleHistory(); renderPlan(); }
+  function renderHealth() { renderCycleStats(); renderCycleHistory(); renderCycleCalendar(); renderCycleTrends(); renderPlan(); }
+  $("cyclePrevMonth")?.addEventListener("click",()=>{const v=$("cycleMonth").value||monthKey(iso(today0()));const d=parseISO(v+"-01");d.setMonth(d.getMonth()-1);$("cycleMonth").value=monthKey(iso(d));renderHealth();});
+  $("cycleNextMonth")?.addEventListener("click",()=>{const v=$("cycleMonth").value||monthKey(iso(today0()));const d=parseISO(v+"-01");d.setMonth(d.getMonth()+1);$("cycleMonth").value=monthKey(iso(d));renderHealth();});
   function resetDayForm() {
     $("dayForm").reset(); $("dayDate").value = iso(today0()); $("dayDate").max = iso(today0()); $("dayPain").value = "0";
   }
@@ -1118,7 +1191,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   $("cycleMonth").value = monthKey(iso(today0()));
   $("cycleStart").max = iso(today0()); $("cycleEnd").max = iso(today0());
   $("cycleStart").value = iso(today0());
-  $("cycleMonth").addEventListener("change", renderCycleHistory);
+  $("cycleMonth").addEventListener("change", renderHealth);
   $("cycleForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const start = $("cycleStart").value, end = $("cycleEnd").value, notes = $("cycleNotes").value.trim();
@@ -1411,13 +1484,14 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   function renderProfile() {
     const box=$("profileSummary"); if(!box) return; box.textContent="";
     const due=store.get("due")||{}; const visits=store.get("visits")||[]; const meds=store.get("meds")||[];
-    const cycles=store.get("cycle-cycles")||[]; const follow=store.get("fertility-followups")||[];
+    const cycles=store.get("cycle-cycles")||[]; const follow=store.get("fertility-followups")||[]; const records=store.get("health-records")||[];
     const values=[
       ["حاسبة الحمل", due.date ? "بيانات محفوظة" : "لم تُسجل بعد"],
       ["زيارات المتابعة", String(visits.length)],
       ["الأدوية المسجلة", String(meds.filter(m=>!m.stop).length)],
       ["الدورات المسجلة", String(cycles.length)],
       ["متابعات خطة الطبيب", String(follow.length)],
+      ["تحاليل وتقارير", String(records.length)],
       ["مكان الحفظ", "هذا الجهاز فقط"]
     ];
     values.forEach(([label,value])=>{const item=el("div","health-stat");item.append(el("span","",label),el("b","",value));box.append(item);});
@@ -1436,10 +1510,35 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
       if(!data||typeof data!=="object"||Array.isArray(data))throw new Error("invalid");
       if(!confirm("هنضيف البيانات الموجودة في النسخة للمفاتيح غير الموجودة حاليًا فقط، من غير استبدال سجلاتك الحالية. تكملي؟")) {event.target.value="";return;}
       let added=0; Object.entries(data).forEach(([key,value])=>{if(key.startsWith("oun-")&&typeof value==="string"&&localStorage.getItem(key)===null){try{JSON.parse(value);localStorage.setItem(key,value);added++;}catch(e){}}});
-      renderDue(); renderMe(); renderHealth(); renderProfile(); toast(added?"تمت إضافة "+added+" عناصر من النسخة الاحتياطية":"لا توجد بيانات جديدة لإضافتها");
+      renderDue(); renderMe(); renderHealth(); renderProfile(); renderHealthRecords(); toast(added?"تمت إضافة "+added+" عناصر من النسخة الاحتياطية":"لا توجد بيانات جديدة لإضافتها");
     } catch(e) { toast("ملف النسخة الاحتياطية غير صالح أو غير مدعوم"); }
     event.target.value="";
   });
+
+  /* ---------- private health records: lab, ultrasound, visit and reports ---------- */
+  let healthRecords = Array.isArray(store.get("health-records")) ? store.get("health-records") : [];
+  const RECORD_LABEL={lab:"تحليل",ultrasound:"سونار / أشعة",visit:"زيارة طبية",report:"تقرير أو ملاحظة"};
+  function renderHealthRecords(){
+    const box=$("healthRecordList");if(!box)return;box.textContent="";
+    const rows=healthRecords.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+    if(!rows.length){box.append(el("p","record-empty","لا توجد سجلات إضافية بعد."));return;}
+    rows.forEach(r=>{const item=el("article","record-item");item.append(el("b","",r.title));item.append(el("span","record-meta",(RECORD_LABEL[r.type]||"سجل")+" • "+dmy(parseISO(r.date))));if(r.result)item.append(el("p","",r.result));const del=el("button","mini danger","حذف السجل");del.type="button";del.addEventListener("click",()=>{if(!confirm("هل تريدين حذف هذا السجل من هذا الجهاز؟"))return;healthRecords=healthRecords.filter(x=>x.id!==r.id);store.set("health-records",healthRecords);renderHealthRecords();renderProfile();});item.append(del);box.append(item);});
+  }
+  $("recordDate") && ($("recordDate").value=iso(today0()));
+  $("recordForm")?.addEventListener("submit",e=>{e.preventDefault();const date=$("recordDate").value,title=$("recordTitle").value.trim();if(!safeDate(date)||!title){toast("راجعي التاريخ والعنوان");return;}healthRecords.push({id:newId(),type:$("recordType").value,date,title,result:$("recordResult").value.trim(),createdAt:new Date().toISOString()});store.set("health-records",healthRecords);$("recordForm").reset();$("recordDate").value=iso(today0());renderHealthRecords();renderProfile();toast("اتحفظ السجل على هذا الجهاز");});
+  $("exportHealthRecords")?.addEventListener("click",()=>{const lines=["ملخص السجلات الصحية — عيادات عون","ملاحظة: هذه البيانات مدخلة من المستخدمة وتحتاج مراجعة الطبيب.",""];healthRecords.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).forEach(r=>lines.push((RECORD_LABEL[r.type]||"سجل")+" | "+r.date+" | "+r.title,r.result||"","") );const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});const url=URL.createObjectURL(blob);const a=el("a");a.href=url;a.download="oun-health-records.txt";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);});
+  renderHealthRecords();
+
+  /* ---------- in-app reminders: predictions and saved follow-up dates ---------- */
+  function renderHomeReminders(){
+    const box=$("homeReminders");if(!box)return;box.textContent="";const rows=[];const today=iso(today0());
+    const cs=typeof cycleStats==="function"?cycleStats():null;
+    if(cs&&cs.next&&iso(cs.next)>=today)rows.push({date:iso(cs.next),title:"موعد الدورة المتوقع",desc:"تقدير تقريبي من سجل الدورة"});
+    const plan=store.get("fertility-plan");if(plan&&safeDate(plan.review)&&plan.review>=today)rows.push({date:plan.review,title:"مراجعة خطة الطبيب",desc:plan.name||"راجعي تعليمات الطبيب"});
+    const upcoming=(store.get("visits")||[]).map(v=>v.next).filter(d=>safeDate(d)&&d>=today).sort()[0];if(upcoming)rows.push({date:upcoming,title:"موعد متابعة مسجل",desc:"موعد أدخلتِه في سجل الزيارات"});
+    rows.sort((a,b)=>a.date.localeCompare(b.date));if(!rows.length){box.append(el("p","empty","لا توجد مواعيد قادمة مسجلة حاليًا. يمكنك تسجيل موعد مراجعة في «متابعتي» أو «صحتي»."));return;}
+    rows.slice(0,4).forEach(r=>{const item=el("article","health-item");item.append(el("b","",r.title));item.append(el("p","",dmy(parseISO(r.date))+" — "+r.desc));box.append(item);});
+  }
 
   /* ---------- doctor profile details ---------- */
   $("aboutFacebook")?.setAttribute("href", CLINIC.facebook);
@@ -1457,7 +1556,8 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   }
   let lastView = "";
   function showView(name) {
-    if (name === "profile") renderProfile();
+    if (name === "profile") { renderProfile(); renderHealthRecords(); }
+    if (name === "home") renderHomeReminders();
     if (name !== lastView) { lastView = name; if (name !== "health") trackView(name); }
     views.forEach((v) => { $("v-" + v).hidden = v !== name; });
     document.querySelectorAll(".tabbar a").forEach((a) => { if (a.dataset.tab === name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
@@ -1467,7 +1567,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   window.addEventListener("hashchange", route);
 
   /* ---------- start ---------- */
-  renderBooking(); renderBranches(); renderDue(); renderMe(); renderHealth(); renderProfile(); renderToc(); renderResume(); loadNews();
+  renderBooking(); renderBranches(); renderDue(); renderMe(); renderHealth(); renderProfile(); renderHealthRecords(); renderHomeReminders(); renderToc(); renderResume(); loadNews();
   trackEvent(standalone ? "فتح التطبيق من الأيقونة" : "فتح التطبيق من المتصفح");
   route();
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
