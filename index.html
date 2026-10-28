@@ -212,6 +212,26 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
 .preg { display: grid; gap: 10px; }
 .preg .big { font-size: 22px; font-weight: 800; color: var(--gold-ink); }
 
+/* women's health & fertility tracking */
+.health-hero { background: linear-gradient(135deg, var(--navy), var(--navy-2)); color: #fff; border-radius: 18px; padding: 16px; display: grid; gap: 8px; }
+.health-hero h2 { margin: 0; font-size: 20px; }
+.health-hero p { margin: 0; color: var(--on-navy-muted); font-size: 14px; }
+.health-statgrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+.health-stat { background: var(--bg); border-radius: 12px; padding: 10px; display: grid; gap: 3px; }
+.health-stat b { font-size: 17px; }
+.health-stat span { font-size: 12px; color: var(--muted); }
+.health-tag { display: inline-flex; align-items: center; width: fit-content; border-radius: 99px; background: var(--gold-soft); color: var(--gold-ink); padding: 3px 9px; font-size: 12px; font-weight: 700; }
+.health-list { display: grid; gap: 8px; }
+.health-item { background: var(--bg); border-radius: 12px; padding: 11px 12px; display: grid; gap: 5px; }
+.health-item b { font-size: 14px; }
+.health-item p { font-size: 13.5px; white-space: pre-line; overflow-wrap: anywhere; }
+.health-item .row { align-items: center; }
+.health-calendar-note { border-inline-start: 3px solid var(--gold); padding: 8px 10px; background: var(--gold-soft); border-radius: 8px; font-size: 13px; }
+.health-alert { border-inline-start: 3px solid var(--danger); padding: 9px 11px; background: var(--danger-soft); border-radius: 8px; font-size: 13px; }
+.tabbar nav { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.tabbar a { font-size: 10.5px; }
+@media (min-width: 420px) { .tabbar a { font-size: 11.5px; } }
+
 /* bottom tab bar */
 .tabbar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 20; background: var(--card); background: color-mix(in srgb, var(--card) 94%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--line); padding: 6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px)); }
 .tabbar nav { max-width: 620px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
@@ -240,6 +260,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9.5 6 6 6-6 6"/></symbol>
     <symbol id="i-share" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"/></symbol>
     <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-8-4.6-8-10.6A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.9c0 6-8 10.6-8 10.6z"/></symbol>
+    <symbol id="i-cycle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.4 15"/></g></symbol>
     <symbol id="i-baby" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9 10.5h.01M15 10.5h.01M9.5 15a3.5 3.5 0 0 0 5 0"/></g></symbol>
   </defs>
 </svg>
@@ -271,6 +292,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     <a class="tile" href="#clinics"><span class="ico"><svg class="i"><use href="#i-cal"/></svg></span><b>احجزي كشف</b><span>واتساب أو اتصال، والفروع والمواعيد</span></a>
     <a class="tile danger" id="emTile" href="#"><span class="ico"><svg class="i"><use href="#i-phone"/></svg></span><b>الطوارئ 24 ساعة</b><span>اتصلي على طول</span></a>
     <a class="tile" href="#book"><span class="ico"><svg class="i"><use href="#i-book"/></svg></span><b>كتاب «مهد الأمان»</b><span>من التخطيط للحمل لحد بعد الولادة</span></a>
+    <a class="tile" href="#health"><span class="ico"><svg class="i"><use href="#i-cycle"/></svg></span><b>صحتي</b><span>الدورة الشهرية والتبويض وخطة الطبيب</span></a>
     <a class="tile danger" href="#danger"><span class="ico"><svg class="i"><use href="#i-alert"/></svg></span><b>إمتى أكلم الدكتور فورًا؟</b><span>علامات الخطر في الحمل وبعد الولادة</span></a>
   </div>
 
@@ -386,6 +408,89 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   </section>
 </main>
 
+<!-- WOMEN'S HEALTH -->
+<main class="view" id="v-health" data-view="health" hidden>
+  <h1 class="page-title">صحتي</h1>
+  <p class="page-sub">متابعة الدورة والتبويض وخطة الطبيب، شهرًا بشهر.</p>
+  <section class="health-hero" aria-label="ملخص صحة المرأة">
+    <span class="health-tag">مفكرة خاصة</span>
+    <h2>جسمك بيقولك إيه؟</h2>
+    <p>سجّلي التغيّرات يومًا بيوم، وراجعي السجل مع طبيبك عند الحاجة. البيانات محفوظة على هذا الجهاز فقط.</p>
+  </section>
+  <section class="card" aria-label="ملخص الدورة ونافذة الخصوبة">
+    <h2>ملخص الدورة و Fertility Zone</h2>
+    <label class="field"><span>طول الدورة المعتاد بالأيام (للتقدير فقط)</span><input class="input" id="usualCycle" type="number" inputmode="numeric" min="20" max="45" value="28"></label>
+    <div class="health-statgrid" id="cycleStats"></div>
+    <div id="fertilityZone" class="health-calendar-note">سجّلي أول يوم من دورتك لعرض التوقعات.</div>
+    <p class="note">نافذة الخصوبة وموعد الدورة توقعات تقريبية وليست تشخيصًا، ولا تصلح وحدها لمنع الحمل أو تأكيد حدوث التبويض.</p>
+  </section>
+  <section class="card" aria-label="تسجيل دورة شهرية">
+    <h2>تسجيل دورة شهرية <small>شهر بشهر</small></h2>
+    <p class="muted">أول يوم للدورة هو أول يوم نزول دم الحيض. يمكنكِ إضافة الدورة عند بدايتها ثم تسجيل نهايتها لاحقًا.</p>
+    <form class="form" id="cycleForm">
+      <label class="field"><span>أول يوم في الدورة *</span><input class="input" id="cycleStart" type="date" required></label>
+      <label class="field"><span>آخر يوم في الدورة (اختياري)</span><input class="input" id="cycleEnd" type="date"></label>
+      <label class="field"><span>ملاحظات عامة (اختياري)</span><textarea class="input" id="cycleNotes" maxlength="400" placeholder="مثلاً: الدورة مختلفة عن المعتاد"></textarea></label>
+      <div class="row"><button class="btn primary" type="submit">حفظ الدورة</button><button class="btn" type="reset" id="cycleReset">تفريغ الحقول</button></div>
+    </form>
+    <p class="note">لا تُعدّلي التواريخ بهدف جعل الدورة تبدو منتظمة؛ التسجيل الدقيق يساعد الطبيب في فهم النمط الحقيقي.</p>
+  </section>
+  <section class="card" aria-label="تسجيل تفاصيل اليوم">
+    <h2>تفاصيل اليوم</h2>
+    <p class="muted">سجّلي كمية النزيف والأعراض وعلامات التبويض إن وجدت.</p>
+    <form class="form" id="dayForm">
+      <label class="field"><span>التاريخ *</span><input class="input" id="dayDate" type="date" required></label>
+      <label class="field"><span>كمية النزيف</span><select class="input" id="dayFlow"><option value="none">لا يوجد</option><option value="light">خفيف</option><option value="medium">متوسط</option><option value="heavy">غزير</option></select></label>
+      <label class="field"><span>عدد الفوط المستخدمة خلال اليوم (اختياري)</span><input class="input" id="dayPads" type="number" inputmode="numeric" min="0" max="40" placeholder="مثلاً 4"></label>
+      <label class="field"><span>شدة الألم من 0 إلى 10</span><input class="input" id="dayPain" type="number" inputmode="numeric" min="0" max="10" value="0"></label>
+      <label class="field"><span>الإفرازات / مخاط عنق الرحم</span><select class="input" id="dayMucus"><option value="unknown">لم ألاحظ / غير متأكدة</option><option value="dry">جفاف</option><option value="sticky">لزج</option><option value="creamy">كريمي</option><option value="watery">مائي</option><option value="eggwhite">شفاف ومطاطي</option></select></label>
+      <label class="field"><span>اختبار التبويض المنزلي (LH)</span><select class="input" id="dayLH"><option value="not-tested">لم أجرِ اختبارًا</option><option value="negative">سلبي</option><option value="positive">إيجابي</option><option value="unclear">غير واضح</option></select></label>
+      <label class="field"><span>درجة الحرارة الأساسية صباحًا (اختياري، °C)</span><input class="input" id="dayTemp" type="number" inputmode="decimal" min="34" max="42" step="0.01" placeholder="مثلاً 36.45"></label>
+      <label class="field"><span>أعراض أو ملاحظات</span><textarea class="input" id="daySymptoms" maxlength="400" placeholder="مثلاً: مغص، صداع، انتفاخ، تغير بالمزاج"></textarea></label>
+      <div class="row"><button class="btn primary" type="submit">حفظ تفاصيل اليوم</button><button class="btn" type="button" id="dayClear">مسح الحقول</button></div>
+    </form>
+    <p class="health-alert">لو النزيف غزير جدًا أو معه دوخة/إغماء أو ألم شديد مفاجئ، اطلبي تقييمًا طبيًا عاجلًا بدل الاعتماد على التطبيق.</p>
+  </section>
+  <section class="card" aria-label="السجل الشهري">
+    <h2>السجل الشهري</h2>
+    <label class="field"><span>اختاري الشهر</span><input class="input" id="cycleMonth" type="month"></label>
+    <div id="monthCycleHistory" class="health-list"></div>
+    <div id="monthDayHistory" class="health-list"></div>
+  </section>
+  <section class="card" aria-label="خطة علاج تأخر الحمل">
+    <h2>خطة الطبيب لتأخر الحمل</h2>
+    <p class="muted">احفظي هنا الخطة التي شرحها أو كتبها الطبيب، ثم تابعي تنفيذها ومواعيد المراجعة. لا يضع التطبيق تشخيصًا أو علاجًا من تلقاء نفسه.</p>
+    <div id="planSummary" class="health-list"></div>
+    <button class="addbtn" type="button" id="planEditBtn">+ تسجيل / تحديث خطة الطبيب</button>
+    <form class="form" id="planForm" hidden>
+      <label class="field"><span>عنوان الخطة أو سبب المتابعة *</span><input class="input" id="planName" maxlength="100" required placeholder="اكتبي العنوان كما شرحه الطبيب"></label>
+      <label class="field"><span>تعليمات الطبيب *</span><textarea class="input" id="planInstructions" maxlength="1500" required placeholder="انقلي التعليمات المكتوبة أو التي أكدها الطبيب"></textarea></label>
+      <label class="field"><span>الأدوية والجرعات كما وردت في الروشتة (اختياري)</span><textarea class="input" id="planMeds" maxlength="700" placeholder="اسم الدواء والجرعة والمواعيد كما وصفها الطبيب"></textarea></label>
+      <div class="row2">
+        <label class="field"><span>بداية الخطة</span><input class="input" id="planStart" type="date"></label>
+        <label class="field"><span>موعد المراجعة</span><input class="input" id="planReview" type="date"></label>
+      </div>
+      <div class="row"><button class="btn primary" type="submit">حفظ الخطة على الجهاز</button><button class="btn" type="button" id="planCancel">إلغاء</button></div>
+    </form>
+    <p class="note">لا تبدئي أو توقفي دواءً ولا تغيّري الجرعة اعتمادًا على التطبيق. اتبعي وصف الطبيب فقط.</p>
+    <a class="btn wa block" id="sharePlanBtn" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>إرسال ملخص الخطة للطبيب عبر واتساب</a>
+  </section>
+  <section class="card" aria-label="متابعة تنفيذ الخطة">
+    <h2>متابعة الخطة</h2>
+    <form class="form" id="followupForm">
+      <label class="field"><span>التاريخ</span><input class="input" id="followDate" type="date" required></label>
+      <label class="field"><span>حالة الالتزام بتعليمات الطبيب</span><select class="input" id="followStatus"><option value="done">نفذت التعليمات كما وصفها الطبيب</option><option value="partial">نفذت جزءًا منها</option><option value="missed">لم أتمكن من تنفيذها</option><option value="review">لدي سؤال أو عرض أحتاج لمراجعته</option></select></label>
+      <label class="field"><span>ملاحظة للمراجعة (اختياري)</span><textarea class="input" id="followNotes" maxlength="500" placeholder="أي ملاحظة تريدين تذكّرها عند مراجعة الطبيب"></textarea></label>
+      <button class="btn primary" type="submit">حفظ المتابعة</button>
+    </form>
+    <div id="followupHistory" class="health-list"></div>
+  </section>
+  <section class="card">
+    <h2>مهم تعرفي</h2>
+    <p class="muted">هذا السجل أداة تنظيم ومتابعة فقط، ولا يغني عن التقييم الطبي. يمكن للطبيب أن يطلب تقييم الزوجين معًا عند تأخر الحمل. إذا كنتِ قلقة من عدم انتظام الدورة أو انقطاعها، احجزي تقييمًا طبيًا دون انتظار مدة محددة.</p>
+  </section>
+</main>
+
 <!-- BOOK -->
 <main class="view" id="v-book" data-view="book" hidden>
   <h1 class="page-title">الكتاب</h1>
@@ -447,6 +552,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
 <div class="tabbar"><nav aria-label="الأقسام">
   <a href="#home" data-tab="home"><svg class="i"><use href="#i-home"/></svg>الرئيسية</a>
   <a href="#me" data-tab="me"><svg class="i"><use href="#i-heart"/></svg>متابعتي</a>
+  <a href="#health" data-tab="health"><svg class="i"><use href="#i-cycle"/></svg>صحتي</a>
   <a href="#book" data-tab="book"><svg class="i"><use href="#i-book"/></svg>الكتاب</a>
   <a href="#clinics" data-tab="clinics"><svg class="i"><use href="#i-cal"/></svg>الحجز</a>
   <a href="#news" data-tab="news"><svg class="i"><use href="#i-news"/></svg>العروض</a>
@@ -495,7 +601,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   function stat(fn) { try { if (window.umami && typeof window.umami.track === "function") fn(window.umami); else if (statQ.length < 50) statQ.push(fn); } catch (e) {} }
   const umamiTag = document.getElementById("umamiScript");
   if (umamiTag) umamiTag.addEventListener("load", () => { while (statQ.length) { try { statQ.shift()(window.umami); } catch (e) {} } });
-  const VIEW_TITLE = { home: "الرئيسية", me: "متابعتي", book: "الكتاب", clinics: "الحجز والفروع", news: "العروض والأخبار" };
+  const VIEW_TITLE = { home: "الرئيسية", me: "متابعتي", health: "صحتي", book: "الكتاب", clinics: "الحجز والفروع", news: "العروض والأخبار" };
   const trackView = (name) => stat((u) => u.track((p) => Object.assign({}, p, { url: "/OUN/" + name, title: VIEW_TITLE[name] || name })));
   const trackEvent = (name, data) => stat((u) => (data ? u.track(name, data) : u.track(name)));
   const trackedOnce = new Set();
@@ -771,6 +877,216 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   $("dWeeks").addEventListener("change", () => { due.w = Number($("dWeeks").value); saveDue(); });
   $("dDays").addEventListener("change", () => { due.d = Number($("dDays").value); saveDue(); });
 
+  /* ---------- women's health: cycle, fertility estimates and doctor-provided plan ---------- */
+  /* New storage keys are additive. Existing pregnancy, visit, medicine and book keys are untouched. */
+  let cycleRecords = Array.isArray(store.get("cycle-cycles")) ? store.get("cycle-cycles") : [];
+  let dayRecords = Array.isArray(store.get("cycle-days")) ? store.get("cycle-days") : [];
+  let fertilityPlan = store.get("fertility-plan") || null;
+  let fertilityFollowups = Array.isArray(store.get("fertility-followups")) ? store.get("fertility-followups") : [];
+  let cycleSettings = Object.assign({ length: 28 }, store.get("cycle-settings") || {});
+  const FLOW_LABEL = { none: "لا يوجد نزيف", light: "نزيف خفيف", medium: "نزيف متوسط", heavy: "نزيف غزير" };
+  const MUCUS_LABEL = { unknown: "لم يُسجل نوع الإفرازات", dry: "جفاف", sticky: "إفرازات لزجة", creamy: "إفرازات كريمية", watery: "إفرازات مائية", eggwhite: "إفرازات شفافة ومطاطية" };
+  const LH_LABEL = { "not-tested": "لم يُجرَ اختبار LH", negative: "اختبار LH سلبي", positive: "اختبار LH إيجابي", unclear: "اختبار LH غير واضح" };
+  const FOLLOW_LABEL = { done: "التعليمات نُفذت كما وُصفت", partial: "نُفذ جزء من التعليمات", missed: "تعذر تنفيذ التعليمات", review: "ملاحظة تحتاج مراجعة الطبيب" };
+  const monthKey = (s) => String(s || "").slice(0, 7);
+  const monthName = (s) => { try { return new Intl.DateTimeFormat("ar-EG", { month: "long", year: "numeric" }).format(parseISO(s + "-01")); } catch (e) { return s; } };
+  const sortByDateDesc = (a, b) => String(b.date || b.start || "").localeCompare(String(a.date || a.start || ""));
+  function safeDate(s) { return /^\d{4}-\d{2}-\d{2}$/.test(String(s || "")) && !isNaN(parseISO(s).getTime()); }
+  function cycleStats() {
+    const starts = cycleRecords.map((c) => c.start).filter(safeDate).sort();
+    const lengths = [];
+    for (let i = 1; i < starts.length; i++) {
+      const n = Math.round((parseISO(starts[i]) - parseISO(starts[i - 1])) / 86400000);
+      if (n >= 20 && n <= 45) lengths.push(n);
+    }
+    const recent = lengths.slice(-6);
+    const avg = recent.length ? Math.round(recent.reduce((a, b) => a + b, 0) / recent.length) : Number(cycleSettings.length) || 28;
+    const latestStart = starts.length ? starts[starts.length - 1] : "";
+    const next = latestStart ? parseISO(latestStart) : null;
+    if (next) next.setDate(next.getDate() + avg);
+    const ov = next ? new Date(next) : null;
+    if (ov) ov.setDate(ov.getDate() - 14);
+    const fs = ov ? new Date(ov) : null;
+    if (fs) fs.setDate(fs.getDate() - 5);
+    const range = lengths.length > 1 ? Math.max(...lengths.slice(-6)) - Math.min(...lengths.slice(-6)) : 0;
+    return { starts, lengths, avg, latestStart, next, ov, fs, range };
+  }
+  function renderCycleStats() {
+    const s = cycleStats(), stats = $("cycleStats"); stats.textContent = "";
+    const stat = (label, value) => { const d = el("div", "health-stat"); d.append(el("span", "", label), el("b", "", value)); stats.append(d); };
+    stat("آخر دورة مسجلة", s.latestStart ? dmy(parseISO(s.latestStart)) : "لم تُسجل بعد");
+    stat("متوسط طول الدورة", s.avg + " يوم");
+    stat("الدورة القادمة المتوقعة", s.next ? dmy(s.next) : "بعد تسجيل الدورة");
+    stat("التبويض المتوقع", s.ov ? dmy(s.ov) : "غير متاح بعد");
+    const zone = $("fertilityZone"); zone.textContent = "";
+    if (!s.latestStart || !s.fs || !s.ov) {
+      zone.textContent = "سجّلي أول يوم من دورة واحدة على الأقل. يزداد تقدير النمط دقةً عند تسجيل عدة دورات، لكنه يظل تقريبيًا.";
+    } else {
+      zone.append(el("b", "", "Fertility Zone — نافذة الخصوبة المتوقعة"));
+      zone.append(el("div", "", dmy(s.fs) + " إلى " + dmy(s.ov) + "، والتبويض المتوقع قرب " + dmy(s.ov) + "."));
+      if (s.lengths.length < 2) zone.append(el("div", "", "هذا التقدير مبني على طول الدورة المعتاد الذي أدخلتِه، وليس على نمط مكتمل من دورات متعددة."));
+      if (s.range > 7) zone.append(el("div", "", "الدورات المسجلة متفاوتة في الطول؛ الحساب بالتقويم أقل موثوقية. ناقشي ذلك مع الطبيب."));
+    }
+  }
+  function renderCycleHistory() {
+    const month = $("cycleMonth").value || monthKey(iso(today0()));
+    const cyclesBox = $("monthCycleHistory"), daysBox = $("monthDayHistory");
+    cyclesBox.textContent = ""; daysBox.textContent = "";
+    cyclesBox.append(el("h3", "", "الدورات — " + monthName(month)));
+    const cycles = cycleRecords.filter((c) => monthKey(c.start) === month).sort((a,b) => b.start.localeCompare(a.start));
+    if (!cycles.length) cyclesBox.append(el("p", "empty", "لا توجد دورة مسجلة في هذا الشهر."));
+    cycles.forEach((c) => {
+      const item = el("article", "health-item");
+      item.append(el("b", "", "بداية الدورة: " + dmy(parseISO(c.start))));
+      if (c.end) {
+        const duration = Math.round((parseISO(c.end) - parseISO(c.start)) / 86400000) + 1;
+        item.append(el("p", "", "نهاية الدورة: " + dmy(parseISO(c.end)) + " — المدة المسجلة: " + duration + " يوم"));
+      } else item.append(el("p", "", "لم تُسجل نهاية الدورة بعد."));
+      if (c.notes) item.append(el("p", "", c.notes));
+      const acts = el("div", "row");
+      const edit = el("button", "mini", "تعديل"); edit.type = "button"; edit.dataset.editCycle = c.id;
+      const del = el("button", "mini danger", "مسح"); del.type = "button"; del.dataset.deleteCycle = c.id;
+      acts.append(edit, del); item.append(acts); cyclesBox.append(item);
+    });
+    daysBox.append(el("h3", "", "تفاصيل الأيام — " + monthName(month)));
+    const logs = dayRecords.filter((d) => monthKey(d.date) === month).sort(sortByDateDesc);
+    if (!logs.length) daysBox.append(el("p", "empty", "لا توجد تفاصيل يومية مسجلة في هذا الشهر."));
+    logs.forEach((d) => {
+      const item = el("article", "health-item");
+      item.append(el("b", "", dmy(parseISO(d.date)) + " — " + (FLOW_LABEL[d.flow] || FLOW_LABEL.none)));
+      const facts = [];
+      if (d.pads !== "" && d.pads != null) facts.push("عدد الفوط: " + d.pads);
+      if (d.pain != null && d.pain !== "") facts.push("الألم: " + d.pain + "/10");
+      if (d.mucus) facts.push(MUCUS_LABEL[d.mucus] || "");
+      if (d.lh) facts.push(LH_LABEL[d.lh] || "");
+      if (d.temp) facts.push("الحرارة: " + d.temp + "°C");
+      if (facts.filter(Boolean).length) item.append(el("p", "", facts.filter(Boolean).join(" • ")));
+      if (d.symptoms) item.append(el("p", "", d.symptoms));
+      const acts = el("div", "row");
+      const edit = el("button", "mini", "تعديل"); edit.type = "button"; edit.dataset.editDay = d.date;
+      const del = el("button", "mini danger", "مسح"); del.type = "button"; del.dataset.deleteDay = d.date;
+      acts.append(edit, del); item.append(acts); daysBox.append(item);
+    });
+  }
+  function renderPlan() {
+    const box = $("planSummary"); box.textContent = "";
+    if (!fertilityPlan) {
+      box.append(el("p", "empty", "لم تسجلي خطة حتى الآن. سجّلي فقط التعليمات التي وصفها الطبيب."));
+      $("sharePlanBtn").hidden = true;
+    } else {
+      const p = fertilityPlan, item = el("article", "health-item");
+      item.append(el("b", "", p.name));
+      if (p.start) item.append(el("p", "", "بداية الخطة: " + dmy(parseISO(p.start))));
+      if (p.review) item.append(el("p", "", "موعد المراجعة: " + dmy(parseISO(p.review))));
+      item.append(el("p", "", "تعليمات الطبيب:\n" + p.instructions));
+      if (p.meds) item.append(el("p", "", "الأدوية كما وردت في الروشتة:\n" + p.meds));
+      if (p.updatedAt) item.append(el("span", "muted", "آخر تحديث: " + dmy(parseISO(p.updatedAt))));
+      box.append(item); $("sharePlanBtn").hidden = false;
+      const text = "ملخص خطة الطبيب — عيادات عون\n" + p.name + "\n" + p.instructions + (p.meds ? "\nالأدوية حسب الروشتة: " + p.meds : "") + (p.start ? "\nبداية الخطة: " + dmy(parseISO(p.start)) : "") + (p.review ? "\nموعد المراجعة: " + dmy(parseISO(p.review)) : "") + "\n\nالملخص منقول من بيانات أدخلتها المريضة، يرجى مراجعته مع الطبيب.";
+      $("sharePlanBtn").href = "https://wa.me/" + CLINIC.whatsapp + "?text=" + encodeURIComponent(text);
+    }
+    const fbox = $("followupHistory"); fbox.textContent = "";
+    const list = fertilityFollowups.slice().sort(sortByDateDesc);
+    if (!list.length) fbox.append(el("p", "empty", "لم تُسجل متابعة للخطة بعد."));
+    list.forEach((f) => {
+      const item = el("article", "health-item"); item.append(el("b", "", dmy(parseISO(f.date)) + " — " + (FOLLOW_LABEL[f.status] || FOLLOW_LABEL.review)));
+      if (f.notes) item.append(el("p", "", f.notes));
+      const del = el("button", "mini danger", "مسح المتابعة"); del.type = "button"; del.dataset.deleteFollowup = f.id; item.append(del); fbox.append(item);
+    });
+  }
+  function renderHealth() { renderCycleStats(); renderCycleHistory(); renderPlan(); }
+  function resetDayForm() {
+    $("dayForm").reset(); $("dayDate").value = iso(today0()); $("dayDate").max = iso(today0()); $("dayPain").value = "0";
+  }
+  function loadDayForm(date) {
+    const d = dayRecords.find((x) => x.date === date);
+    resetDayForm(); $("dayDate").value = date;
+    if (!d) return;
+    $("dayFlow").value = d.flow || "none"; $("dayPads").value = d.pads ?? ""; $("dayPain").value = d.pain ?? 0;
+    $("dayMucus").value = d.mucus || "unknown"; $("dayLH").value = d.lh || "not-tested"; $("dayTemp").value = d.temp || "";
+    $("daySymptoms").value = d.symptoms || "";
+  }
+  $("usualCycle").value = cycleSettings.length;
+  $("usualCycle").addEventListener("change", () => {
+    const n = Number($("usualCycle").value);
+    if (!Number.isInteger(n) || n < 20 || n > 45) { toast("اكتبي طول دورة من 20 إلى 45 يومًا"); $("usualCycle").value = cycleSettings.length; return; }
+    cycleSettings.length = n; store.set("cycle-settings", cycleSettings); renderCycleStats();
+  });
+  $("cycleMonth").value = monthKey(iso(today0()));
+  $("cycleStart").max = iso(today0()); $("cycleEnd").max = iso(today0());
+  $("cycleStart").value = iso(today0());
+  $("cycleMonth").addEventListener("change", renderCycleHistory);
+  $("cycleForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const start = $("cycleStart").value, end = $("cycleEnd").value, notes = $("cycleNotes").value.trim();
+    if (!safeDate(start) || start > iso(today0())) { toast("اختاري تاريخ بداية صحيحًا من اليوم أو قبله"); return; }
+    if (end && (!safeDate(end) || end < start || end > iso(today0()))) { toast("تأكدي أن نهاية الدورة بعد بدايتها وليست في المستقبل"); return; }
+    const old = cycleRecords.find((c) => c.start === start);
+    if (old) { old.end = end || null; old.notes = notes; }
+    else cycleRecords.push({ id: newId(), start, end: end || null, notes });
+    cycleRecords.sort((a,b) => a.start.localeCompare(b.start)); store.set("cycle-cycles", cycleRecords);
+    $("cycleMonth").value = monthKey(start); $("cycleStart").value = iso(today0()); $("cycleNotes").value = ""; $("cycleEnd").value = "";
+    renderHealth(); toast("اتحفظت الدورة على الجهاز");
+  });
+  $("cycleReset").addEventListener("click", () => { setTimeout(() => { $("cycleStart").value = iso(today0()); }, 0); });
+  $("dayDate").addEventListener("change", () => { if (safeDate($("dayDate").value)) loadDayForm($("dayDate").value); });
+  $("dayForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const date = $("dayDate").value, padsText = $("dayPads").value, painText = $("dayPain").value, tempText = $("dayTemp").value;
+    if (!safeDate(date) || date > iso(today0())) { toast("اختاري تاريخًا صحيحًا من اليوم أو قبله"); return; }
+    const pads = padsText === "" ? null : Number(padsText), pain = painText === "" ? null : Number(painText), temp = tempText === "" ? null : Number(tempText);
+    if (pads != null && (!Number.isInteger(pads) || pads < 0 || pads > 40)) { toast("عدد الفوط لازم يكون من 0 إلى 40"); return; }
+    if (pain != null && (!Number.isInteger(pain) || pain < 0 || pain > 10)) { toast("شدة الألم من 0 إلى 10"); return; }
+    if (temp != null && (!Number.isFinite(temp) || temp < 34 || temp > 42)) { toast("راجعي درجة الحرارة المدخلة"); return; }
+    const rec = { date, flow: $("dayFlow").value, pads, pain, mucus: $("dayMucus").value, lh: $("dayLH").value, temp, symptoms: $("daySymptoms").value.trim() };
+    const idx = dayRecords.findIndex((d) => d.date === date); if (idx >= 0) dayRecords[idx] = rec; else dayRecords.push(rec);
+    store.set("cycle-days", dayRecords); $("cycleMonth").value = monthKey(date); renderCycleHistory(); toast("اتحفظت تفاصيل اليوم على الجهاز"); resetDayForm();
+  });
+  $("dayClear").addEventListener("click", resetDayForm);
+  $("monthCycleHistory").addEventListener("click", (e) => {
+    const t = e.target.closest("[data-edit-cycle],[data-delete-cycle]"); if (!t) return;
+    if (t.dataset.editCycle) {
+      const c = cycleRecords.find((x) => x.id === t.dataset.editCycle); if (!c) return;
+      $("cycleStart").value = c.start; $("cycleEnd").value = c.end || ""; $("cycleNotes").value = c.notes || ""; $("cycleStart").focus(); window.scrollTo(0, 0);
+    } else {
+      const id = t.dataset.deleteCycle; if (!confirm("تمسحي سجل الدورة ده؟")) return;
+      cycleRecords = cycleRecords.filter((c) => c.id !== id); store.set("cycle-cycles", cycleRecords); renderHealth(); toast("اتمسح سجل الدورة");
+    }
+  });
+  $("monthDayHistory").addEventListener("click", (e) => {
+    const t = e.target.closest("[data-edit-day],[data-delete-day]"); if (!t) return;
+    if (t.dataset.editDay) { loadDayForm(t.dataset.editDay); $("dayDate").focus(); window.scrollTo(0, 0); }
+    else { const date = t.dataset.deleteDay; if (!confirm("تمسحي تفاصيل اليوم ده؟")) return; dayRecords = dayRecords.filter((d) => d.date !== date); store.set("cycle-days", dayRecords); renderCycleHistory(); toast("اتمسحت تفاصيل اليوم"); }
+  });
+  function fillPlanForm() {
+    $("planName").value = fertilityPlan?.name || ""; $("planInstructions").value = fertilityPlan?.instructions || ""; $("planMeds").value = fertilityPlan?.meds || "";
+    $("planStart").value = fertilityPlan?.start || iso(today0()); $("planReview").value = fertilityPlan?.review || "";
+  }
+  $("planEditBtn").addEventListener("click", () => { fillPlanForm(); $("planForm").hidden = false; $("planEditBtn").hidden = true; $("planName").focus(); });
+  $("planCancel").addEventListener("click", () => { $("planForm").reset(); $("planForm").hidden = true; $("planEditBtn").hidden = false; });
+  $("planForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = $("planName").value.trim(), instructions = $("planInstructions").value.trim(), start = $("planStart").value || null, review = $("planReview").value || null;
+    if (!name || !instructions) { toast("اكتبي عنوان الخطة وتعليمات الطبيب"); return; }
+    if (start && !safeDate(start)) { toast("راجعي تاريخ بداية الخطة"); return; }
+    if (review && (!safeDate(review) || (start && review < start))) { toast("راجعي موعد المراجعة"); return; }
+    fertilityPlan = { name, instructions, meds: $("planMeds").value.trim(), start, review, updatedAt: iso(today0()) };
+    store.set("fertility-plan", fertilityPlan); $("planForm").hidden = true; $("planEditBtn").hidden = false; renderPlan(); toast("اتحفظت الخطة على هذا الجهاز");
+  });
+  $("followDate").value = iso(today0()); $("followDate").max = iso(today0());
+  $("followupForm").addEventListener("submit", (e) => {
+    e.preventDefault(); const date = $("followDate").value;
+    if (!safeDate(date) || date > iso(today0())) { toast("اختاري تاريخ متابعة صحيحًا"); return; }
+    fertilityFollowups.push({ id: newId(), date, status: $("followStatus").value, notes: $("followNotes").value.trim() });
+    store.set("fertility-followups", fertilityFollowups); $("followNotes").value = ""; renderPlan(); toast("اتحفظت متابعة الخطة");
+  });
+  $("followupHistory").addEventListener("click", (e) => {
+    const t = e.target.closest("[data-delete-followup]"); if (!t) return;
+    if (!confirm("تمسحي سجل المتابعة ده؟")) return;
+    fertilityFollowups = fertilityFollowups.filter((f) => f.id !== t.dataset.deleteFollowup); store.set("fertility-followups", fertilityFollowups); renderPlan(); toast("اتمسح سجل المتابعة");
+  });
+  resetDayForm(); renderHealth();
+
   /* ---------- book ---------- */
   const norm = (s) => String(s).replace(/[ً-ْـ]/g, "").replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي").replace(/ؤ/g, "و").replace(/ئ/g, "ي").toLowerCase();
   const topicById = Object.fromEntries(BOOK.topics.map((t, i) => [t.id, Object.assign(t, { idx: i })]));
@@ -911,7 +1227,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
       pb.append(meta, el("h3", "", n.title)); if (n.text) pb.append(el("p", "", n.text));
       if (n.action === "book") { const b = el("a", "btn primary"); b.href = "#book"; b.textContent = "افتحي الكتاب"; pb.append(b); }
       else if (n.action === "booking") { const b = el("a", "btn primary"); b.href = "#clinics"; b.textContent = "احجزي دلوقتي"; pb.append(b); }
-      if (n.link) { const a = el("a", "btn"); a.href = n.link; a.target = "_blank"; a.rel = "noopener"; a.textContent = n.linkText || "اعرفي أكتر"; pb.append(a); }
+      if (n.link) { const a = el("a", "btn"); a.href = n.link; a.target = "_blank"; a.rel = "noopener"; a.textContent = n.linkText || (n.source === "facebook" ? "شاهدي المنشور على فيسبوك" : "اعرفي أكتر"); pb.append(a); }
       card.append(pb); list.append(card);
       if (i < 2) { const h = el("a", "banner"); h.href = "#news"; h.style.background = "var(--bg)"; h.style.border = "0"; const d = el("div"); d.append(el("b", "", n.title)); if (n.text) d.append(el("span", "", n.text.length > 90 ? n.text.slice(0, 90) + "…" : n.text)); h.append(d); home.append(h); }
     });
@@ -942,7 +1258,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   });
 
   /* ---------- routing ---------- */
-  const views = ["home", "me", "book", "clinics", "news"];
+  const views = ["home", "me", "health", "book", "clinics", "news"];
   function route() {
     const h = location.hash.replace(/^#/, "") || "home";
     if (h.startsWith("read/")) { const [, id, pg] = h.split("/"); showView("book"); openTopic(id, Number(pg) || 0); return; }
@@ -952,7 +1268,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   }
   let lastView = "";
   function showView(name) {
-    if (name !== lastView) { lastView = name; trackView(name); }
+    if (name !== lastView) { lastView = name; if (name !== "health") trackView(name); }
     views.forEach((v) => { $("v-" + v).hidden = v !== name; });
     document.querySelectorAll(".tabbar a").forEach((a) => { if (a.dataset.tab === name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     if (name !== "book" && $("q").value === "خطر") { $("q").value = ""; renderToc(); }
