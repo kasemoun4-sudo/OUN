@@ -2,10 +2,11 @@
    SHELL_CACHE: the app page itself — bump its number whenever index.html changes.
    BOOK_CACHE: book pages and pictures — kept across app updates; bump only if the book files change. */
 const PREFIX = "oun-";
-const SHELL_CACHE = PREFIX + "shell-v8";
+const SHELL_CACHE = PREFIX + "shell-v9";
 const BOOK_CACHE = PREFIX + "book-v1";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./news.json"];
 const IS_ASSET = /\.(bin|webp|png|jpg)$/;
+const IS_BOOK = /\/book-\d+\.bin$/;
 
 self.addEventListener("install", (event) => {
   /* "reload" skips the phone's web cache, so a new version is picked up right after it is uploaded. */
@@ -49,16 +50,15 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(fetch(req.url, { cache: "no-cache", credentials: "same-origin" }).then((res) => save(SHELL_CACHE, req, res)).catch(() => caches.match(req, { ignoreSearch: true })));
     return;
   }
-  /* Book pages and pictures: download once, then always from the phone. */
-  if (IS_ASSET.test(url.pathname)) {
+  /* Encoded book pages are immutable and can stay cached between updates. */
+  if (IS_BOOK.test(url.pathname)) {
     event.respondWith(caches.match(req, { ignoreSearch: true }).then((hit) => hit || fetch(req).then((res) => save(BOOK_CACHE, req, res))));
     return;
   }
-  /* App page: open instantly from the phone, refresh the saved copy in the background. */
-  event.respondWith(
-    caches.match(req, { ignoreSearch: true }).then((hit) => {
-      const fresh = fetch(req.url, { cache: "no-cache", credentials: "same-origin" }).then((res) => save(SHELL_CACHE, req, res)).catch(() => hit || caches.match("./index.html"));
-      return hit || fresh;
-    })
-  );
+  /* HTML and images: prefer the current published release; offline falls back to cache. */
+  event.respondWith(fetch(req, { cache: "no-store" }).then((res) => {
+    if (res.ok) save(SHELL_CACHE, req, res);
+    return res;
+  }).catch(async () => (await caches.match(req, { ignoreSearch: true })) ||
+    (req.mode === "navigate" ? caches.match("./index.html") : Response.error())));
 });
