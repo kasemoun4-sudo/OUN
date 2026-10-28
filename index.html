@@ -9,7 +9,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="عيادات عون">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#1C2541">
+<meta name="theme-color" content="#173D4B">
 <link rel="manifest" href="manifest.webmanifest">
 <script defer id="umamiScript" src="https://cloud.umami.is/script.js" data-website-id="59678d0d-1e41-4a02-bf58-f6b0ab7c8079" data-auto-track="false" data-domains="kasemoun4-sudo.github.io"></script>
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -17,20 +17,20 @@
 <style>
 /* Layout: a phone app — content column + fixed bottom tab bar (home, book, booking & branches, news). */
 :root {
-  --bg: #F4F5F9; --card: #FFFFFF; --ink: #1C2541; --muted: #5F6779; --line: #E2E5EE;
-  --navy: #1C2541; --navy-2: #27325A; --on-navy: #FFFFFF; --on-navy-muted: #B9C1D6;
-  --gold: #B48A4A; --gold-ink: #8A6630; --gold-soft: #F5EDDF;
-  --wa: #168A4F; --danger: #B3261E; --danger-soft: #FBE9E7; --focus: #3C66B0;
+  --bg: #F4F8F8; --card: #FFFFFF; --ink: #183747; --muted: #607681; --line: #DFE9E9;
+  --navy: #173D4B; --navy-2: #1E6C70; --on-navy: #FFFFFF; --on-navy-muted: #D0E4E5;
+  --gold: #D58B9B; --gold-ink: #925363; --gold-soft: #FFF0F3;
+  --wa: #168A4F; --danger: #B3261E; --danger-soft: #FBE9E7; --focus: #1C9293;
   --font: -apple-system, "SF Arabic", system-ui, "Segoe UI", "Noto Sans Arabic", Tahoma, sans-serif;
   --r: 16px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0F1424; --card: #182038; --ink: #E8EBF3; --muted: #A1A9BD; --line: #2A3352;
-    --navy: #1A2342; --navy-2: #26305A; --on-navy: #FFFFFF; --on-navy-muted: #AEB7CE;
-    --gold: #D2AE6E; --gold-ink: #E2C48C; --gold-soft: #2C2718;
-    --wa: #2FB36B; --danger: #F08A80; --danger-soft: #3A1E1E; --focus: #8DB0EE;
+    --bg: #101D25; --card: #172A33; --ink: #E7F0F1; --muted: #A6B9BE; --line: #2B4149;
+    --navy: #173D4B; --navy-2: #1E6C70; --on-navy: #FFFFFF; --on-navy-muted: #C4DADC;
+    --gold: #D58B9B; --gold-ink: #F0B8C4; --gold-soft: #35232A;
+    --wa: #2FB36B; --danger: #F08A80; --danger-soft: #3A1E1E; --focus: #72D5D2;
     color-scheme: dark;
   }
 }
@@ -51,27 +51,27 @@ svg.i { width: 22px; height: 22px; flex: none; }
 .page-sub { margin: -10px 0 0; color: var(--muted); font-size: 14px; }
 
 /* home hero */
-.hero { background: var(--navy); color: var(--on-navy); padding: calc(18px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 22px max(16px, env(safe-area-inset-left, 0px)); border-radius: 0 0 28px 28px; display: grid; gap: 16px; }
+.hero { background: linear-gradient(145deg, var(--navy), #1E6C70); color: var(--on-navy); padding: calc(18px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 22px max(16px, env(safe-area-inset-left, 0px)); border-radius: 0 0 28px 28px; display: grid; gap: 16px; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand .logo { width: 64px; height: 64px; border-radius: 18px; background: #fff; display: grid; place-items: center; overflow: hidden; flex: none; }
 .brand .logo img { width: 92%; height: auto; }
 .brand h1 { margin: 0; font-size: 26px; font-weight: 800; line-height: 1.2; }
 .brand p { margin: 2px 0 0; color: var(--on-navy-muted); font-size: 13px; }
-.motto { color: #E3C690; font-weight: 700; font-size: 15px; }
-.doctor { display: flex; align-items: center; gap: 12px; background: var(--navy-2); border-radius: 18px; padding: 10px 12px; }
-.doctor img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #E3C690; flex: none; }
+.motto { color: #F5C9D2; font-weight: 800; font-size: 15px; letter-spacing: .1px; }
+.doctor { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16); border-radius: 18px; padding: 12px; text-decoration: none; }
+.doctor img { width: 68px; height: 68px; border-radius: 18px; object-fit: cover; object-position: center 22%; border: 2px solid #F0B8C4; flex: none; }
 .doctor b { display: block; font-size: 16px; }
 .doctor span { font-size: 13px; color: var(--on-navy-muted); }
 
 /* cards & buttons */
-.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 12px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 16px; display: grid; gap: 12px; box-shadow: 0 4px 16px rgba(24,55,71,.035); }
 .card h2 { margin: 0; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .card h2 small { font-size: 13px; font-weight: 500; color: var(--muted); }
 .card p { margin: 0; }
 .muted { color: var(--muted); font-size: 14px; }
 .grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
-.tile { display: grid; gap: 6px; align-content: start; text-align: start; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; min-height: 104px; }
-.tile .ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--gold-soft); color: var(--gold-ink); }
+.tile { display: grid; gap: 7px; align-content: start; text-align: start; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 15px; min-height: 116px; box-shadow: 0 4px 14px rgba(24,55,71,.035); }
+.tile .ico { width: 40px; height: 40px; border-radius: 14px; display: grid; place-items: center; background: color-mix(in srgb, var(--navy-2) 10%, var(--card)); color: var(--navy-2); }
 .tile b { font-size: 16px; line-height: 1.3; }
 .tile span { font-size: 13px; color: var(--muted); line-height: 1.4; }
 .tile.danger .ico { background: var(--danger-soft); color: var(--danger); }
@@ -232,9 +232,42 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
 .tabbar a { font-size: 10.5px; }
 @media (min-width: 420px) { .tabbar a { font-size: 11.5px; } }
 
+
+/* Phase 2: refreshed identity and additional patient-support pages */
+.hero { gap: 14px; padding-bottom: 24px; }
+.brand .logo { box-shadow: 0 5px 18px rgba(0,0,0,.12); }
+.brand h1 { letter-spacing: -.3px; }
+.doctor b { font-size: 15px; }
+.doctor span { display: block; margin-top: 2px; line-height: 1.5; }
+.home-welcome { display:grid; gap:10px; }
+.home-welcome .eyebrow { color:var(--muted); font-size:12px; font-weight:700; }
+.home-welcome h2 { margin:0; font-size:22px; line-height:1.35; }
+.home-welcome p { margin:0; color:var(--muted); font-size:14px; }
+.home-cta { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:8px; }
+.home-cta .btn { min-width:0; padding-inline:8px; font-size:14px; }
+.profile-hero { display:grid; grid-template-columns: minmax(0,1fr) 124px; align-items:center; gap:14px; background:linear-gradient(135deg,var(--navy),var(--navy-2)); color:#fff; border-radius:22px; padding:18px; overflow:hidden; }
+.profile-hero h2 { margin:0 0 6px; font-size:21px; line-height:1.35; }
+.profile-hero p { margin:0; color:var(--on-navy-muted); font-size:13px; }
+.profile-hero img { width:124px; height:154px; object-fit:cover; object-position:center 20%; border-radius:18px; border:2px solid rgba(255,255,255,.6); }
+.faq-list { display:grid; gap:9px; }
+.faq-item { border:1px solid var(--line); border-radius:14px; background:var(--card); padding:0 13px; }
+.faq-item summary { cursor:pointer; font-weight:750; padding:13px 0; }
+.faq-item p { margin:0 0 14px; color:var(--muted); font-size:14px; white-space:pre-line; }
+.journey-week { display:grid; gap:10px; background:linear-gradient(135deg,var(--gold-soft),var(--bg)); border:1px solid var(--line); border-radius:16px; padding:15px; }
+.journey-week h2 { margin:0; font-size:20px; }
+.journey-week p { margin:0; }
+.week-dots { display:grid; grid-template-columns:repeat(10,minmax(0,1fr)); gap:5px; }
+.week-dot { min-height:34px; border:1px solid var(--line); background:var(--card); border-radius:9px; font-size:12px; font-weight:700; }
+.week-dot[aria-pressed="true"] { background:var(--navy-2); color:#fff; border-color:var(--navy-2); }
+.profile-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+.profile-summary .health-stat { border:1px solid var(--line); }
+.backup-note { background:var(--gold-soft); border-radius:12px; padding:12px; font-size:13px; }
+.about-portrait { width:100%; max-height:420px; aspect-ratio:4/5; object-fit:cover; object-position:center 20%; border-radius:18px; background:var(--bg); }
+@media (min-width:520px) { .view { max-width:700px; } .grid2 { gap:12px; } .tile { min-height:120px; } }
+
 /* bottom tab bar */
 .tabbar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 20; background: var(--card); background: color-mix(in srgb, var(--card) 94%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--line); padding: 6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px)); }
-.tabbar nav { max-width: 620px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.tabbar nav { max-width: 700px; margin: 0 auto; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .tabbar a { display: grid; justify-items: center; gap: 2px; padding: 6px 2px; text-decoration: none; color: var(--muted); font-size: 11.5px; font-weight: 600; border-radius: 12px; }
 .tabbar a[aria-current="page"] { color: var(--gold-ink); }
 .tabbar a[aria-current="page"] svg { color: var(--gold); }
@@ -262,6 +295,9 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-8-4.6-8-10.6A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.9c0 6-8 10.6-8 10.6z"/></symbol>
     <symbol id="i-cycle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.4 15"/></g></symbol>
     <symbol id="i-baby" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9 10.5h.01M15 10.5h.01M9.5 15a3.5 3.5 0 0 0 5 0"/></g></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.5 1.5c-1.2 1.1-2.1 1.5-2.1 3M12 17.5h.01"/></g></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8l4 4V20a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 5 20V5A1.5 1.5 0 0 1 6.5 3.5zM14 3.5V8h4"/><path d="M8 13h8M8 16.5h8"/></g></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></g></symbol>
   </defs>
 </svg>
 
@@ -276,10 +312,17 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
       </div>
     </div>
     <div class="motto">من أول نبضة… لأول خطوة</div>
-    <div class="doctor">
-      <img src="doctor.webp" alt="د. قاسم عبد الرؤوف عون" width="300" height="300">
-      <div><b id="docName"></b><span id="docTitle"></span></div>
-    </div>
+    <a class="doctor" href="#about" aria-label="التعرف على الطبيب د. قاسم عبد الرؤوف عون">
+      <img src="doctor.webp" alt="صورة د. قاسم عبد الرؤوف عون" width="300" height="300">
+      <div style="flex:1"><b id="docName"></b><span id="docTitle"></span></div><svg class="i"><use href="#i-chev"/></svg>
+    </a>
+  </section>
+
+  <section class="home-welcome" aria-label="مرحبًا بك في عيادات عون">
+    <span class="eyebrow">رعايتك في كل مرحلة</span>
+    <h2>مساحتك لصحة المرأة، من الدورة إلى الحمل وما بعد الولادة</h2>
+    <p>متابعة شخصية على جهازك، ومعلومات تثقيفية، وتواصل مباشر مع العيادة عند الحاجة.</p>
+    <div class="home-cta"><a class="btn primary" href="#clinics">احجزي موعدك</a><a class="btn" href="#about">عن الطبيب</a></div>
   </section>
 
   <div class="install" id="installHint" hidden>
@@ -294,6 +337,9 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     <a class="tile" href="#book"><span class="ico"><svg class="i"><use href="#i-book"/></svg></span><b>كتاب «مهد الأمان»</b><span>من التخطيط للحمل لحد بعد الولادة</span></a>
     <a class="tile" href="#health"><span class="ico"><svg class="i"><use href="#i-cycle"/></svg></span><b>صحتي</b><span>الدورة الشهرية والتبويض وخطة الطبيب</span></a>
     <a class="tile danger" href="#danger"><span class="ico"><svg class="i"><use href="#i-alert"/></svg></span><b>إمتى أكلم الدكتور فورًا؟</b><span>علامات الخطر في الحمل وبعد الولادة</span></a>
+    <a class="tile" href="#journey"><span class="ico"><svg class="i"><use href="#i-baby"/></svg></span><b>رحلة الحمل</b><span>معلومات عامة حسب أسبوع الحمل</span></a>
+    <a class="tile" href="#faq"><span class="ico"><svg class="i"><use href="#i-help"/></svg></span><b>اسألي عون</b><span>إجابات للأسئلة الصحية الشائعة</span></a>
+    <a class="tile" href="#profile"><span class="ico"><svg class="i"><use href="#i-file"/></svg></span><b>ملفي الصحي</b><span>ملخص المتابعة ونسخة احتياطية</span></a>
   </div>
 
   <a class="banner" href="#news"><span class="ico"><svg class="i"><use href="#i-gift"/></svg></span><div><b>جمعتين كل شهر مجانًا لوجه الله</b><span>اعرفي التفاصيل في العروض والأخبار</span></div></a>
@@ -537,6 +583,63 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   <a class="btn block" id="fbBtn2" href="#" target="_blank" rel="noopener"><svg class="i"><use href="#i-fb"/></svg>تابعينا على فيسبوك</a>
 </main>
 
+
+<!-- PREGNANCY JOURNEY -->
+<main class="view" id="v-journey" data-view="journey" hidden>
+  <h1 class="page-title">رحلة الحمل</h1>
+  <p class="page-sub">معلومات عامة حسب أسبوع الحمل، مع بقاء المتابعة والفحوص وفق تعليمات طبيبك.</p>
+  <section class="card">
+    <h2>اختاري أسبوع الحمل</h2>
+    <label class="field"><span>الأسبوع</span><select class="input" id="journeyWeek"></select></label>
+    <div class="week-dots" id="weekDots" aria-label="اختيار أسبوع الحمل"></div>
+    <div class="journey-week" id="journeyContent" aria-live="polite"></div>
+    <p class="note">هذا المحتوى للتثقيف العام فقط. لا يحدد سلامة الحمل ولا يستبدل السونار أو مواعيد المتابعة أو الفحوص التي يوصي بها الطبيب.</p>
+    <a class="btn primary block" href="#me">افتحي حاسبة الحمل والمتابعة</a>
+    <a class="btn block" href="#book">اقرئي كتاب «مهد الأمان»</a>
+  </section>
+</main>
+
+<!-- ASK OUN FAQ -->
+<main class="view" id="v-faq" data-view="faq" hidden>
+  <h1 class="page-title">اسألي عون</h1>
+  <p class="page-sub">إجابات تثقيفية أولية لأسئلة شائعة في صحة المرأة.</p>
+  <label class="search"><svg class="i"><use href="#i-search"/></svg><input class="input" id="faqSearch" type="search" placeholder="ابحثي عن موضوع…" autocomplete="off"></label>
+  <section class="card"><h2>الأسئلة الشائعة</h2>
+    <div class="faq-list" id="faqList">
+      <details class="faq-item" data-keywords="الدورة الشهرية عدم انتظام تأخر الدورة"><summary>متى أراجع الطبيب بسبب عدم انتظام الدورة؟</summary><p>إذا تكرر عدم الانتظام، أو انقطعت الدورة، أو كان النزيف غزيرًا أو مصحوبًا بألم شديد، فاحجزي تقييمًا طبيًا. لا يمكن تحديد السبب من التطبيق وحده.</p></details>
+      <details class="faq-item" data-keywords="التبويض اختبار LH الخصوبة"><summary>هل اختبار التبويض يؤكد حدوث التبويض؟</summary><p>اختبار LH يساعد على توقع اقتراب التبويض، لكنه لا يؤكد وحده أن البويضة خرجت. قد يحتاج الطبيب إلى وسائل متابعة أخرى حسب الحالة.</p></details>
+      <details class="faq-item" data-keywords="fertility zone نافذة الخصوبة حمل"><summary>هل نافذة الخصوبة في التطبيق دقيقة؟</summary><p>هي تقدير حسابي يعتمد على بيانات الدورة، وقد يخطئ خصوصًا عند عدم انتظامها. لا تُستخدم وحدها لمنع الحمل أو لتشخيص اضطراب التبويض.</p></details>
+      <details class="faq-item" data-keywords="تأخر الحمل تقييم الزوجين"><summary>متى أطلب تقييمًا لتأخر الحمل؟</summary><p>يعتمد التوقيت على العمر والتاريخ الطبي وانتظام الدورة. غالبًا يُنصح بالتقييم بعد 12 شهرًا من المحاولة لمن هنّ دون 35 عامًا، وبعد 6 أشهر من سن 35، وبوقت أبكر عند وجود عوامل تستدعي ذلك. قد يشمل التقييم الزوجين معًا.</p></details>
+      <details class="faq-item" data-keywords="الأدوية المنشطات الجرعة علاج تأخر الإنجاب"><summary>هل يحدد التطبيق منشطات أو جرعات علاجية؟</summary><p>لا. الطبيب وحده يحدد العلاج والجرعة وتوقيت المتابعة. لا تبدئي أو توقفي دواءً ولا تغيّري جرعته بناءً على محتوى التطبيق.</p></details>
+      <details class="faq-item" data-keywords="الحمل علامات الخطر نزيف ألم"><summary>ما التصرف عند ظهور أعراض مقلقة أثناء الحمل؟</summary><p>اطلبي تقييمًا طبيًا عاجلًا عند حدوث نزيف، أو ألم شديد، أو صداع شديد مع اضطراب الرؤية، أو ضيق تنفس، أو نقص واضح في حركة الجنين بعد بدء الإحساس المنتظم بها. في الطوارئ لا تنتظري الرد على الرسائل.</p></details>
+      <details class="faq-item" data-keywords="حركة الجنين متابعة الحمل الزيارات"><summary>هل يغني التطبيق عن زيارات متابعة الحمل؟</summary><p>لا. التطبيق يساعد على تنظيم المعلومات فقط، ولا يستبدل الفحص أو السونار أو التحاليل أو خطة المتابعة التي يحددها الطبيب.</p></details>
+      <details class="faq-item" data-keywords="الخصوصية البيانات الجهاز النسخ الاحتياطي"><summary>أين تُحفظ بياناتي الصحية؟</summary><p>سجلات المتابعة في هذا الإصدار تُحفظ محليًا على جهازك. لا تُرسل تلقائيًا إلى الطبيب. احتفظي بنسخة احتياطية في مكان آمن، خاصة قبل تغيير الجهاز أو المتصفح.</p></details>
+    </div>
+  </section>
+  <section class="card"><h2>سؤالك يحتاج إجابة خاصة؟</h2><p class="muted">استخدمي قسم «متابعتي» لإرسال سؤال للعيادة عبر واتساب. لا ترسلي معلومات طبية حساسة إلا إذا كنتِ مرتاحة لمشاركتها.</p><a class="btn wa block" href="#me">انتقلي إلى «متابعتي»</a><a class="btn block" href="#clinics">احجزي موعدًا</a></section>
+</main>
+
+<!-- HEALTH PROFILE & BACKUP -->
+<main class="view" id="v-profile" data-view="profile" hidden>
+  <h1 class="page-title">ملفي الصحي</h1>
+  <p class="page-sub">ملخص للمعلومات المسجلة على هذا الجهاز فقط.</p>
+  <section class="profile-hero">
+    <div><span class="health-tag">خصوصيتك أولًا</span><h2>ملفك الصحي في مكان واحد</h2><p>راجعي ملخص سجلاتك واحتفظي بنسخة احتياطية آمنة.</p></div>
+    <img src="doctor-profile.webp" alt="صورة د. قاسم عبد الرؤوف عون" width="280" height="350" loading="lazy">
+  </section>
+  <section class="card"><h2>ملخص المتابعة</h2><div class="profile-summary" id="profileSummary"></div><p class="note">الملخص لا يرسل بياناتك إلى العيادة. البيانات القديمة والجديدة تظل على جهازك ما لم تشاركيها بنفسك.</p><a class="btn primary block" href="#me">فتح حاسبة الحمل والزيارات والأدوية</a><a class="btn block" href="#health">فتح مفكرة الدورة وخطة الطبيب</a></section>
+  <section class="card"><h2>نسخة احتياطية لبياناتك</h2><p class="muted">يمكنك تنزيل ملف JSON يحتفظ بسجلات التطبيق على جهازك. احفظيه في مكان خاص؛ فقد يحتوي على معلومات صحية شخصية.</p><button class="btn primary block" type="button" id="exportBackup">تنزيل نسخة احتياطية</button><label class="field"><span>استعادة نسخة احتياطية</span><input class="input" type="file" id="importBackup" accept="application/json,.json"></label><p class="backup-note">للحفاظ على بياناتك الحالية، ستُضاف من النسخة المستعادة المفاتيح غير الموجودة فقط، ولن تستبدل السجلات الحالية تلقائيًا.</p></section>
+  <section class="card"><h2>معلومات مهمة</h2><p class="muted">لا يُرسل الملف الصحي تلقائيًا لأي جهة. عند تغيير الجهاز، انقلي النسخة الاحتياطية بنفسك واحفظيها بأمان. لا تشاركيها على جهاز عام أو مع شخص غير موثوق.</p></section>
+</main>
+
+<!-- ABOUT THE DOCTOR -->
+<main class="view" id="v-about" data-view="about" hidden>
+  <h1 class="page-title">عن الطبيب</h1>
+  <p class="page-sub">تعرفي على الطبيب وفروع عيادات عون.</p>
+  <section class="card"><img class="about-portrait" src="doctor-profile.webp" alt="صورة د. قاسم عبد الرؤوف عون" width="700" height="875"><div><h2 id="aboutDoctorName">د. قاسم عبد الرؤوف عون</h2><p class="muted" id="aboutDoctorTitle">مدرس مساعد التوليد وأمراض النساء</p></div><p>تقدم عيادات عون خدمات متابعة الحمل وصحة المرأة، مع الاهتمام بالتثقيف الصحي وتنظيم المتابعة والتواصل مع العيادة.</p><div class="services"><div>متابعة الحمل والولادة</div><div>أمراض النساء</div><div>تأخر الإنجاب</div><div>التثقيف الصحي</div></div><a class="btn primary block" href="#clinics">احجزي موعدًا</a><a class="btn block" id="aboutFacebook" href="#" target="_blank" rel="noopener">تابعي صفحة عيادات عون</a></section>
+  <section class="card"><h2>فروع العيادة</h2><p class="muted">يمكنك الاطلاع على العناوين والمواعيد ووسائل التواصل من صفحة الحجز.</p><a class="btn block" href="#clinics">العناوين والمواعيد</a></section>
+</main>
+
 <!-- READER -->
 <div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="rTitle">
   <div class="rbar">
@@ -601,7 +704,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   function stat(fn) { try { if (window.umami && typeof window.umami.track === "function") fn(window.umami); else if (statQ.length < 50) statQ.push(fn); } catch (e) {} }
   const umamiTag = document.getElementById("umamiScript");
   if (umamiTag) umamiTag.addEventListener("load", () => { while (statQ.length) { try { statQ.shift()(window.umami); } catch (e) {} } });
-  const VIEW_TITLE = { home: "الرئيسية", me: "متابعتي", health: "صحتي", book: "الكتاب", clinics: "الحجز والفروع", news: "العروض والأخبار" };
+  const VIEW_TITLE = { home: "الرئيسية", me: "متابعتي", health: "صحتي", book: "الكتاب", clinics: "الحجز والفروع", news: "العروض والأخبار", journey: "رحلة الحمل", faq: "اسألي عون", profile: "ملفي الصحي", about: "عن الطبيب" };
   const trackView = (name) => stat((u) => u.track((p) => Object.assign({}, p, { url: "/OUN/" + name, title: VIEW_TITLE[name] || name })));
   const trackEvent = (name, data) => stat((u) => (data ? u.track(name, data) : u.track(name)));
   const trackedOnce = new Set();
@@ -1257,8 +1360,94 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
     try { navigator.clipboard.writeText(url).then(() => toast("اتنسخ لينك التطبيق"), () => toast(url)); } catch (e) { toast(url); }
   });
 
+
+  /* ---------- pregnancy journey: general educational content only ---------- */
+  const journeyStage = (w) => {
+    if (w <= 4) return { stage: "بداية الحمل", text: "يُحسب عمر الحمل عادة من أول يوم لآخر دورة شهرية، وقد يكون من المبكر جدًا ظهور تفاصيل الحمل بالسونار. يحدد الطبيب توقيت الاختبار أو السونار حسب الحالة." };
+    if (w <= 8) return { stage: "الثلث الأول", text: "تبدأ مراحل التكوين المبكر وتتفاوت الأعراض من سيدة لأخرى. راجعي الطبيب بشأن الأدوية والمكملات المناسبة، ولا تستخدمي دواءً من نفسك." };
+    if (w <= 13) return { stage: "نهاية الثلث الأول", text: "تستمر مراحل النمو المبكر، وقد يناقش الطبيب فحوصات الثلث الأول وفق عمر الحمل والتاريخ الطبي والإرشادات المحلية." };
+    if (w <= 20) return { stage: "الثلث الثاني", text: "قد تتغير الأعراض خلال هذه الفترة. التزمي بمواعيد المتابعة، واسألي الطبيب عن الفحوص والسونار المناسبين لحملك." };
+    if (w <= 27) return { stage: "منتصف الحمل", text: "تستمر متابعة نمو الجنين وصحة الأم. تختلف مواعيد الفحوص حسب الحالة؛ احتفظي بنتائج التحاليل والسونار في ملفك." };
+    if (w <= 32) return { stage: "بداية الثلث الثالث", text: "تزداد أهمية الالتزام بمواعيد المتابعة والانتباه لنمط حركة الجنين بعد أن يصبح معتادًا. اطلبي تقييمًا عاجلًا عند نقص واضح في الحركة أو ظهور أعراض مقلقة." };
+    if (w <= 36) return { stage: "الاستعداد للولادة", text: "ناقشي مع الطبيب خطة الولادة، ومتى تتوجهين للمستشفى، وما العلامات التي تستدعي الاتصال العاجل. لا تعتمدي على التطبيق لتقييم الأعراض." };
+    return { stage: "قرب موعد الولادة", text: "قد تبدأ الولادة في توقيت يختلف من سيدة لأخرى. اتبعي تعليمات طبيبك بشأن الطلق، ونزول المياه، والنزيف، وحركة الجنين، ومتى تتوجهين للمستشفى." };
+  };
+  function renderJourneyWeek() {
+    const sel = $("journeyWeek"); if (!sel) return;
+    const week = Math.max(1, Math.min(40, Number(sel.value) || 1));
+    const info = journeyStage(week); const box = $("journeyContent"); box.textContent = "";
+    box.append(el("span", "health-tag", info.stage));
+    box.append(el("h2", "", "الأسبوع " + week));
+    box.append(el("p", "", info.text));
+    const dots = $("weekDots"); dots.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.week) === week)));
+  }
+  (function initJourney() {
+    const sel = $("journeyWeek"), dots = $("weekDots"); if (!sel || !dots) return;
+    for (let w=1; w<=40; w++) { const opt=el("option", "", "الأسبوع " + w); opt.value=String(w); sel.append(opt); const b=el("button", "week-dot", String(w)); b.type="button"; b.dataset.week=String(w); b.setAttribute("aria-label", "الأسبوع " + w); b.addEventListener("click",()=>{sel.value=String(w);renderJourneyWeek();}); dots.append(b); }
+    const due=store.get("due")||{}; let guess=1;
+    if (due.date) {
+      let base=new Date(due.date+"T12:00:00");
+      if (!isNaN(base)) {
+        if (due.m === "conc") base.setDate(base.getDate()-14);
+        else if (due.m === "ivf") base.setDate(base.getDate()-(14+Number(due.e||5)));
+        else if (due.m === "us") base.setDate(base.getDate()-(Number(due.w||0)*7+Number(due.d||0)));
+        else if (due.m === "edd") base.setDate(base.getDate()-280);
+        else if (due.m === "lmp") base.setDate(base.getDate()+(Number(due.cycle||28)-28));
+        const d=Math.floor((new Date().setHours(12,0,0,0)-base.getTime())/86400000);
+        if (d>=0&&d<=280) guess=Math.min(40,Math.floor(d/7)+1);
+      }
+    }
+    sel.value=String(guess); sel.addEventListener("change",renderJourneyWeek); renderJourneyWeek();
+  })();
+
+  /* ---------- FAQ search ---------- */
+  const faqSearch = $("faqSearch");
+  if (faqSearch) faqSearch.addEventListener("input", () => {
+    const q=faqSearch.value.trim().toLocaleLowerCase("ar");
+    document.querySelectorAll("#faqList .faq-item").forEach((item)=>{ const text=(item.textContent+" "+(item.dataset.keywords||"")).toLocaleLowerCase("ar"); item.hidden=!!q&&!text.includes(q); if(q&&text.includes(q)) item.open=true; });
+  });
+
+  /* ---------- local health summary and safe local backup ---------- */
+  function renderProfile() {
+    const box=$("profileSummary"); if(!box) return; box.textContent="";
+    const due=store.get("due")||{}; const visits=store.get("visits")||[]; const meds=store.get("meds")||[];
+    const cycles=store.get("cycle-cycles")||[]; const follow=store.get("fertility-followups")||[];
+    const values=[
+      ["حاسبة الحمل", due.date ? "بيانات محفوظة" : "لم تُسجل بعد"],
+      ["زيارات المتابعة", String(visits.length)],
+      ["الأدوية المسجلة", String(meds.filter(m=>!m.stop).length)],
+      ["الدورات المسجلة", String(cycles.length)],
+      ["متابعات خطة الطبيب", String(follow.length)],
+      ["مكان الحفظ", "هذا الجهاز فقط"]
+    ];
+    values.forEach(([label,value])=>{const item=el("div","health-stat");item.append(el("span","",label),el("b","",value));box.append(item);});
+  }
+  $("exportBackup")?.addEventListener("click", () => {
+    try {
+      const data={}; for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.startsWith("oun-"))data[key]=localStorage.getItem(key);}
+      const backup={app:"Oun Clinic",formatVersion:1,createdAt:new Date().toISOString(),data};
+      const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"}); const url=URL.createObjectURL(blob); const a=el("a"); a.href=url; a.download="oun-clinic-backup-"+new Date().toISOString().slice(0,10)+".json"; document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1500); toast("تم تجهيز النسخة الاحتياطية على جهازك");
+    } catch(e) { toast("تعذر إنشاء النسخة الاحتياطية على هذا الجهاز"); }
+  });
+  $("importBackup")?.addEventListener("change", async (event) => {
+    const file=event.target.files&&event.target.files[0]; if(!file)return;
+    try {
+      const parsed=JSON.parse(await file.text()); const data=parsed&&parsed.data;
+      if(!data||typeof data!=="object"||Array.isArray(data))throw new Error("invalid");
+      if(!confirm("هنضيف البيانات الموجودة في النسخة للمفاتيح غير الموجودة حاليًا فقط، من غير استبدال سجلاتك الحالية. تكملي؟")) {event.target.value="";return;}
+      let added=0; Object.entries(data).forEach(([key,value])=>{if(key.startsWith("oun-")&&typeof value==="string"&&localStorage.getItem(key)===null){try{JSON.parse(value);localStorage.setItem(key,value);added++;}catch(e){}}});
+      renderDue(); renderMe(); renderHealth(); renderProfile(); toast(added?"تمت إضافة "+added+" عناصر من النسخة الاحتياطية":"لا توجد بيانات جديدة لإضافتها");
+    } catch(e) { toast("ملف النسخة الاحتياطية غير صالح أو غير مدعوم"); }
+    event.target.value="";
+  });
+
+  /* ---------- doctor profile details ---------- */
+  $("aboutFacebook")?.setAttribute("href", CLINIC.facebook);
+  $("aboutDoctorName") && ($("aboutDoctorName").textContent=CLINIC.doctor);
+  $("aboutDoctorTitle") && ($("aboutDoctorTitle").textContent=CLINIC.title);
+
   /* ---------- routing ---------- */
-  const views = ["home", "me", "health", "book", "clinics", "news"];
+  const views = ["home", "me", "health", "book", "clinics", "news", "journey", "faq", "profile", "about"];
   function route() {
     const h = location.hash.replace(/^#/, "") || "home";
     if (h.startsWith("read/")) { const [, id, pg] = h.split("/"); showView("book"); openTopic(id, Number(pg) || 0); return; }
@@ -1268,6 +1457,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   }
   let lastView = "";
   function showView(name) {
+    if (name === "profile") renderProfile();
     if (name !== lastView) { lastView = name; if (name !== "health") trackView(name); }
     views.forEach((v) => { $("v-" + v).hidden = v !== name; });
     document.querySelectorAll(".tabbar a").forEach((a) => { if (a.dataset.tab === name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
@@ -1277,7 +1467,7 @@ details.past summary { cursor: pointer; color: var(--muted); font-size: 14px; pa
   window.addEventListener("hashchange", route);
 
   /* ---------- start ---------- */
-  renderBooking(); renderBranches(); renderDue(); renderMe(); renderToc(); renderResume(); loadNews();
+  renderBooking(); renderBranches(); renderDue(); renderMe(); renderHealth(); renderProfile(); renderToc(); renderResume(); loadNews();
   trackEvent(standalone ? "فتح التطبيق من الأيقونة" : "فتح التطبيق من المتصفح");
   route();
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
