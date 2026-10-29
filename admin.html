@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src 'none'; object-src 'none'; form-action 'none'; base-uri 'none'">
+<title>لوحة عون</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="لوحة عون">
+<meta name="theme-color" content="#123C52">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>
+:root {
+  --bg: #F4F7F6; --card: #fff; --ink: #123C52; --muted: #637A82; --line: #DFE9E8;
+  --teal: #168B87; --navy: #123C52; --pink: #95536B; --pink-soft: #FFF0F3; --danger: #B3261E; --danger-soft: #FBE9E7; --ok: #1F7A4D; --ok-soft: #E4F4EA;
+  --font: -apple-system, "SF Arabic", system-ui, "Segoe UI", "Noto Sans Arabic", Tahoma, sans-serif; color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root { --bg: #0F1C23; --card: #172A33; --ink: #E7F0F1; --muted: #A2B6BB; --line: #2A4049; --teal: #3FB8B2; --navy: #173D4B; --pink: #F0B8C4; --pink-soft: #35232A; --danger: #F08A80; --danger-soft: #3A1E1E; --ok: #6DD49B; --ok-soft: #173326; color-scheme: dark; } }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.6; }
+[hidden] { display: none !important; }
+button, input, select, textarea { font: inherit; color: inherit; }
+.top { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 10px; background: var(--navy); color: #fff; padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 12px; }
+.top img { width: 38px; height: 38px; border-radius: 11px; background: #fff; }
+.top div { flex: 1; min-width: 0; }
+.top b { display: block; font-size: 16px; line-height: 1.3; }
+.top span { font-size: 12.5px; color: #CFE6E4; }
+.top button { background: rgba(255,255,255,.14); border: 0; color: #fff; border-radius: 10px; padding: 7px 12px; font-weight: 700; font-size: 14px; }
+main { max-width: 640px; margin: 0 auto; padding: 16px 16px calc(110px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 16px; display: grid; gap: 12px; }
+.card h2 { margin: 0; font-size: 19px; }
+.card p { margin: 0; }
+.muted { color: var(--muted); font-size: 14px; }
+.note { font-size: 12.5px; color: var(--muted); }
+.field { display: grid; gap: 6px; }
+.field > span { font-size: 13.5px; font-weight: 700; color: var(--muted); }
+.input { width: 100%; min-height: 48px; border: 1px solid var(--line); background: var(--bg); border-radius: 12px; padding: 10px 12px; font-size: 16px; }
+textarea.input { min-height: 120px; resize: vertical; line-height: 1.55; }
+.input[type="date"] { -webkit-appearance: none; appearance: none; min-width: 0; }
+select.input { -webkit-appearance: none; appearance: none; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+.row > .btn { flex: 1 1 130px; }
+.row2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; }
+.row2 > * { min-width: 0; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 10px 16px; border-radius: 13px; border: 1px solid var(--line); background: var(--card); font-weight: 700; font-size: 15px; text-decoration: none; cursor: pointer; }
+.btn.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+.btn.danger { background: var(--danger-soft); border-color: transparent; color: var(--danger); }
+.btn.big { min-height: 56px; font-size: 17px; border-radius: 16px; }
+.btn.block { width: 100%; }
+.btn:disabled { opacity: .55; }
+.steps { margin: 0; padding-inline-start: 22px; display: grid; gap: 6px; font-size: 14.5px; }
+.steps b { color: var(--pink); }
+details.help { background: var(--pink-soft); border-radius: 14px; padding: 10px 13px; }
+details.help summary { cursor: pointer; font-weight: 800; }
+details.help[open] summary { margin-bottom: 8px; }
+.types { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 7px; }
+.types button { border: 1.5px solid var(--line); background: var(--card); border-radius: 13px; min-height: 52px; font-weight: 700; font-size: 14px; display: grid; place-items: center; line-height: 1.25; padding: 4px; }
+.types button[aria-pressed="true"] { border-color: var(--teal); background: color-mix(in srgb, var(--teal) 12%, var(--card)); color: var(--teal); }
+.hint { background: var(--bg); border-radius: 12px; padding: 9px 12px; font-size: 13.5px; color: var(--muted); }
+.media { display: grid; gap: 8px; }
+.media .pv { position: relative; border-radius: 14px; overflow: hidden; background: var(--bg); }
+.media .pv img, .media .pv video { display: block; width: 100%; max-height: 300px; object-fit: contain; background: #000; }
+.media .pv span { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; font-size: 12px; padding: 2px 9px; border-radius: 99px; }
+.pick { position: relative; overflow: hidden; }
+.pick input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.check { display: flex; gap: 10px; align-items: center; font-weight: 600; font-size: 15px; }
+.check input { width: 22px; height: 22px; accent-color: var(--teal); flex: none; }
+.list { display: grid; gap: 8px; }
+.item { display: grid; grid-template-columns: 62px minmax(0,1fr); gap: 11px; align-items: center; text-align: start; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 8px; width: 100%; cursor: pointer; }
+.item .th { width: 62px; height: 62px; border-radius: 12px; background: var(--bg); display: grid; place-items: center; overflow: hidden; font-size: 26px; }
+.item .th img { width: 100%; height: 100%; object-fit: cover; }
+.item b { display: block; font-size: 15px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item .meta { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 12.5px; color: var(--muted); align-items: center; }
+.item.off { opacity: .6; }
+.badge { display: inline-flex; border-radius: 99px; padding: 0 8px; font-size: 12px; font-weight: 800; background: var(--bg); color: var(--muted); }
+.badge.pin { background: var(--pink-soft); color: var(--pink); }
+.badge.hide { background: var(--danger-soft); color: var(--danger); }
+.chipbar { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.chipbar::-webkit-scrollbar { display: none; }
+.chipbar button { flex: none; border: 1.5px solid var(--line); background: var(--card); border-radius: 99px; padding: 5px 13px; font-weight: 700; font-size: 13.5px; color: var(--muted); }
+.chipbar button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.status { display: flex; gap: 10px; align-items: center; background: var(--ok-soft); color: var(--ok); border-radius: 14px; padding: 10px 13px; font-weight: 700; font-size: 14px; }
+.status.wait { background: var(--pink-soft); color: var(--pink); }
+.preview { border: 1px dashed var(--line); border-radius: 18px; overflow: hidden; background: var(--bg); }
+.preview .pb { padding: 12px 14px 14px; display: grid; gap: 7px; }
+.preview img { display: block; width: 100%; }
+.preview .vthumb { position: relative; aspect-ratio: 16/9; background: #0B1A22; display: grid; place-items: center; color: #fff; font-weight: 700; }
+.preview .vthumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+.preview .vthumb span { position: relative; background: rgba(0,0,0,.6); padding: 4px 12px; border-radius: 99px; }
+.preview h3 { margin: 0; font-size: 17px; }
+.preview p { margin: 0; white-space: pre-line; }
+.preview .q { background: #F1E8F7; color: #6B3E8C; border-radius: 14px 14px 4px 14px; padding: 9px 12px; font-weight: 700; }
+.preview .btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.preview .btns span { border-radius: 10px; padding: 6px 12px; font-size: 13.5px; font-weight: 700; background: var(--teal); color: #fff; }
+.preview .btns span.alt { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+.bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 10; background: var(--card); border-top: 1px solid var(--line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); }
+.bar .row { max-width: 640px; margin: 0 auto; flex-wrap: nowrap; }
+.pin-input { text-align: center; font-size: 26px; letter-spacing: .4em; font-weight: 800; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(90px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 14px; z-index: 40; max-width: calc(100% - 32px); text-align: center; }
+.busy { position: fixed; inset: 0; z-index: 50; background: rgba(8,22,30,.55); display: grid; place-items: center; padding: 24px; }
+.busy div { background: var(--card); border-radius: 18px; padding: 20px 22px; display: grid; justify-items: center; gap: 12px; text-align: center; max-width: 320px; }
+.spin { width: 34px; height: 34px; border-radius: 50%; border: 4px solid var(--line); border-top-color: var(--teal); animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.err { background: var(--danger-soft); color: var(--danger); border-radius: 12px; padding: 10px 12px; font-size: 14px; font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="top"><img src="icon-192.png" alt=""><div><b>لوحة تحكم عيادات عون</b><span id="topSub">انشر في التطبيق من موبايلك</span></div><button type="button" id="lockBtn" hidden>قفل 🔒</button></header>
+
+<main>
+  <!-- first time: GitHub key + PIN -->
+  <section id="scLogin" hidden>
+    <div class="card">
+      <h2>أول مرة بس 👋</h2>
+      <p class="muted">اللوحة بتنشر في التطبيق مباشرة عن طريق «مفتاح» من حسابك على GitHub. هتعمله مرة واحدة، وبعد كده تدخل برقم سري قصير.</p>
+      <details class="help" open>
+        <summary>إزاي أعمل المفتاح؟ (دقيقتين)</summary>
+        <ol class="steps">
+          <li>افتح <b><bdi>github.com</bdi></b> وادخل على حسابك.</li>
+          <li>دوس على صورتك فوق ← <b><bdi>Settings</bdi></b> ← تحت خالص <b><bdi>Developer settings</bdi></b>.</li>
+          <li><b><bdi>Personal access tokens</bdi></b> ← <b><bdi>Fine-grained tokens</bdi></b> ← <b><bdi>Generate new token</bdi></b>.</li>
+          <li>الاسم: <b>لوحة عون</b> — المدة (<bdi>Expiration</bdi>): اختار مدة طويلة، مثلاً سنة.</li>
+          <li><bdi>Repository access:</bdi> <b><bdi>Only select repositories</bdi></b> ← اختار <b><bdi>OUN</bdi></b>.</li>
+          <li><bdi>Permissions</bdi> ← <b><bdi>Contents</bdi></b> ← اختار <b><bdi>Read and write</bdi></b>.</li>
+          <li>دوس <b><bdi>Generate token</bdi></b> وانسخ المفتاح (بيبدأ بـ <bdi>github_pat_</bdi>) والصقه هنا.</li>
+        </ol>
+      </details>
+      <label class="field"><span>المفتاح (Token)</span><input class="input" id="tokenIn" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…" dir="ltr"></label>
+      <div class="row2">
+        <label class="field"><span>رقم سري (4–8 أرقام)</span><input class="input pin-input" id="pin1" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="new-password"></label>
+        <label class="field"><span>اكتبه تاني</span><input class="input pin-input" id="pin2" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="new-password"></label>
+      </div>
+      <details>
+        <summary class="note">إعدادات متقدمة</summary>
+        <div class="row2" style="margin-top:8px">
+          <label class="field"><span>صاحب الحساب</span><input class="input" id="ownerIn" dir="ltr" autocapitalize="off" spellcheck="false"></label>
+          <label class="field"><span>اسم المستودع</span><input class="input" id="repoIn" dir="ltr" autocapitalize="off" spellcheck="false"></label>
+        </div>
+      </details>
+      <div class="err" id="loginErr" hidden></div>
+      <button class="btn primary big block" type="button" id="loginBtn">دخول</button>
+      <p class="note">🔐 المفتاح بيتحفظ على الموبايل ده بس، ومتشفر بالرقم السري. متبعتش المفتاح لأي حد، ولو الموبايل ضاع امسح المفتاح من GitHub (Settings ← Developer settings).</p>
+    </div>
+  </section>
+
+  <!-- unlock with PIN -->
+  <section id="scUnlock" hidden>
+    <div class="card" style="text-align:center">
+      <h2>أهلاً د. قاسم 👋</h2>
+      <p class="muted">اكتب الرقم السري للوحة</p>
+      <input class="input pin-input" id="pinIn" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="current-password" aria-label="الرقم السري">
+      <div class="err" id="unlockErr" hidden></div>
+      <button class="btn primary big block" type="button" id="unlockBtn">فتح</button>
+      <button class="btn block" type="button" id="forgetBtn">نسيت الرقم السري — أدخل بالمفتاح من جديد</button>
+    </div>
+  </section>
+
+  <!-- list of posts -->
+  <section id="scList" hidden>
+    <div style="display:grid;gap:14px">
+      <button class="btn primary big block" type="button" id="newBtn">＋ منشور جديد</button>
+      <div class="status" id="pubStatus" hidden></div>
+      <div class="chipbar" id="listFilter"></div>
+      <div class="list" id="list"></div>
+      <div class="row"><a class="btn" href="./" target="_blank" rel="noopener">افتح التطبيق</a><button class="btn" type="button" id="reloadBtn">تحديث القائمة</button></div>
+      <p class="note">كل منشور بيظهر للمريضات في «جديدنا» خلال دقيقة أو اتنين من النشر. الأسئلة والردود بتظهر كمان في «اسألي عون».</p>
+    </div>
+  </section>
+
+  <!-- editor -->
+  <section id="scEdit" hidden>
+    <div style="display:grid;gap:14px">
+      <div class="card">
+        <h2 id="edTitle">منشور جديد</h2>
+        <div class="types" id="types"></div>
+        <div class="hint" id="typeHint"></div>
+        <label class="field"><span id="lblTitle">العنوان *</span><input class="input" id="fTitle" maxlength="140"></label>
+        <label class="field"><span id="lblText">النص</span><textarea class="input" id="fText" maxlength="4000"></textarea></label>
+      </div>
+      <div class="card" id="mediaCard">
+        <h2>صورة وفيديو <small class="note">(اختياري)</small></h2>
+        <div class="media">
+          <div class="pv" id="imgPv" hidden></div>
+          <div class="row">
+            <label class="btn pick"><input type="file" id="imgFile" accept="image/*">📷 <span id="imgPickLbl">اختار صورة</span></label>
+            <button class="btn danger" type="button" id="imgRemove" hidden>شيل الصورة</button>
+          </div>
+          <p class="note" id="imgNote">الصورة بتتصغر لوحدها عشان تفتح بسرعة عند المريضات.</p>
+        </div>
+        <label class="field"><span>رابط فيديو (يوتيوب / فيسبوك / تيك توك / إنستجرام)</span><input class="input" id="fVideo" type="url" dir="ltr" placeholder="https://youtu.be/…" autocapitalize="off" spellcheck="false"></label>
+        <div class="media">
+          <div class="pv" id="vidPv" hidden></div>
+          <div class="row">
+            <label class="btn pick"><input type="file" id="vidFile" accept="video/mp4,video/quicktime,video/webm,video/*">🎬 <span>أو ارفع فيديو قصير</span></label>
+            <button class="btn danger" type="button" id="vidRemove" hidden>شيل الفيديو</button>
+          </div>
+          <p class="note">الفيديو المرفوع لحد 25 ميجا (حوالي نص دقيقة). الفيديوهات الأطول ارفعها على يوتيوب أو فيسبوك وحط الرابط — بتشتغل على كل الموبايلات وأخف على التطبيق.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>زرار تحت المنشور</h2>
+        <select class="input" id="fAction">
+          <option value="">من غير زرار</option>
+          <option value="booking">احجزي (يفتح صفحة الحجز)</option>
+          <option value="book">افتحي الكتاب</option>
+          <option value="link">رابط (فيسبوك أو أي صفحة)</option>
+        </select>
+        <div class="row2" id="linkRow" hidden>
+          <label class="field"><span>الرابط</span><input class="input" id="fLink" type="url" dir="ltr" placeholder="https://" autocapitalize="off" spellcheck="false"></label>
+          <label class="field"><span>كلام الزرار</span><input class="input" id="fLinkText" maxlength="40" placeholder="اعرفي أكتر"></label>
+        </div>
+      </div>
+      <div class="card">
+        <h2>الظهور</h2>
+        <div class="row2">
+          <label class="field"><span>تاريخ المنشور</span><input class="input" id="fDate" type="date"></label>
+          <label class="field"><span>يختفي بعد يوم (اختياري)</span><input class="input" id="fUntil" type="date"></label>
+        </div>
+        <label class="check"><input type="checkbox" id="fPinned">📌 ثبّته فوق</label>
+        <label class="check"><input type="checkbox" id="fHidden">🙈 مسودة — متظهرش في التطبيق دلوقتي</label>
+      </div>
+      <div class="card">
+        <h2>هيبان كده في التطبيق</h2>
+        <div class="preview" id="preview"></div>
+      </div>
+      <button class="btn danger block" type="button" id="delBtn" hidden>🗑️ امسح المنشور ده</button>
+    </div>
+  </section>
+</main>
+
+<div class="bar" id="edBar" hidden><div class="row"><button class="btn primary big" type="button" id="pubBtn" style="flex:2">انشر ✓</button><button class="btn big" type="button" id="cancelBtn" style="flex:1">رجوع</button></div></div>
+<div class="toast" id="toast" hidden role="status"></div>
+<div class="busy" id="busy" hidden><div><span class="spin"></span><b id="busyText"></b><span class="note">متقفلش الصفحة لحد ما يخلص</span></div></div>
+
+<script>/*! © 2026 د. قاسم عبد الرؤوف عون — عيادات عون. جميع الحقوق محفوظة. All rights reserved. Copying, modifying or republishing this app or the book «مهد الأمان» is prohibited. */
+(function(){"use strict";const H={owner:"kasemoun4-sudo",repo:"OUN"},y="admin-vault-v1",X="admin-cfg-v1",ce=25*1024*1024,Y=8,de=600*1e3,w={offer:{e:"🎁",label:"عرض",hint:"عرض أو خصم. تقدر تحدد آخر يوم للعرض تحت، وهيختفي لوحده بعده."},news:{e:"📢",label:"خبر",hint:"خبر أو إعلان عن العيادة: مواعيد جديدة، إجازة، خدمة جديدة…"},awareness:{e:"💡",label:"توعية",hint:"بوست توعوي للمريضات. الصورة أو الفيديو بيخلّوه يلفت النظر أكتر."},tip:{e:"✅",label:"نصيحة",hint:"نصيحة قصيرة وعملية."},video:{e:"🎬",label:"فيديو",hint:"حط رابط فيديو من يوتيوب أو فيسبوك أو تيك توك، أو ارفع فيديو قصير من الموبايل."},qa:{e:"❓",label:"سؤال ورد",hint:"اكتب السؤال زي ما المريضات بيسألوه، وتحته ردّك. بيظهر كمان في «اسألي عون». ⚠️ متكتبش اسم المريضة أو أي حاجة تعرّفها."}},n=e=>document.getElementById(e),c=(e,t,i)=>{const r=document.createElement(e);return t&&(r.className=t),i!=null&&(r.textContent=i),r},S=e=>String(e).padStart(2,"0"),le=e=>e.getFullYear()+"-"+S(e.getMonth()+1)+"-"+S(e.getDate()),M=()=>le(new Date),k=e=>/^\d{4}-\d{2}-\d{2}$/.test(String(e||"")),P=e=>k(e)?Number(e.slice(8))+"/"+Number(e.slice(5,7))+"/"+e.slice(0,4):"",b={get(e){try{return JSON.parse(localStorage.getItem(e))}catch{return null}},set(e,t){try{localStorage.setItem(e,JSON.stringify(t))}catch{}},del(e){try{localStorage.removeItem(e)}catch{}}};let Z;function g(e,t){const i=n("toast");i.textContent=e,i.hidden=!1,clearTimeout(Z),Z=setTimeout(()=>{i.hidden=!0},t||2800)}function f(e){n("busy").hidden=!e,e&&(n("busyText").textContent=e)}function O(e){["scLogin","scUnlock","scList","scEdit"].forEach(t=>{n(t).hidden=t!==e}),n("edBar").hidden=e!=="scEdit",n("lockBtn").hidden=!(e==="scList"||e==="scEdit"),window.scrollTo(0,0)}const q=new TextEncoder,J=e=>{let t="";for(let i=0;i<e.length;i++)t+=String.fromCharCode(e[i]);return btoa(t)},N=e=>Uint8Array.from(atob(e),t=>t.charCodeAt(0));async function Q(e,t){const i=await crypto.subtle.importKey("raw",q.encode(e),"PBKDF2",!1,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt:t,iterations:25e4,hash:"SHA-256"},i,{name:"AES-GCM",length:256},!1,["encrypt","decrypt"])}async function ue(e,t){const i=crypto.getRandomValues(new Uint8Array(16)),r=crypto.getRandomValues(new Uint8Array(12)),o=new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv:r},await Q(t,i),q.encode(e)));return{v:1,salt:J(i),iv:J(r),ct:J(o),tries:0}}async function fe(e,t){return new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:N(e.iv)},await Q(t,N(e.salt)),N(e.ct)))}let T=null,x=Object.assign({},H,b.get(X)||{}),C=x.branch||"main",R=[],be=null;const V=e=>"/contents/"+e.split("/").map(encodeURIComponent).join("/");async function I(e,t){t=t||{};let i;try{i=await fetch("https://api.github.com/repos/"+encodeURIComponent(x.owner)+"/"+encodeURIComponent(x.repo)+e,{method:t.method||"GET",cache:"no-store",body:t.body,headers:Object.assign({Accept:"application/vnd.github+json",Authorization:"Bearer "+(t.token||T),"X-GitHub-Api-Version":"2022-11-28"},t.body?{"Content-Type":"application/json"}:{})})}catch{const o=new Error("net");throw o.status=0,o}if(!i.ok){const r=new Error("http "+i.status);r.status=i.status;try{r.info=await i.json()}catch{}throw r}return i.status===204?null:i.json()}function D(e){const t=e&&e.status;return t===0?"مفيش اتصال بالنت. اتأكد من النت وجرّب تاني.":t===401?"المفتاح غلط أو انتهت مدته. اعمل مفتاح جديد من GitHub وادخل بيه.":t===403?"المفتاح مش مسموحله يكتب في المستودع. اتأكد إنك اخترت OUN وصلاحية Contents: Read and write.":t===404?"مش لاقي المستودع. اتأكد إن المفتاح متاح للمستودع OUN.":t===409||t===422?"حصل تعارض مع تعديل تاني في نفس الوقت. جرّب تاني.":t===413?"الملف كبير جدًا. صغّر الفيديو أو ارفعه على يوتيوب وحط الرابط.":"حصلت مشكلة ("+(t||"؟")+"). جرّب تاني بعد شوية."}const pe=e=>{const t=q.encode(e);let i="";for(let r=0;r<t.length;r+=32768)i+=String.fromCharCode.apply(null,t.subarray(r,r+32768));return btoa(i)},me=e=>new TextDecoder().decode(N(String(e).replace(/\s/g,""))),he=e=>new Promise((t,i)=>{const r=new FileReader;r.onload=()=>t(String(r.result).split(",")[1]),r.onerror=i,r.readAsDataURL(e)});async function _(){try{const e=await I(V("news.json")+"?ref="+encodeURIComponent(C)),t=JSON.parse(me(e.content));if(!Array.isArray(t))throw Object.assign(new Error("bad"),{status:-1});return{list:t,sha:e.sha}}catch(e){if(e.status===404)return{list:[],sha:null};throw e}}async function ee(e,t){for(let i=0;;i++){const r=await _(),o=e(r.list.slice());try{const s={message:t,content:pe(JSON.stringify(o,null,2)+`
+`),branch:C};r.sha&&(s.sha=r.sha),await I(V("news.json"),{method:"PUT",body:JSON.stringify(s)}),R=o;return}catch(s){if((s.status===409||s.status===422)&&i<2)continue;throw s}}}async function te(e,t,i){await I(V(e),{method:"PUT",body:JSON.stringify({message:i,content:await he(t),branch:C})})}async function ne(e,t){const i=await I(V(e)+"?ref="+encodeURIComponent(C));await I(V(e),{method:"DELETE",body:JSON.stringify({message:t,sha:i.sha,branch:C})})}function U(){if(!window.crypto||!crypto.subtle){n("scLogin").hidden=!1,n("loginErr").hidden=!1,n("loginErr").textContent="افتح اللوحة من الرابط الأصلي (https) عشان تشتغل.";return}b.get(y)?(O("scUnlock"),setTimeout(()=>n("pinIn").focus(),50)):(n("ownerIn").value=x.owner,n("repoIn").value=x.repo,O("scLogin"))}n("loginBtn").addEventListener("click",async()=>{const e=n("tokenIn").value.trim(),t=n("pin1").value.trim(),i=n("pin2").value.trim(),r=n("loginErr");r.hidden=!0;const o=s=>{r.textContent=s,r.hidden=!1};if(!/^(github_pat_|ghp_)[A-Za-z0-9_]{20,}$/.test(e))return o("المفتاح مش شكله صح. لازم يبدأ بـ github_pat_ — انسخه كله من GitHub.");if(!/^\d{4,8}$/.test(t))return o("الرقم السري لازم يكون من 4 لـ 8 أرقام.");if(t!==i)return o("الرقمين السريين مش زي بعض.");x.owner=n("ownerIn").value.trim()||H.owner,x.repo=n("repoIn").value.trim()||H.repo,f("بيتأكد من المفتاح…");try{C=(await I("",{token:e})).default_branch||"main",x.branch=C,b.set(X,x),T=e,await _(),b.set(y,await ue(e,t)),n("tokenIn").value="",n("pin1").value="",n("pin2").value="",f(""),await A(),g("أهلاً ✓ اللوحة جاهزة")}catch(s){f(""),T=null,o(D(s))}});async function ie(){const e=b.get(y),t=n("pinIn").value.trim(),i=n("unlockErr");if(i.hidden=!0,!e)return U();if(!/^\d{4,8}$/.test(t)){i.textContent="اكتب الرقم السري (4–8 أرقام).",i.hidden=!1;return}f("بيفتح…");try{T=await fe(e,t),e.tries=0,b.set(y,e),n("pinIn").value="",f(""),await A()}catch(r){if(f(""),T){i.textContent=D(r),i.hidden=!1;return}if(e.tries=(e.tries||0)+1,e.tries>=Y){b.del(y),g("الرقم السري اتكتب غلط كتير، فالمفتاح اتمسح للأمان. ادخل بالمفتاح تاني.",5e3),U();return}b.set(y,e),i.textContent="الرقم السري غلط (فاضل "+(Y-e.tries)+" محاولات).",i.hidden=!1,n("pinIn").select()}}n("unlockBtn").addEventListener("click",ie),n("pinIn").addEventListener("keydown",e=>{e.key==="Enter"&&ie()}),n("forgetBtn").addEventListener("click",()=>{confirm("هنمسح المفتاح المحفوظ من الموبايل ده، وتدخل بالمفتاح من جديد. نكمل؟")&&(b.del(y),U())});function ae(){T=null,R=[],n("list").textContent="",O("scUnlock")}n("lockBtn").addEventListener("click",ae);let G=0;document.addEventListener("visibilitychange",()=>{document.hidden?G=Date.now():T&&G&&Date.now()-G>de&&ae()});let j="all";const F=e=>{if(e=String(e||"").trim(),!e)return null;const t=e.match(/(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{11})/i);return t?{kind:"youtube",label:"يوتيوب",thumb:"https://i.ytimg.com/vi/"+t[1]+"/hqdefault.jpg"}:/^media\/[\w.-]+\.(mp4|webm|mov|m4v)$/i.test(e)?{kind:"file",label:"فيديو مرفوع"}:/^https?:\/\//i.test(e)?/facebook\.com|fb\.watch/i.test(e)?{kind:"ext",label:"فيسبوك"}:/tiktok\.com/i.test(e)?{kind:"ext",label:"تيك توك"}:/instagram\.com/i.test(e)?{kind:"ext",label:"إنستجرام"}:{kind:"ext",label:"رابط فيديو"}:null},B=e=>w[e.type]?e.type:F(e.video)?"video":"news",ge=e=>e.slice().sort((t,i)=>(i.pinned?1:0)-(t.pinned?1:0)||String(i.date||"").localeCompare(String(t.date||"")));async function A(e){if(O("scList"),e!==!1){f("بيحمّل المنشورات…");try{R=(await _()).list}catch(t){f(""),g(D(t),5e3),t.status===401&&(b.del(y),U());return}f("")}oe()}function oe(){const e=n("listFilter");e.textContent="",[["all","الكل"]].concat(Object.keys(w).filter(o=>R.some(s=>B(s)===o)).map(o=>[o,w[o].label])).forEach(([o,s])=>{const u=c("button","",s);u.type="button",u.setAttribute("aria-pressed",String(o===j)),u.addEventListener("click",()=>{j=o,oe()}),e.append(u)});const t=n("list");t.textContent="";const i=ge(R).filter(o=>j==="all"||B(o)===j);i.length||t.append(c("p","muted","مفيش منشورات لسه. دوس «منشور جديد»."));const r=M();i.forEach(o=>{const s=B(o),u=k(o.until)&&o.until<r,p=c("button","item"+(o.hidden||u?" off":""));p.type="button";const v=c("span","th"),d=F(o.video),l=(o.image&&/^(https:\/\/|media\/|[\w.-]+\.(webp|png|jpe?g)$)/i.test(o.image)?o.image:"")||d&&d.thumb||"";if(l){const E=c("img");E.src=l,E.alt="",E.loading="lazy",E.onerror=()=>{v.textContent=w[s].e},v.append(E)}else v.textContent=w[s].e;const h=c("span");h.style.minWidth="0",h.append(c("b","",o.title||"(من غير عنوان)"));const m=c("span","meta");m.append(c("span","badge",w[s].e+" "+w[s].label)),k(o.date)&&m.append(c("span","",P(o.date))),o.pinned&&m.append(c("span","badge pin","مثبّت")),o.hidden&&m.append(c("span","badge hide","مسودة")),u&&m.append(c("span","badge hide","انتهى")),h.append(m),p.append(v,h),p.addEventListener("click",()=>re(o)),t.append(p)})}n("newBtn").addEventListener("click",()=>re(null)),n("reloadBtn").addEventListener("click",()=>A());let a=null;(function(){Object.keys(w).forEach(t=>{const i=c("button","",w[t].e+" "+w[t].label);i.type="button",i.dataset.t=t,i.addEventListener("click",()=>{a.type=t,W(),L()}),n("types").append(i)})})();function W(){document.querySelectorAll("#types button").forEach(e=>e.setAttribute("aria-pressed",String(e.dataset.t===a.type))),n("typeHint").textContent=w[a.type].hint,n("lblTitle").textContent=a.type==="qa"?"السؤال *":"العنوان *",n("lblText").textContent=a.type==="qa"?"ردّك *":"النص",n("fTitle").placeholder=a.type==="qa"?"مثلاً: هل ينفع أشرب قهوة وأنا حامل؟":a.type==="offer"?"مثلاً: خصم 20% على السونار 4D":""}function re(e){a={orig:e?JSON.parse(JSON.stringify(e)):null,id:e&&e.id?String(e.id):"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),isNew:!e,type:e?B(e):"offer",image:e&&e.image||"",imgW:e&&e.imgW,imgH:e&&e.imgH,newImage:null,video:e&&e.video||"",newVideo:null},n("edTitle").textContent=e?"تعديل منشور":"منشور جديد",n("fTitle").value=e&&e.title||"",n("fText").value=e&&e.text||"",n("fVideo").value=a.video&&!/^media\//.test(a.video)?a.video:"";const i=e?e.action==="booking"||e.action==="book"?e.action:e.link?"link":"":"";n("fAction").value=i,n("fLink").value=e&&e.link||"",n("fLinkText").value=e&&e.linkText||"",n("linkRow").hidden=i!=="link",n("fDate").value=e&&k(e.date)?e.date:M(),n("fUntil").value=e&&k(e.until)?e.until:"",n("fPinned").checked=!!(e&&e.pinned),n("fHidden").checked=!!(e&&e.hidden),n("delBtn").hidden=!e,n("pubBtn").textContent=e?"حفظ التعديل ✓":"انشر ✓",n("imgFile").value="",n("vidFile").value="",W(),$(),z(),L(),O("scEdit")}function $(){const e=n("imgPv");e.textContent="";const t=a.newImage?a.newImage.url:a.image;if(e.hidden=!t,n("imgRemove").hidden=!t,n("imgPickLbl").textContent=t?"غيّر الصورة":"اختار صورة",t){const i=c("img");i.src=t,i.alt="",e.append(i),a.newImage&&e.append(c("span","",Math.round(a.newImage.blob.size/1024)+" كيلو"))}}function z(){const e=n("vidPv");e.textContent="";const t=a.newVideo?a.newVideo.url:/^media\//.test(a.video)?a.video:"";if(e.hidden=!t,n("vidRemove").hidden=!t,t){const i=document.createElement("video");i.src=t,i.controls=!0,i.playsInline=!0,i.preload="metadata",e.append(i),a.newVideo&&e.append(c("span","",(a.newVideo.blob.size/1048576).toFixed(1)+" ميجا"))}}async function ve(e){const t=URL.createObjectURL(e);try{const i=await new Promise((l,h)=>{const m=new Image;m.onload=()=>l(m),m.onerror=h,m.src=t}),r=1400,o=Math.min(1,r/Math.max(i.naturalWidth,i.naturalHeight)),s=Math.max(1,Math.round(i.naturalWidth*o)),u=Math.max(1,Math.round(i.naturalHeight*o)),p=document.createElement("canvas");p.width=s,p.height=u;const v=p.getContext("2d");v.fillStyle="#fff",v.fillRect(0,0,s,u),v.drawImage(i,0,0,s,u);const d=await new Promise(l=>p.toBlob(l,"image/jpeg",.82));if(!d)throw new Error("encode");return{blob:d,w:s,h:u,url:URL.createObjectURL(d)}}finally{URL.revokeObjectURL(t)}}n("imgFile").addEventListener("change",async e=>{const t=e.target.files&&e.target.files[0];if(t){if(!/^image\//.test(t.type)&&!/\.(jpe?g|png|heic|heif|webp|gif)$/i.test(t.name)){g("ده مش ملف صورة");return}f("بيجهز الصورة…");try{a.newImage=await ve(t),$(),L()}catch{g("مقدرتش أفتح الصورة دي. جرّب صورة تانية (JPG أو PNG).")}f("")}}),n("imgRemove").addEventListener("click",()=>{a.newImage=null,a.image="",a.imgW=a.imgH=void 0,n("imgFile").value="",$(),L()}),n("vidFile").addEventListener("change",e=>{const t=e.target.files&&e.target.files[0];if(!t)return;if(t.size>ce){g("الفيديو "+(t.size/1048576).toFixed(0)+" ميجا، والحد 25 ميجا. ارفعه على يوتيوب أو فيسبوك وحط الرابط.",6e3),e.target.value="";return}const i=(t.name.match(/\.(mp4|mov|webm|m4v)$/i)||[,t.type==="video/quicktime"?"mov":t.type==="video/webm"?"webm":"mp4"])[1].toLowerCase();a.newVideo={blob:t,ext:i,url:URL.createObjectURL(t)},n("fVideo").value="",a.type!=="video"&&!n("fTitle").value&&(a.type="video",W()),z(),L(),i==="mov"&&g("فيديوهات الآيفون (mov) ممكن متشتغلش على بعض موبايلات أندرويد. الأضمن ترفعه على يوتيوب وتحط الرابط.",6e3)}),n("vidRemove").addEventListener("click",()=>{a.newVideo=null,/^media\//.test(a.video)&&(a.video=""),n("vidFile").value="",z(),L()}),n("fAction").addEventListener("change",()=>{n("linkRow").hidden=n("fAction").value!=="link",L()}),["fTitle","fText","fVideo","fLink","fLinkText","fDate","fUntil","fPinned","fHidden"].forEach(e=>n(e).addEventListener("input",L));function L(){const e=n("preview");e.textContent="";const t=a.type,i=a.newVideo?"media/x."+a.newVideo.ext:n("fVideo").value.trim()||a.video,r=F(i),o=a.newImage?a.newImage.url:a.image;if(r){const h=c("div","vthumb"),m=o||r.thumb;if(m){const E=c("img");E.src=m,E.alt="",h.append(E)}h.append(c("span","","▶ "+r.label)),e.append(h)}else if(o){const h=c("img");h.src=o,h.alt="",e.append(h)}const s=c("div","pb"),u=c("div","meta");u.style.cssText="display:flex;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)",u.append(c("span","badge",w[t].e+" "+w[t].label)),n("fPinned").checked&&u.append(c("span","badge pin","مثبّت")),k(n("fDate").value)&&u.append(c("span","",P(n("fDate").value))),k(n("fUntil").value)&&u.append(c("span","","لحد "+P(n("fUntil").value))),s.append(u);const p=n("fTitle").value.trim()||(t==="qa"?"السؤال هيظهر هنا":"العنوان هيظهر هنا"),v=n("fText").value.trim();t==="qa"?(s.append(c("div","q","سؤال: "+p)),v&&(s.append(c("b","","رد د. قاسم عون")),s.append(c("p","",v)))):(s.append(c("h3","",p)),v&&s.append(c("p","",v)));const d=c("div","btns"),l=n("fAction").value;l==="booking"&&d.append(c("span","",t==="offer"?"احجزي العرض":"احجزي دلوقتي")),l==="book"&&d.append(c("span","","افتحي الكتاب")),l==="link"&&d.append(c("span","alt",n("fLinkText").value.trim()||"اعرفي أكتر")),d.children.length&&s.append(d),n("fHidden").checked&&s.append(c("p","note","🙈 مسودة: مش هتظهر للمريضات لحد ما تشيل العلامة.")),e.append(s)}const se=()=>{const e=new Date;return e.getFullYear()+S(e.getMonth()+1)+S(e.getDate())+"-"+S(e.getHours())+S(e.getMinutes())+"-"+Math.random().toString(36).slice(2,6)};n("pubBtn").addEventListener("click",async()=>{const e=n("fTitle").value.trim(),t=n("fText").value.trim(),i=n("fAction").value,r=n("fLink").value.trim(),o=n("fVideo").value.trim(),s=n("fDate").value,u=n("fUntil").value;if(!e){g(a.type==="qa"?"اكتب السؤال":"اكتب عنوان للمنشور"),n("fTitle").focus();return}if(a.type==="qa"&&!t){g("اكتب ردّك على السؤال"),n("fText").focus();return}if(o&&!F(o)){g("رابط الفيديو لازم يبدأ بـ https://"),n("fVideo").focus();return}if(i==="link"&&!/^https?:\/\/\S+$/i.test(r)){g("اكتب رابط صحيح يبدأ بـ https://"),n("fLink").focus();return}if(u&&s&&u<s){g("يوم الاختفاء لازم يكون بعد تاريخ المنشور");return}if(a.type==="video"&&!o&&!a.newVideo&&!/^media\//.test(a.video)){g("حط رابط الفيديو أو ارفع فيديو"),n("fVideo").focus();return}const p=a.orig||{},v=[],d={id:a.id,type:a.type,date:k(s)?s:M(),title:e};t&&(d.text=t);try{if(a.newImage){f("بيرفع الصورة…");const l="media/"+se()+".jpg";await te(l,a.newImage.blob,"صورة: "+e),d.image=l,d.imgW=a.newImage.w,d.imgH=a.newImage.h}else a.image&&(d.image=a.image,a.imgW&&(d.imgW=a.imgW,d.imgH=a.imgH));if(a.newVideo){f("بيرفع الفيديو… ممكن ياخد دقيقة");const l="media/"+se()+"."+a.newVideo.ext;await te(l,a.newVideo.blob,"فيديو: "+e),d.video=l}else o?d.video=o:/^media\//.test(a.video)&&(d.video=a.video);(i==="booking"||i==="book")&&(d.action=i),i==="link"&&(d.link=r,n("fLinkText").value.trim()&&(d.linkText=n("fLinkText").value.trim())),n("fPinned").checked&&(d.pinned=!0),n("fHidden").checked&&(d.hidden=!0),k(u)&&(d.until=u),[p.image,p.video].forEach(l=>{l&&/^media\//.test(l)&&l!==d.image&&l!==d.video&&v.push(l)}),f("بيحدّث التطبيق…"),await ee(l=>{const h=l.findIndex(m=>String(m.id)===d.id||!m.id&&p.title&&m.title===p.title&&m.date===p.date);return h>=0?l[h]=d:l.unshift(d),l},(a.isNew?"نشر: ":"تعديل: ")+e);for(const l of v)try{f("بينظّف الملفات القديمة…"),await ne(l,"مسح ملف قديم")}catch{}f(""),await A(!1),we(d),g(d.hidden?"اتحفظ كمسودة ✓":"اتنشر ✓",3500)}catch(l){f(""),g(D(l),6e3),l.status===401&&(b.del(y),U())}}),n("cancelBtn").addEventListener("click",()=>{A(!1)}),n("delBtn").addEventListener("click",async()=>{const e=a.orig;if(e&&confirm("تمسح المنشور «"+(e.title||"")+"» من التطبيق؟"))try{f("بيمسح…"),await ee(t=>t.filter(i=>!(String(i.id)===a.id||!i.id&&i.title===e.title&&i.date===e.date)),"مسح: "+(e.title||""));for(const t of[e.image,e.video])if(t&&/^media\//.test(t))try{await ne(t,"مسح ملف منشور ممسوح")}catch{}f(""),await A(!1),g("اتمسح ✓")}catch(t){f(""),g(D(t),6e3)}});let K=null;function we(e){clearTimeout(K);const t=n("pubStatus");t.hidden=!1,t.className="status wait",t.textContent="⏳ بيتنشر في التطبيق… عادةً بياخد دقيقة أو اتنين.";const i=Date.now(),r=async()=>{try{const s=await(await fetch("news.json?check="+Date.now(),{cache:"no-store"})).json(),u=Array.isArray(s)&&s.find(p=>String(p.id)===e.id);if(u&&JSON.stringify(u)===JSON.stringify(e)){t.className="status",t.textContent="✓ «"+e.title+"» ظهر في التطبيق"+(e.hidden?" (كمسودة مخفية)":""),setTimeout(()=>{t.hidden=!0},15e3);return}}catch{}Date.now()-i<300*1e3?K=setTimeout(r,1e4):(t.className="status wait",t.textContent="لسه مظهرش؟ أحيانًا GitHub بيتأخر شوية. افتح التطبيق بعد دقايق.")};K=setTimeout(r,8e3)}U()})();
+</script>
+</body>
+</html>
