@@ -399,6 +399,23 @@ input[type="range"] { width: 100%; accent-color: var(--rose); min-height: 32px; 
 .faq-item.doc summary::before { content: "رد د. قاسم • "; color: var(--t-qa-ink); font-size: 12px; font-weight: 800; }
 .faq-item.doc p { color: var(--ink); }
 .legal { font-size: 12px; color: var(--muted); text-align: center; margin: 4px 0 0; line-height: 1.6; }
+
+/* صحتي — مشاركة منتقاة وتذكيرات اختيارية */
+.health-tools { display:grid; gap:12px; }
+.health-tools .health-checks { display:grid; gap:8px; }
+.health-tools .health-check { display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px solid var(--line); background:var(--bg); border-radius:12px; cursor:pointer; font-size:14px; }
+.health-tools .health-check input { accent-color:var(--navy-2); margin-top:4px; flex:none; width:17px; height:17px; }
+.health-tools .health-check span { flex:1; }
+.health-tools textarea.preview { width:100%; min-height:175px; resize:vertical; direction:rtl; unicode-bidi:plaintext; font-size:13px; line-height:1.7; }
+.health-tools .health-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.health-tools .health-actions > * { min-width:0; }
+.health-tools .health-actions .btn { white-space:normal; }
+.health-tools .health-state { background:var(--bg); border-radius:12px; border:1px solid var(--line); padding:10px 12px; font-size:13px; line-height:1.6; }
+.health-tools .health-state:empty { display:none; }
+.health-tools .health-state strong { color:var(--ink); }
+.health-tools .health-state p { margin:5px 0 0; }
+.health-tools .health-actions .btn[aria-disabled="true"] { opacity:.5; pointer-events:none; }
+@media(max-width:380px){.health-tools .health-actions { grid-template-columns:1fr; }}
 </style>
 </head>
 <body>
@@ -677,6 +694,38 @@ input[type="range"] { width: 100%; accent-color: var(--rose); min-height: 32px; 
     </form>
     <div id="followupHistory" class="health-list"></div>
   </section>
+  <section class="card health-tools" id="healthContact" aria-label="التواصل مع الطبيب">
+    <h2>تواصلي مع الطبيب</h2>
+    <p class="muted">اختاري إيه اللي تحبي تبعتيه للدكتور، وراجعي الرسالة قبل فتح واتساب. مش هيتبعت أي شيء تلقائيًا.</p>
+    <label class="field"><span>اسم المريضة (اختياري)</span><input class="input" id="hcName" type="text" autocomplete="name" maxlength="70" placeholder="الاسم اللي تحبي يظهر للدكتور"></label>
+    <label class="field"><span>رسالتك للطبيب (اختياري)</span><textarea class="input" id="hcMessage" maxlength="600" placeholder="اكتبي سؤالك أو سبب المتابعة، بدون بيانات لا تريدين مشاركتها"></textarea></label>
+    <div class="health-checks" role="group" aria-label="اختاري البيانات للمشاركة">
+      <label class="health-check"><input type="checkbox" id="hcPeriod" checked><span><b>بيانات وتفاصيل الدورة</b><small class="muted">آخر الدورات المسجلة والمتوسط والموعد المتوقع</small></span></label>
+      <label class="health-check"><input type="checkbox" id="hcFertile"><span><b>توقعات التبويض والخصوبة</b><small class="muted">تواريخ تقديرية وليست تأكيدًا للتبويض</small></span></label>
+      <label class="health-check"><input type="checkbox" id="hcSymptoms"><span><b>الأعراض والتسجيلات اليومية</b><small class="muted">آخر 8 تسجيلات خلال 30 يومًا، إذا وُجدت</small></span></label>
+      <label class="health-check"><input type="checkbox" id="hcPlan"><span><b>الخطة العلاجية والمتابعة</b><small class="muted">تعليمات الطبيب والأدوية كما أدخلتها المريضة</small></span></label>
+    </div>
+    <label class="field"><span>معاينة الرسالة قبل المشاركة</span><textarea class="input preview" id="hcPreview" readonly aria-live="polite"></textarea></label>
+    <div class="health-actions"><a class="btn wa block" href="#" target="_blank" rel="noopener noreferrer" id="hcSend">فتح واتساب الطبيب</a><button class="btn block" id="hcCopy" type="button">نسخ الرسالة</button></div>
+    <p class="note">البيانات محفوظة على جهازك، ولن تنتقل للعيادة إلا إذا فتحتي واتساب وأكدتي إرسال الرسالة بنفسك. واتساب خدمة خارجية؛ راجعي التفاصيل الحساسة قبل الإرسال. للاستعجال الطبي اتصلي بالعيادة مباشرة.</p>
+  </section>
+
+  <section class="card health-tools" id="healthReminders" aria-label="تذكيرات الدورة والتبويض">
+    <h2>تذكيرات الدورة والتبويض</h2>
+    <p class="muted">اختاري التنبيهات المناسبة. التوقعات تقريبية، وتتحدث لما تسجلي دورة جديدة.</p>
+    <div id="hrNext" class="health-state" role="status"></div>
+    <div class="health-checks" role="group" aria-label="أنواع التنبيهات">
+      <label class="health-check"><input type="checkbox" id="hrPeriod" checked><span>تنبيه يوم الدورة القادمة المتوقع</span></label>
+      <label class="health-check"><input type="checkbox" id="hrFertile" checked><span>تنبيه أيام الخصوبة المتوقعة (الأيام الخمسة السابقة للتبويض)</span></label>
+      <label class="health-check"><input type="checkbox" id="hrOvulation" checked><span>تنبيه يوم التبويض المتوقع</span></label>
+    </div>
+    <p class="note">التذكيرات الساعة 9 صباحًا بتوقيت جهازك. محتوى إشعار شاشة القفل عام حفاظًا على خصوصيتك.</p>
+    <div class="health-actions"><button class="btn primary block" id="hrEnable" type="button">تفعيل التنبيهات</button><button class="btn block" id="hrDisable" type="button" hidden>إيقاف التنبيهات</button></div>
+    <button class="btn block" id="hrCalendar" type="button">إضافة التذكيرات إلى التقويم</button>
+    <div class="health-state" id="hrStatus" role="status" aria-live="polite"></div>
+    <p class="note">إشعارات المتصفح في الخلفية تحتاج موافقة الجهاز وربط خدمة الإرسال المجدول في Firebase. كبديل يمكن إضافة المواعيد لتقويم الهاتف لتلقي تنبيهاته، حتى والتطبيق مغلق.</p>
+  </section>
+
   <section class="card">
     <h2>مهم تعرفي</h2>
     <p class="muted">التوقعات في المفكرة تقديرية ومبنية على اللي بتسجليه، ولا تصلح وحدها لمنع الحمل أو لتأكيد حدوث التبويض، ولا تغني عن الكشف. لو الدورة مش منتظمة، أو انقطعت، أو النزيف غزير جدًا أو معاه ألم شديد، احجزي كشف من غير ما تستني.</p>
@@ -873,6 +922,7 @@ input[type="range"] { width: 100%; accent-color: var(--rose); min-height: 32px; 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
 <!-- OUN private admin access + notification opt-in -->
+<script src="./health-tools.js"></script>
 <script src="./notifications.js"></script>
 <script src="./admin-access.js"></script>
 

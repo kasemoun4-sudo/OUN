@@ -1,0 +1,31 @@
+// Add the following match block INSIDE your EXISTING
+// rules_version = '2'; service cloud.firestore { match /databases/{database}/documents { ... } }
+// Do not replace existing rules: this may break existing Firebase collections.
+
+match /reminderSubscriptions/{userId} {
+  allow get: if request.auth != null && request.auth.uid == userId;
+  allow list: if false;
+  allow create, update: if request.auth != null && request.auth.uid == userId
+    && request.resource.data.keys().hasOnly(['enabled','token','timeZone','kinds','events','updatedAt'])
+    && request.resource.data.keys().hasAll(['enabled','token','timeZone','kinds','events','updatedAt'])
+    && request.resource.data.enabled is bool
+    && request.resource.data.enabled == true
+    && request.resource.data.token is string
+    && request.resource.data.token.size() > 30
+    && request.resource.data.token.size() < 4096
+    && request.resource.data.timeZone is string
+    && request.resource.data.timeZone.size() < 64
+    && request.resource.data.kinds is map
+    && request.resource.data.kinds.keys().hasOnly(['period','fertile','ovulation'])
+    && request.resource.data.kinds.keys().hasAll(['period','fertile','ovulation'])
+    && request.resource.data.kinds.period is bool
+    && request.resource.data.kinds.fertile is bool
+    && request.resource.data.kinds.ovulation is bool
+    && request.resource.data.events is list
+    && request.resource.data.events.size() <= 40
+    && request.resource.data.updatedAt == request.time;
+  allow delete: if request.auth != null && request.auth.uid == userId;
+  match /sent/{markerId} {
+    allow read, write: if false;
+  }
+}

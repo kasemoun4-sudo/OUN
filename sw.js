@@ -48,7 +48,7 @@ self.addEventListener("notificationclick", (event) => {
   })());
 });
 
-const PREFIX="oun-",SHELL_CACHE=PREFIX+"shell-v13",BOOK_CACHE=PREFIX+"book-v1",SHELL=["./","./index.html","./manifest.webmanifest"],IS_ASSET=/\.(bin|webp|png|jpg)$/,IS_BOOK=/\/book-\d+\.bin$/;self.addEventListener("install",c=>{c.waitUntil(caches.open(SHELL_CACHE).then(e=>Promise.all([e.addAll(SHELL.map(a=>new Request(a,{cache:"reload"}))),e.add(new Request("./news.json",{cache:"reload"})).catch(()=>{})])).then(()=>self.skipWaiting()))}),self.addEventListener("activate",c=>{c.waitUntil((async()=>{
+const PREFIX="oun-",SHELL_CACHE=PREFIX+"shell-v14",BOOK_CACHE=PREFIX+"book-v1",SHELL=["./","./index.html","./manifest.webmanifest","./health-tools.js","./notifications.js","./admin-access.js"],IS_ASSET=/\.(bin|webp|png|jpg)$/,IS_BOOK=/\/book-\d+\.bin$/;self.addEventListener("install",c=>{c.waitUntil(caches.open(SHELL_CACHE).then(e=>Promise.all([e.addAll(SHELL.map(a=>new Request(a,{cache:"reload"}))),e.add(new Request("./news.json",{cache:"reload"})).catch(()=>{})])).then(()=>self.skipWaiting()))}),self.addEventListener("activate",c=>{c.waitUntil((async()=>{
 const old=(await caches.keys()).filter(n=>n.startsWith(PREFIX)&&n!==SHELL_CACHE&&n!==BOOK_CACHE);
 const shell=await caches.open(SHELL_CACHE),books=await caches.open(BOOK_CACHE);
 for(const name of old){
